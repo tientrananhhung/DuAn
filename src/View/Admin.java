@@ -551,7 +551,7 @@ public class Admin extends javax.swing.JFrame {
         jPanel23.add(jLabel66, gridBagConstraints);
 
         jLabel67.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        jLabel67.setText("0");
+        jLabel67.setText("100");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 20);
         jPanel23.add(jLabel67, gridBagConstraints);
