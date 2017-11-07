@@ -37,7 +37,7 @@ public class ThanhToan extends javax.swing.JFrame {
         initComponents();
         changeTable();
         this.tenND = tenND;
-        User.setText(tenND);
+        jButton_User.setText(tenND);
     }
 
     public void changeTable() {
@@ -79,6 +79,10 @@ public class ThanhToan extends javax.swing.JFrame {
 //        jTable_HangHoa.setBorder(border);
     }
 
+    public static boolean isNumeric(String str) {
+        return str.matches("-?\\d+(\\.\\d+)?");  //match a number with optional '-' and decimal.
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -90,8 +94,15 @@ public class ThanhToan extends javax.swing.JFrame {
         java.awt.GridBagConstraints gridBagConstraints;
 
         BG = new javax.swing.JPanel();
-        Minimize = new javax.swing.JLabel();
-        X = new javax.swing.JLabel();
+        jPanel18 = new javax.swing.JPanel();
+        jPanel19 = new javax.swing.JPanel();
+        jLabel12 = new javax.swing.JLabel();
+        jPanel20 = new javax.swing.JPanel();
+        Minimize1 = new javax.swing.JLabel();
+        X1 = new javax.swing.JLabel();
+        jPanel15 = new javax.swing.JPanel();
+        jPanel16 = new javax.swing.JPanel();
+        jPanel17 = new javax.swing.JPanel();
         ThanhToan = new javax.swing.JPanel();
         header = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
@@ -99,11 +110,11 @@ public class ThanhToan extends javax.swing.JFrame {
         jTextField1 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
-        jButton3 = new javax.swing.JButton();
-        User = new javax.swing.JLabel();
-        jButton4 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        jButton_User = new javax.swing.JButton();
+        jButton_Mail = new javax.swing.JButton();
+        jButton_Feedback = new javax.swing.JButton();
+        jButton_Update = new javax.swing.JButton();
+        jButton_Logout = new javax.swing.JButton();
         body = new javax.swing.JPanel();
         left = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
@@ -123,7 +134,7 @@ public class ThanhToan extends javax.swing.JFrame {
         jPanel9 = new javax.swing.JPanel();
         jPanel10 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        jFormattedTextField1 = new javax.swing.JFormattedTextField();
         jLabel5 = new javax.swing.JLabel();
         jPanel11 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
@@ -143,19 +154,43 @@ public class ThanhToan extends javax.swing.JFrame {
 
         BG.setBackground(new java.awt.Color(255, 255, 255));
 
-        Minimize.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Minus_Math__32px.png"))); // NOI18N
-        Minimize.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                MinimizeMouseClicked(evt);
-            }
-        });
+        jPanel18.setLayout(new javax.swing.BoxLayout(jPanel18, javax.swing.BoxLayout.LINE_AXIS));
 
-        X.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Delete_32px.png"))); // NOI18N
-        X.addMouseListener(new java.awt.event.MouseAdapter() {
+        jPanel19.setBackground(new java.awt.Color(55, 126, 232));
+        jPanel19.setForeground(new java.awt.Color(255, 255, 255));
+        jPanel19.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 10, 10));
+
+        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel12.setText("Thanh Toán");
+        jPanel19.add(jLabel12);
+
+        jPanel18.add(jPanel19);
+
+        jPanel20.setBackground(new java.awt.Color(55, 126, 232));
+        jPanel20.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
+
+        Minimize1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Minus_32px_1.png"))); // NOI18N
+        Minimize1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                XMouseClicked(evt);
+                Minimize1MouseClicked(evt);
             }
         });
+        jPanel20.add(Minimize1);
+
+        X1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Delete_32px_1.png"))); // NOI18N
+        X1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                X1MouseClicked(evt);
+            }
+        });
+        jPanel20.add(X1);
+
+        jPanel18.add(jPanel20);
+
+        jPanel15.setLayout(new javax.swing.BoxLayout(jPanel15, javax.swing.BoxLayout.LINE_AXIS));
+        jPanel15.add(jPanel16);
+        jPanel15.add(jPanel17);
 
         ThanhToan.setBackground(new java.awt.Color(255, 255, 255));
         ThanhToan.setLayout(new java.awt.BorderLayout());
@@ -184,11 +219,13 @@ public class ThanhToan extends javax.swing.JFrame {
         jButton1.setBackground(new java.awt.Color(65, 127, 194));
         jButton1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Search_32px.png"))); // NOI18N
         jButton1.setText("Tìm");
         jButton1.setToolTipText("Tìm kiếm theo mã hàng hoá");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.ipadx = 20;
         gridBagConstraints.ipady = 10;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 100);
         jPanel1.add(jButton1, gridBagConstraints);
 
         header.add(jPanel1);
@@ -196,13 +233,67 @@ public class ThanhToan extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setLayout(new java.awt.GridBagLayout());
 
-        jButton3.setBackground(new java.awt.Color(65, 127, 194));
-        jButton3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(255, 255, 255));
-        jButton3.setText("Đăng xuất");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        jButton_User.setBackground(new java.awt.Color(65, 127, 194));
+        jButton_User.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jButton_User.setForeground(new java.awt.Color(255, 255, 255));
+        jButton_User.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_User_32px_1.png"))); // NOI18N
+        jButton_User.setText("USER");
+        jButton_User.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                jButton_UserActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.ipadx = 20;
+        gridBagConstraints.ipady = 10;
+        jPanel2.add(jButton_User, gridBagConstraints);
+
+        jButton_Mail.setBackground(new java.awt.Color(65, 127, 194));
+        jButton_Mail.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jButton_Mail.setForeground(new java.awt.Color(255, 255, 255));
+        jButton_Mail.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Mail_32px.png"))); // NOI18N
+        jButton_Mail.setText("Thư đến");
+        jButton_Mail.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_MailActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.ipadx = 20;
+        gridBagConstraints.ipady = 10;
+        jPanel2.add(jButton_Mail, gridBagConstraints);
+
+        jButton_Feedback.setBackground(new java.awt.Color(65, 127, 194));
+        jButton_Feedback.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jButton_Feedback.setForeground(new java.awt.Color(255, 255, 255));
+        jButton_Feedback.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Feedback_32px.png"))); // NOI18N
+        jButton_Feedback.setText("Phản hồi");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.ipadx = 20;
+        gridBagConstraints.ipady = 10;
+        jPanel2.add(jButton_Feedback, gridBagConstraints);
+
+        jButton_Update.setBackground(new java.awt.Color(65, 127, 194));
+        jButton_Update.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jButton_Update.setForeground(new java.awt.Color(255, 255, 255));
+        jButton_Update.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Update_32px.png"))); // NOI18N
+        jButton_Update.setText("Cập nhật");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.ipadx = 20;
+        gridBagConstraints.ipady = 10;
+        jPanel2.add(jButton_Update, gridBagConstraints);
+
+        jButton_Logout.setBackground(new java.awt.Color(242, 64, 64));
+        jButton_Logout.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jButton_Logout.setForeground(new java.awt.Color(255, 255, 255));
+        jButton_Logout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Logout_Rounded_Up_32px.png"))); // NOI18N
+        jButton_Logout.setText("Đăng xuất");
+        jButton_Logout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_LogoutActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -213,47 +304,7 @@ public class ThanhToan extends javax.swing.JFrame {
         gridBagConstraints.ipady = 10;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
         gridBagConstraints.weightx = 0.1;
-        jPanel2.add(jButton3, gridBagConstraints);
-
-        User.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        User.setForeground(new java.awt.Color(204, 0, 51));
-        User.setText("User");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
-        jPanel2.add(User, gridBagConstraints);
-
-        jButton4.setBackground(new java.awt.Color(65, 127, 194));
-        jButton4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton4.setForeground(new java.awt.Color(255, 255, 255));
-        jButton4.setText("Thư đến");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.ipadx = 20;
-        gridBagConstraints.ipady = 10;
-        jPanel2.add(jButton4, gridBagConstraints);
-
-        jButton2.setBackground(new java.awt.Color(65, 127, 194));
-        jButton2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("Phản hồi");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.ipadx = 20;
-        gridBagConstraints.ipady = 10;
-        jPanel2.add(jButton2, gridBagConstraints);
-
-        jButton5.setBackground(new java.awt.Color(65, 127, 194));
-        jButton5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton5.setForeground(new java.awt.Color(255, 255, 255));
-        jButton5.setText("Cập nhật");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.ipadx = 20;
-        gridBagConstraints.ipady = 10;
-        jPanel2.add(jButton5, gridBagConstraints);
+        jPanel2.add(jButton_Logout, gridBagConstraints);
 
         header.add(jPanel2);
 
@@ -279,7 +330,7 @@ public class ThanhToan extends javax.swing.JFrame {
         jPanel4.setPreferredSize(new java.awt.Dimension(800, 659));
         jPanel4.setLayout(new java.awt.GridLayout(1, 0));
 
-        jTable_HangHoa.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        jTable_HangHoa.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jTable_HangHoa.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -321,17 +372,20 @@ public class ThanhToan extends javax.swing.JFrame {
 
         jPanel6.add(jPanel7, java.awt.BorderLayout.PAGE_START);
 
+        jPanel8.setBackground(new java.awt.Color(255, 255, 255));
         jPanel8.setLayout(new java.awt.GridLayout(1, 2));
 
         jButton6.setBackground(new java.awt.Color(65, 127, 194));
         jButton6.setFont(new java.awt.Font("Monospaced", 0, 24)); // NOI18N
         jButton6.setForeground(new java.awt.Color(255, 255, 255));
+        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Card_Payment_32px.png"))); // NOI18N
         jButton6.setText("Thanh Toán");
         jPanel8.add(jButton6);
 
-        jButton7.setBackground(new java.awt.Color(65, 127, 194));
+        jButton7.setBackground(new java.awt.Color(242, 64, 64));
         jButton7.setFont(new java.awt.Font("Monospaced", 0, 24)); // NOI18N
         jButton7.setForeground(new java.awt.Color(255, 255, 255));
+        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Return_Purchase_32px.png"))); // NOI18N
         jButton7.setText("Xoá");
         jPanel8.add(jButton7);
 
@@ -349,11 +403,22 @@ public class ThanhToan extends javax.swing.JFrame {
         gridBagConstraints.weightx = 0.1;
         jPanel10.add(jLabel4, gridBagConstraints);
 
-        jTextField3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jFormattedTextField1.setText("0");
+        jFormattedTextField1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jFormattedTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jFormattedTextField1ActionPerformed(evt);
+            }
+        });
+        jFormattedTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jFormattedTextField1KeyReleased(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.3;
-        jPanel10.add(jTextField3, gridBagConstraints);
+        jPanel10.add(jFormattedTextField1, gridBagConstraints);
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel5.setText("%");
@@ -428,23 +493,29 @@ public class ThanhToan extends javax.swing.JFrame {
         BG.setLayout(BGLayout);
         BGLayout.setHorizontalGroup(
             BGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BGLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(Minimize)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(X)
-                .addContainerGap())
-            .addComponent(ThanhToan, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1280, Short.MAX_VALUE)
+            .addComponent(ThanhToan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(BGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(BGLayout.createSequentialGroup()
+                    .addGap(630, 630, 630)
+                    .addComponent(jPanel15, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(513, Short.MAX_VALUE)))
+            .addGroup(BGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jPanel18, javax.swing.GroupLayout.DEFAULT_SIZE, 1280, Short.MAX_VALUE))
         );
         BGLayout.setVerticalGroup(
             BGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(BGLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(BGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(X)
-                    .addComponent(Minimize))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(ThanhToan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(52, 52, 52)
+                .addComponent(ThanhToan, javax.swing.GroupLayout.DEFAULT_SIZE, 733, Short.MAX_VALUE))
+            .addGroup(BGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(BGLayout.createSequentialGroup()
+                    .addGap(387, 387, 387)
+                    .addComponent(jPanel15, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(335, Short.MAX_VALUE)))
+            .addGroup(BGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(BGLayout.createSequentialGroup()
+                    .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 747, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -461,18 +532,7 @@ public class ThanhToan extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void MinimizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MinimizeMouseClicked
-        // TODO add your handling code here:
-        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        this.setState(JFrame.ICONIFIED);
-    }//GEN-LAST:event_MinimizeMouseClicked
-
-    private void XMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_XMouseClicked
-        // TODO add your handling code here:
-        System.exit(0);
-    }//GEN-LAST:event_XMouseClicked
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void jButton_LogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_LogoutActionPerformed
         // TODO add your handling code here:
         int choose = JOptionPane.showConfirmDialog(this, "Bạn có thật sự muốn thoát khỏi hệ thống?");
         switch (choose) {
@@ -484,7 +544,43 @@ public class ThanhToan extends javax.swing.JFrame {
 
             case 2:
         }
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_jButton_LogoutActionPerformed
+
+    private void jButton_MailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_MailActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton_MailActionPerformed
+
+    private void jFormattedTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jFormattedTextField1KeyReleased
+        // TODO add your handling code here:
+        if (isNumeric(jFormattedTextField1.getText()) || jFormattedTextField1.getText().equals("")) {
+            if (Integer.parseInt(jFormattedTextField1.getText()) > 100 || Integer.parseInt(jFormattedTextField1.getText()) < 0) {
+                jFormattedTextField1.setText("0");
+            }
+        } else {
+            jFormattedTextField1.setText("0");
+        }
+    }//GEN-LAST:event_jFormattedTextField1KeyReleased
+
+    private void jFormattedTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jFormattedTextField1ActionPerformed
+
+    private void jButton_UserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_UserActionPerformed
+        // TODO add your handling code here:
+        UserInfomation ui = new UserInfomation(this, true);
+        ui.setVisible(true);
+    }//GEN-LAST:event_jButton_UserActionPerformed
+
+    private void Minimize1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Minimize1MouseClicked
+        // TODO add your handling code here:
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        this.setState(JFrame.ICONIFIED);
+    }//GEN-LAST:event_Minimize1MouseClicked
+
+    private void X1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_X1MouseClicked
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_X1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -523,22 +619,24 @@ public class ThanhToan extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel BG;
-    private javax.swing.JLabel Minimize;
+    private javax.swing.JLabel Minimize1;
     private javax.swing.JPanel ThanhToan;
-    private javax.swing.JLabel User;
-    private javax.swing.JLabel X;
+    private javax.swing.JLabel X1;
     private javax.swing.JPanel body;
     private javax.swing.JPanel header;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton_Feedback;
+    private javax.swing.JButton jButton_Logout;
+    private javax.swing.JButton jButton_Mail;
+    private javax.swing.JButton jButton_Update;
+    private javax.swing.JButton jButton_User;
+    private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -551,7 +649,15 @@ public class ThanhToan extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
+    private javax.swing.JPanel jPanel13;
+    private javax.swing.JPanel jPanel14;
+    private javax.swing.JPanel jPanel15;
+    private javax.swing.JPanel jPanel16;
+    private javax.swing.JPanel jPanel17;
+    private javax.swing.JPanel jPanel18;
+    private javax.swing.JPanel jPanel19;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel20;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
@@ -565,7 +671,6 @@ public class ThanhToan extends javax.swing.JFrame {
     private javax.swing.JTable jTable_ThanhToan;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
     private javax.swing.JPanel left;
     private javax.swing.JPanel right;
     // End of variables declaration//GEN-END:variables

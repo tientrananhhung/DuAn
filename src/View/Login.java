@@ -127,6 +127,10 @@ public class Login extends javax.swing.JFrame {
         java.awt.GridBagConstraints gridBagConstraints;
 
         BG = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
         Minimize = new javax.swing.JLabel();
         X = new javax.swing.JLabel();
         Login = new javax.swing.JPanel();
@@ -135,11 +139,9 @@ public class Login extends javax.swing.JFrame {
         body = new javax.swing.JPanel();
         Username = new javax.swing.JPanel();
         IconUser = new javax.swing.JLabel();
-        txtUser = new javax.swing.JPanel();
         jTextField_User = new javax.swing.JTextField();
         Pass = new javax.swing.JPanel();
         IconPass = new javax.swing.JLabel();
-        txtPass = new javax.swing.JPanel();
         jPasswordField_Pass = new javax.swing.JPasswordField();
         jButton1 = new javax.swing.JButton();
         jCheckBox_Remember = new javax.swing.JCheckBox();
@@ -159,19 +161,38 @@ public class Login extends javax.swing.JFrame {
 
         BG.setBackground(new java.awt.Color(255, 255, 255));
 
-        Minimize.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Minus_Math__32px.png"))); // NOI18N
+        jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.LINE_AXIS));
+
+        jPanel2.setBackground(new java.awt.Color(55, 126, 232));
+        jPanel2.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 10, 10));
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("Đăng nhập");
+        jPanel2.add(jLabel4);
+
+        jPanel1.add(jPanel2);
+
+        jPanel3.setBackground(new java.awt.Color(55, 126, 232));
+        jPanel3.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
+
+        Minimize.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Minus_32px_1.png"))); // NOI18N
         Minimize.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 MinimizeMouseClicked(evt);
             }
         });
+        jPanel3.add(Minimize);
 
-        X.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Delete_32px.png"))); // NOI18N
+        X.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Delete_32px_1.png"))); // NOI18N
         X.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 XMouseClicked(evt);
             }
         });
+        jPanel3.add(X);
+
+        jPanel1.add(jPanel3);
 
         Login.setBackground(new java.awt.Color(255, 255, 255));
         Login.setLayout(new java.awt.BorderLayout());
@@ -211,12 +232,13 @@ public class Login extends javax.swing.JFrame {
         Username.setLayout(new java.awt.GridBagLayout());
 
         IconUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_User_32px.png"))); // NOI18N
-        Username.add(IconUser, new java.awt.GridBagConstraints());
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        Username.add(IconUser, gridBagConstraints);
 
-        txtUser.setBackground(new java.awt.Color(255, 255, 255));
-        txtUser.setLayout(new java.awt.GridBagLayout());
-
-        jTextField_User.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jTextField_User.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jTextField_User.setBorder(null);
         jTextField_User.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -226,20 +248,18 @@ public class Login extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.ipadx = 300;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
+        gridBagConstraints.ipadx = 500;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.weightx = 0.1;
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
-        txtUser.add(jTextField_User, gridBagConstraints);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.ipady = 10;
-        Username.add(txtUser, gridBagConstraints);
+        Username.add(jTextField_User, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.ipady = 10;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
+        gridBagConstraints.ipady = 20;
         body.add(Username, gridBagConstraints);
 
         Pass.setBackground(new java.awt.Color(255, 255, 255));
@@ -251,10 +271,7 @@ public class Login extends javax.swing.JFrame {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         Pass.add(IconPass, gridBagConstraints);
 
-        txtPass.setBackground(new java.awt.Color(255, 255, 255));
-        txtPass.setLayout(new java.awt.GridBagLayout());
-
-        jPasswordField_Pass.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jPasswordField_Pass.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jPasswordField_Pass.setBorder(null);
         jPasswordField_Pass.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -262,19 +279,16 @@ public class Login extends javax.swing.JFrame {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.ipadx = 300;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
+        gridBagConstraints.ipadx = 497;
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
-        txtPass.add(jPasswordField_Pass, gridBagConstraints);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.ipady = 10;
-        Pass.add(txtPass, gridBagConstraints);
+        Pass.add(jPasswordField_Pass, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.ipady = 10;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
+        gridBagConstraints.ipady = 20;
         body.add(Pass, gridBagConstraints);
 
         jButton1.setBackground(new java.awt.Color(0, 102, 255));
@@ -361,24 +375,20 @@ public class Login extends javax.swing.JFrame {
         BGLayout.setHorizontalGroup(
             BGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BGLayout.createSequentialGroup()
-                .addGroup(BGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(Login, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(BGLayout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(Minimize)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(X)))
+                .addComponent(Login, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(BGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1280, Short.MAX_VALUE))
         );
         BGLayout.setVerticalGroup(
             BGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(BGLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(BGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(X)
-                    .addComponent(Minimize))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(52, 52, 52)
                 .addComponent(Login, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(BGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(BGLayout.createSequentialGroup()
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 747, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -389,7 +399,7 @@ public class Login extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(BG, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(BG, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -478,11 +488,13 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel_BanQuyen;
     private javax.swing.JLabel jLabel_ND1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JPasswordField jPasswordField_Pass;
     private javax.swing.JTextField jTextField_User;
-    private javax.swing.JPanel txtPass;
-    private javax.swing.JPanel txtUser;
     // End of variables declaration//GEN-END:variables
 }
