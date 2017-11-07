@@ -6,6 +6,7 @@
 package View;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.util.Vector;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -24,8 +25,8 @@ public class Admin extends javax.swing.JFrame {
      * Creates new form Admin
      */
     int currenColor;
-    Vector head, data, head1, data1;
-    DefaultTableModel modelTable, modelTable1;
+    Vector head, data, head1, data1, head2, data2;
+    DefaultTableModel modelTable, modelTable1, modelTable2;
     String tenND;
 
     public Admin() {
@@ -47,6 +48,8 @@ public class Admin extends javax.swing.JFrame {
         data = new Vector();
         head1 = new Vector();
         data1 = new Vector();
+        head2 = new Vector();
+        data2 = new Vector();
         head.add("Mã hóa đơn");
         head.add("Ngày nhập");
         head.add("Nhà cung cấp");
@@ -60,14 +63,23 @@ public class Admin extends javax.swing.JFrame {
         head1.add("Giá nhập");
         head1.add("Giá xuất");
         head1.add("Loại sản phẩm");
+        head2.add("Tên khách hàng");
+        head2.add("Số điện thoại");
+        head2.add("Địa chỉ");
+        head2.add("Email");
+        head2.add("Loại khách hàng");
         modelTable = new DefaultTableModel(data, head);
         modelTable1 = new DefaultTableModel(data1, head1);
+        modelTable2 = new DefaultTableModel(data2, head2);
         jTable_PhieuNhapKho.setModel(modelTable);
         jTable_PhieuNhapKho.setDefaultEditor(Object.class, null);
         jTable_SanPham.setModel(modelTable1);
         jTable_SanPham.setDefaultEditor(Object.class, null);
+        jTable_QLKH.setModel(modelTable2);
+        jTable_QLKH.setDefaultEditor(Object.class, null);
         jScrollPane1.getViewport().setBackground(Color.WHITE);
         jScrollPane4.getViewport().setBackground(Color.WHITE);
+        jScrollPane6.getViewport().setBackground(Color.WHITE);
         DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer();
         headerRenderer.setBackground(new Color(65, 127, 194));
         headerRenderer.setBorder(new LineBorder(Color.black, 1));
@@ -77,6 +89,9 @@ public class Admin extends javax.swing.JFrame {
         }
         for (int i = 0; i < jTable_SanPham.getModel().getColumnCount(); i++) {
             jTable_SanPham.getColumnModel().getColumn(i).setHeaderRenderer(headerRenderer);
+        }
+        for (int i = 0; i < jTable_QLKH.getModel().getColumnCount(); i++) {
+            jTable_QLKH.getColumnModel().getColumn(i).setHeaderRenderer(headerRenderer);
         }
 //        Color color = UIManager.getColor("Table.gridColor");
 //        MatteBorder border = new MatteBorder(5, 5, 0, 0, Color.blue);
@@ -89,6 +104,7 @@ public class Admin extends javax.swing.JFrame {
         CardTaoPhieuNhap.hide();
         CardSanPham.hide();
         CardTaoSanPham.hide();
+        CardKhachHang.hide();
     }
 
     public void disSubMenu() {
@@ -108,6 +124,18 @@ public class Admin extends javax.swing.JFrame {
         iconDangXuat.setForeground(Color.BLACK);
         DangXuat.setBackground(new Color(244, 244, 244));
         iconDangXuat.setFont(new java.awt.Font("Tahoma", 0, 18));
+        iconKhachHang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_User_Groups_32px_1.png")));
+        iconKhachHang.setForeground(Color.BLACK);
+        KhachHang.setBackground(new Color(244, 244, 244));
+        iconKhachHang.setFont(new java.awt.Font("Tahoma", 0, 18));
+        iconTinNhan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Mail_32px_2.png")));
+        iconTinNhan.setForeground(Color.BLACK);
+        Mail.setBackground(new Color(244, 244, 244));
+        iconTinNhan.setFont(new java.awt.Font("Tahoma", 0, 18));
+        iconSuKien.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Event_32px_1.png")));
+        iconSuKien.setForeground(Color.BLACK);
+        SuKien.setBackground(new Color(244, 244, 244));
+        iconSuKien.setFont(new java.awt.Font("Tahoma", 0, 18));
     }
 
     /**
@@ -121,9 +149,14 @@ public class Admin extends javax.swing.JFrame {
         java.awt.GridBagConstraints gridBagConstraints;
 
         BG = new javax.swing.JPanel();
+        jPanel24 = new javax.swing.JPanel();
+        jPanel25 = new javax.swing.JPanel();
+        jLabel_TenNguoiDung = new javax.swing.JLabel();
+        jLabel78 = new javax.swing.JLabel();
+        jLabel77 = new javax.swing.JLabel();
+        jPanel26 = new javax.swing.JPanel();
         Minimize = new javax.swing.JLabel();
         X = new javax.swing.JLabel();
-        jLabel_TenNguoiDung = new javax.swing.JLabel();
         Function = new javax.swing.JPanel();
         Menu = new javax.swing.JPanel();
         TongQuan = new javax.swing.JPanel();
@@ -134,6 +167,10 @@ public class Admin extends javax.swing.JFrame {
         iconSanPham = new javax.swing.JLabel();
         KhachHang = new javax.swing.JPanel();
         iconKhachHang = new javax.swing.JLabel();
+        Mail = new javax.swing.JPanel();
+        iconTinNhan = new javax.swing.JLabel();
+        SuKien = new javax.swing.JPanel();
+        iconSuKien = new javax.swing.JLabel();
         DangXuat = new javax.swing.JPanel();
         iconDangXuat = new javax.swing.JLabel();
         HienThi = new javax.swing.JPanel();
@@ -285,8 +322,26 @@ public class Admin extends javax.swing.JFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         jTable_SanPham = new javax.swing.JTable();
         CardTaoSanPham = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
+        CardKhachHang = new javax.swing.JPanel();
+        JPanel_Title_TaoNhapKho1 = new javax.swing.JPanel();
+        jLabel79 = new javax.swing.JLabel();
+        jButton_NhapHang_huy1 = new javax.swing.JButton();
+        jButton_NhapHang_LamMoi1 = new javax.swing.JButton();
+        jPanel_ShowKH = new javax.swing.JPanel();
+        jPanel27 = new javax.swing.JPanel();
+        jPanel29 = new javax.swing.JPanel();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jPanel30 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel_slKH = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        jLabel80 = new javax.swing.JLabel();
+        jLabel81 = new javax.swing.JLabel();
+        jLabel82 = new javax.swing.JLabel();
+        jPanel28 = new javax.swing.JPanel();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        jTable_QLKH = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setAlwaysOnTop(true);
@@ -295,23 +350,48 @@ public class Admin extends javax.swing.JFrame {
 
         BG.setBackground(new java.awt.Color(255, 255, 255));
 
-        Minimize.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Minus_Math__32px.png"))); // NOI18N
+        jPanel24.setLayout(new javax.swing.BoxLayout(jPanel24, javax.swing.BoxLayout.LINE_AXIS));
+
+        jPanel25.setBackground(new java.awt.Color(55, 126, 232));
+        jPanel25.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 10, 10));
+
+        jLabel_TenNguoiDung.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel_TenNguoiDung.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel_TenNguoiDung.setText("User");
+        jPanel25.add(jLabel_TenNguoiDung);
+
+        jLabel78.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel78.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel78.setText("-");
+        jPanel25.add(jLabel78);
+
+        jLabel77.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel77.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel77.setText("Quản lý cửa hàng");
+        jPanel25.add(jLabel77);
+
+        jPanel24.add(jPanel25);
+
+        jPanel26.setBackground(new java.awt.Color(55, 126, 232));
+        jPanel26.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
+
+        Minimize.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Minus_32px_1.png"))); // NOI18N
         Minimize.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 MinimizeMouseClicked(evt);
             }
         });
+        jPanel26.add(Minimize);
 
-        X.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Delete_32px.png"))); // NOI18N
+        X.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Delete_32px_1.png"))); // NOI18N
         X.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 XMouseClicked(evt);
             }
         });
+        jPanel26.add(X);
 
-        jLabel_TenNguoiDung.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel_TenNguoiDung.setForeground(new java.awt.Color(204, 0, 51));
-        jLabel_TenNguoiDung.setText("User");
+        jPanel24.add(jPanel26);
 
         Function.setLayout(new javax.swing.BoxLayout(Function, javax.swing.BoxLayout.LINE_AXIS));
 
@@ -384,6 +464,17 @@ public class Admin extends javax.swing.JFrame {
         Menu.add(HangHoa);
 
         KhachHang.setBackground(new java.awt.Color(244, 244, 244));
+        KhachHang.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                KhachHangMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                KhachHangMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                KhachHangMousePressed(evt);
+            }
+        });
         KhachHang.setLayout(new java.awt.GridBagLayout());
 
         iconKhachHang.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -392,6 +483,86 @@ public class Admin extends javax.swing.JFrame {
         KhachHang.add(iconKhachHang, new java.awt.GridBagConstraints());
 
         Menu.add(KhachHang);
+
+        Mail.setBackground(new java.awt.Color(244, 244, 244));
+        Mail.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                MailMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                MailMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                MailMousePressed(evt);
+            }
+        });
+
+        iconTinNhan.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        iconTinNhan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Mail_32px_2.png"))); // NOI18N
+        iconTinNhan.setText("Tin nhắn chờ");
+
+        javax.swing.GroupLayout MailLayout = new javax.swing.GroupLayout(Mail);
+        Mail.setLayout(MailLayout);
+        MailLayout.setHorizontalGroup(
+            MailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 178, Short.MAX_VALUE)
+            .addGroup(MailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(MailLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(iconTinNhan)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+        MailLayout.setVerticalGroup(
+            MailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 104, Short.MAX_VALUE)
+            .addGroup(MailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(MailLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(iconTinNhan)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+
+        Menu.add(Mail);
+
+        SuKien.setBackground(new java.awt.Color(244, 244, 244));
+        SuKien.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                SuKienMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                SuKienMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                SuKienMousePressed(evt);
+            }
+        });
+
+        iconSuKien.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        iconSuKien.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Event_32px_1.png"))); // NOI18N
+        iconSuKien.setText("Sự kiện");
+
+        javax.swing.GroupLayout SuKienLayout = new javax.swing.GroupLayout(SuKien);
+        SuKien.setLayout(SuKienLayout);
+        SuKienLayout.setHorizontalGroup(
+            SuKienLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 178, Short.MAX_VALUE)
+            .addGroup(SuKienLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(SuKienLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(iconSuKien)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+        SuKienLayout.setVerticalGroup(
+            SuKienLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 104, Short.MAX_VALUE)
+            .addGroup(SuKienLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(SuKienLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(iconSuKien)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+
+        Menu.add(SuKien);
 
         DangXuat.setBackground(new java.awt.Color(244, 244, 244));
         DangXuat.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -468,7 +639,7 @@ public class Admin extends javax.swing.JFrame {
         jPanel15.setLayout(jPanel15Layout);
         jPanel15Layout.setHorizontalGroup(
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1402, Short.MAX_VALUE)
+            .addGap(0, 1399, Short.MAX_VALUE)
         );
         jPanel15Layout.setVerticalGroup(
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -551,7 +722,7 @@ public class Admin extends javax.swing.JFrame {
         jPanel23.add(jLabel66, gridBagConstraints);
 
         jLabel67.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        jLabel67.setText("100");
+        jLabel67.setText("0");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 20);
         jPanel23.add(jLabel67, gridBagConstraints);
@@ -921,47 +1092,47 @@ public class Admin extends javax.swing.JFrame {
 
         jPanel_Under_Info.setBackground(new java.awt.Color(204, 204, 255));
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel6.setText("Tổng hóa đơn:");
         jPanel_Under_Info.add(jLabel6);
 
-        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(204, 0, 51));
         jLabel7.setText("0");
         jPanel_Under_Info.add(jLabel7);
 
-        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel8.setText("-");
         jPanel_Under_Info.add(jLabel8);
 
-        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel9.setText("Tổng tiền:");
         jPanel_Under_Info.add(jLabel9);
 
-        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(204, 0, 51));
         jLabel10.setText("0");
         jPanel_Under_Info.add(jLabel10);
 
-        jLabel11.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel11.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(204, 0, 51));
         jLabel11.setText("VNĐ");
         jPanel_Under_Info.add(jLabel11);
 
-        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel12.setText("-");
         jPanel_Under_Info.add(jLabel12);
 
-        jLabel13.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel13.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel13.setText("Tổng nợ:");
         jPanel_Under_Info.add(jLabel13);
 
-        jLabel14.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel14.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(204, 0, 51));
         jLabel14.setText("0");
         jPanel_Under_Info.add(jLabel14);
 
-        jLabel15.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel15.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel15.setForeground(new java.awt.Color(204, 0, 51));
         jLabel15.setText("VNĐ");
         jPanel_Under_Info.add(jLabel15);
@@ -1073,7 +1244,7 @@ public class Admin extends javax.swing.JFrame {
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 907, Short.MAX_VALUE)
+            .addGap(0, 905, Short.MAX_VALUE)
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1454,47 +1625,47 @@ public class Admin extends javax.swing.JFrame {
 
         jPanel_Under_Info1.setBackground(new java.awt.Color(204, 204, 255));
 
-        jLabel34.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel34.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel34.setText("Tổng sản phẩm:");
         jPanel_Under_Info1.add(jLabel34);
 
-        jLabel35.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel35.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel35.setForeground(new java.awt.Color(204, 0, 51));
         jLabel35.setText("0");
         jPanel_Under_Info1.add(jLabel35);
 
-        jLabel36.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel36.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel36.setText("-");
         jPanel_Under_Info1.add(jLabel36);
 
-        jLabel37.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel37.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel37.setText("Tổng tiền mua:");
         jPanel_Under_Info1.add(jLabel37);
 
-        jLabel38.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel38.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel38.setForeground(new java.awt.Color(204, 0, 51));
         jLabel38.setText("0");
         jPanel_Under_Info1.add(jLabel38);
 
-        jLabel39.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel39.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel39.setForeground(new java.awt.Color(204, 0, 51));
         jLabel39.setText("VNĐ");
         jPanel_Under_Info1.add(jLabel39);
 
-        jLabel40.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel40.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel40.setText("-");
         jPanel_Under_Info1.add(jLabel40);
 
-        jLabel41.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel41.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel41.setText("Tổng tiền bán:");
         jPanel_Under_Info1.add(jLabel41);
 
-        jLabel42.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel42.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel42.setForeground(new java.awt.Color(204, 0, 51));
         jLabel42.setText("0");
         jPanel_Under_Info1.add(jLabel42);
 
-        jLabel43.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel43.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel43.setForeground(new java.awt.Color(204, 0, 51));
         jLabel43.setText("VNĐ");
         jPanel_Under_Info1.add(jLabel43);
@@ -1530,7 +1701,7 @@ public class Admin extends javax.swing.JFrame {
         CardTaoSanPham.setLayout(CardTaoSanPhamLayout);
         CardTaoSanPhamLayout.setHorizontalGroup(
             CardTaoSanPhamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1402, Short.MAX_VALUE)
+            .addGap(0, 1399, Short.MAX_VALUE)
         );
         CardTaoSanPhamLayout.setVerticalGroup(
             CardTaoSanPhamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1539,47 +1710,131 @@ public class Admin extends javax.swing.JFrame {
 
         HienThi.add(CardTaoSanPham, "card6");
 
+        CardKhachHang.setBackground(new java.awt.Color(255, 255, 255));
+        CardKhachHang.setLayout(new java.awt.BorderLayout(0, 20));
+
+        JPanel_Title_TaoNhapKho1.setBackground(new java.awt.Color(255, 255, 255));
+        JPanel_Title_TaoNhapKho1.setLayout(new java.awt.GridBagLayout());
+
+        jLabel79.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
+        jLabel79.setForeground(new java.awt.Color(0, 102, 255));
+        jLabel79.setText("Quản lý khách hàng");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.weightx = 0.1;
+        gridBagConstraints.insets = new java.awt.Insets(0, 20, 0, 0);
+        JPanel_Title_TaoNhapKho1.add(jLabel79, gridBagConstraints);
+
+        jButton_NhapHang_huy1.setBackground(new java.awt.Color(172, 172, 172));
+        jButton_NhapHang_huy1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jButton_NhapHang_huy1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton_NhapHang_huy1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Back_18px.png"))); // NOI18N
+        jButton_NhapHang_huy1.setText("Quay lại");
+        jButton_NhapHang_huy1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_NhapHang_huy1ActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 6;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.ipadx = 60;
+        gridBagConstraints.ipady = 10;
+        JPanel_Title_TaoNhapKho1.add(jButton_NhapHang_huy1, gridBagConstraints);
+
+        jButton_NhapHang_LamMoi1.setBackground(new java.awt.Color(71, 184, 107));
+        jButton_NhapHang_LamMoi1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jButton_NhapHang_LamMoi1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton_NhapHang_LamMoi1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Refresh_18px.png"))); // NOI18N
+        jButton_NhapHang_LamMoi1.setText("Làm Mới");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.ipadx = 30;
+        gridBagConstraints.ipady = 10;
+        JPanel_Title_TaoNhapKho1.add(jButton_NhapHang_LamMoi1, gridBagConstraints);
+
+        CardKhachHang.add(JPanel_Title_TaoNhapKho1, java.awt.BorderLayout.PAGE_START);
+
+        jPanel_ShowKH.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel_ShowKH.setLayout(new java.awt.BorderLayout());
+
+        jPanel27.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel27.setLayout(new javax.swing.BoxLayout(jPanel27, javax.swing.BoxLayout.PAGE_AXIS));
+
+        jPanel29.setLayout(new java.awt.GridBagLayout());
+
+        jButton3.setText("Sửa");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.insets = new java.awt.Insets(20, 0, 20, 50);
+        jPanel29.add(jButton3, gridBagConstraints);
+
+        jButton4.setText("Xóa");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.insets = new java.awt.Insets(20, 50, 20, 0);
+        jPanel29.add(jButton4, gridBagConstraints);
+
+        jPanel27.add(jPanel29);
+
+        jPanel30.setLayout(new java.awt.GridBagLayout());
+
+        jLabel1.setText("Tổng khách hàng:");
+        jPanel30.add(jLabel1, new java.awt.GridBagConstraints());
+
+        jLabel_slKH.setText("0");
+        jLabel_slKH.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel30.add(jLabel_slKH, new java.awt.GridBagConstraints());
+
+        jLabel3.setText("-");
+        jPanel30.add(jLabel3, new java.awt.GridBagConstraints());
+
+        jLabel80.setText("jLabel1");
+        jPanel30.add(jLabel80, new java.awt.GridBagConstraints());
+
+        jLabel81.setText("jLabel1");
+        jPanel30.add(jLabel81, new java.awt.GridBagConstraints());
+
+        jLabel82.setText("jLabel1");
+        jPanel30.add(jLabel82, new java.awt.GridBagConstraints());
+
+        jPanel27.add(jPanel30);
+
+        jPanel_ShowKH.add(jPanel27, java.awt.BorderLayout.PAGE_END);
+
+        jPanel28.setLayout(new javax.swing.BoxLayout(jPanel28, javax.swing.BoxLayout.LINE_AXIS));
+
+        jTable_QLKH.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        jScrollPane6.setViewportView(jTable_QLKH);
+
+        jPanel28.add(jScrollPane6);
+
+        jPanel_ShowKH.add(jPanel28, java.awt.BorderLayout.CENTER);
+
+        CardKhachHang.add(jPanel_ShowKH, java.awt.BorderLayout.CENTER);
+
+        HienThi.add(CardKhachHang, "card7");
+
         Function.add(HienThi);
-
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(204, 0, 51));
-        jLabel2.setText("-");
-
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(204, 0, 51));
-        jLabel3.setText("Quản lý cửa hàng");
 
         javax.swing.GroupLayout BGLayout = new javax.swing.GroupLayout(BG);
         BG.setLayout(BGLayout);
         BGLayout.setHorizontalGroup(
             BGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BGLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel_TenNguoiDung)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(Minimize)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(X)
-                .addContainerGap())
             .addComponent(Function, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1578, Short.MAX_VALUE)
+            .addGroup(BGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jPanel24, javax.swing.GroupLayout.DEFAULT_SIZE, 1578, Short.MAX_VALUE))
         );
         BGLayout.setVerticalGroup(
             BGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(BGLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(BGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(X)
-                    .addComponent(Minimize)
-                    .addGroup(BGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel_TenNguoiDung)
-                        .addComponent(jLabel2)
-                        .addComponent(jLabel3)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(52, 52, 52)
                 .addComponent(Function, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(BGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(BGLayout.createSequentialGroup()
+                    .addComponent(jPanel24, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 743, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -1595,17 +1850,6 @@ public class Admin extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void MinimizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MinimizeMouseClicked
-        // TODO add your handling code here:
-        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        this.setState(JFrame.ICONIFIED);
-    }//GEN-LAST:event_MinimizeMouseClicked
-
-    private void XMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_XMouseClicked
-        // TODO add your handling code here:
-        System.exit(0);
-    }//GEN-LAST:event_XMouseClicked
 
     private void TongQuanMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TongQuanMouseEntered
         // TODO add your handling code here:
@@ -1752,6 +1996,111 @@ public class Admin extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_DangXuatMouseExited
 
+    private void MinimizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MinimizeMouseClicked
+        // TODO add your handling code here:
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        this.setState(JFrame.ICONIFIED);
+    }//GEN-LAST:event_MinimizeMouseClicked
+
+    private void XMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_XMouseClicked
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_XMouseClicked
+
+    private void KhachHangMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_KhachHangMouseEntered
+        // TODO add your handling code here:
+        iconKhachHang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_User_Groups_32px.png")));
+        KhachHang.setBackground(Color.WHITE);
+        iconKhachHang.setForeground(new Color(100, 149, 237));
+        iconKhachHang.setFont(new java.awt.Font("Tahoma", 1, 18));
+    }//GEN-LAST:event_KhachHangMouseEntered
+
+    private void MailMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MailMouseEntered
+        // TODO add your handling code here:
+        iconTinNhan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Mail_32px_3.png")));
+        Mail.setBackground(Color.WHITE);
+        iconTinNhan.setForeground(new Color(100, 149, 237));
+        iconTinNhan.setFont(new java.awt.Font("Tahoma", 1, 18));
+    }//GEN-LAST:event_MailMouseEntered
+
+    private void SuKienMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SuKienMouseEntered
+        // TODO add your handling code here:
+        iconSuKien.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Event_32px.png")));
+        SuKien.setBackground(Color.WHITE);
+        iconSuKien.setForeground(new Color(100, 149, 237));
+        iconSuKien.setFont(new java.awt.Font("Tahoma", 1, 18));
+    }//GEN-LAST:event_SuKienMouseEntered
+
+    private void KhachHangMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_KhachHangMouseExited
+        // TODO add your handling code here:
+        if (currenColor != 4) {
+            iconKhachHang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_User_Groups_32px_1.png")));
+            iconKhachHang.setForeground(Color.BLACK);
+            KhachHang.setBackground(new Color(244, 244, 244));
+            iconKhachHang.setFont(new java.awt.Font("Tahoma", 0, 18));
+        }
+    }//GEN-LAST:event_KhachHangMouseExited
+
+    private void MailMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MailMouseExited
+        // TODO add your handling code here:
+        if (currenColor != 5) {
+            iconTinNhan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Mail_32px_2.png")));
+            iconTinNhan.setForeground(Color.BLACK);
+            Mail.setBackground(new Color(244, 244, 244));
+            iconTinNhan.setFont(new java.awt.Font("Tahoma", 0, 18));
+        }
+    }//GEN-LAST:event_MailMouseExited
+
+    private void SuKienMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SuKienMouseExited
+        // TODO add your handling code here:
+        if (currenColor != 6) {
+            iconSuKien.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Event_32px_1.png")));
+            iconSuKien.setForeground(Color.BLACK);
+            SuKien.setBackground(new Color(244, 244, 244));
+            iconSuKien.setFont(new java.awt.Font("Tahoma", 0, 18));
+        }
+    }//GEN-LAST:event_SuKienMouseExited
+
+    private void KhachHangMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_KhachHangMousePressed
+        // TODO add your handling code here:
+        currenColor = 4;
+        disCard();
+        CardKhachHang.show();
+        disSubMenu();
+        iconKhachHang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_User_Groups_32px.png")));
+        KhachHang.setBackground(Color.WHITE);
+        iconKhachHang.setForeground(new Color(100, 149, 237));
+        iconKhachHang.setFont(new java.awt.Font("Tahoma", 1, 18));
+    }//GEN-LAST:event_KhachHangMousePressed
+
+    private void MailMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MailMousePressed
+        // TODO add your handling code here:
+        currenColor = 5;
+        disCard();
+        CardKhachHang.show();
+        disSubMenu();
+        iconTinNhan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Mail_32px_3.png")));
+        Mail.setBackground(Color.WHITE);
+        iconTinNhan.setForeground(new Color(100, 149, 237));
+        iconTinNhan.setFont(new java.awt.Font("Tahoma", 1, 18));
+    }//GEN-LAST:event_MailMousePressed
+
+    private void SuKienMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SuKienMousePressed
+        // TODO add your handling code here:
+        currenColor = 6;
+        disCard();
+        CardSanPham.show();
+        disSubMenu();
+        iconSuKien.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Event_32px.png")));
+        SuKien.setBackground(Color.WHITE);
+        iconSuKien.setForeground(new Color(100, 149, 237));
+        iconSuKien.setFont(new java.awt.Font("Tahoma", 1, 18));
+    }//GEN-LAST:event_SuKienMousePressed
+
+    private void jButton_NhapHang_huy1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_NhapHang_huy1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton_NhapHang_huy1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1789,6 +2138,7 @@ public class Admin extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel BG;
+    private javax.swing.JPanel CardKhachHang;
     private javax.swing.JPanel CardNhapKho;
     private javax.swing.JPanel CardSanPham;
     private javax.swing.JPanel CardTaoPhieuNhap;
@@ -1800,22 +2150,31 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JPanel HienThi;
     private javax.swing.JPanel JPanel_Title_NhapKho;
     private javax.swing.JPanel JPanel_Title_TaoNhapKho;
+    private javax.swing.JPanel JPanel_Title_TaoNhapKho1;
     private javax.swing.JPanel KhachHang;
+    private javax.swing.JPanel Mail;
     private javax.swing.JPanel Menu;
     private javax.swing.JLabel Minimize;
     private javax.swing.JPanel NhapKho;
+    private javax.swing.JPanel SuKien;
     private javax.swing.JPanel TongQuan;
     private javax.swing.JLabel X;
     private javax.swing.JLabel iconDangXuat;
     private javax.swing.JLabel iconKhachHang;
     private javax.swing.JLabel iconNhapKho;
     private javax.swing.JLabel iconSanPham;
+    private javax.swing.JLabel iconSuKien;
+    private javax.swing.JLabel iconTinNhan;
     private javax.swing.JLabel iconTongQuan;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton_NhapHang_LamMoi;
+    private javax.swing.JButton jButton_NhapHang_LamMoi1;
     private javax.swing.JButton jButton_NhapHang_XacNhan;
     private javax.swing.JButton jButton_NhapHang_huy;
+    private javax.swing.JButton jButton_NhapHang_huy1;
     private javax.swing.JButton jButton_TaoPhieuNhap;
     private javax.swing.JButton jButton_ThemSP;
     private javax.swing.JButton jButton_XuatExcel;
@@ -1826,6 +2185,7 @@ public class Admin extends javax.swing.JFrame {
     private com.toedter.calendar.JDateChooser jDateChooser3;
     private com.toedter.calendar.JDateChooser jDateChooser4;
     private com.toedter.calendar.JDateChooser jDateChooser5;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -1836,7 +2196,6 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
@@ -1899,13 +2258,20 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel74;
     private javax.swing.JLabel jLabel75;
     private javax.swing.JLabel jLabel76;
+    private javax.swing.JLabel jLabel77;
+    private javax.swing.JLabel jLabel78;
+    private javax.swing.JLabel jLabel79;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel80;
+    private javax.swing.JLabel jLabel81;
+    private javax.swing.JLabel jLabel82;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabel_Filter_Space;
     private javax.swing.JLabel jLabel_Filter_Space1;
     private javax.swing.JLabel jLabel_TenNguoiDung;
     private javax.swing.JLabel jLabel_TitleNhapKho;
     private javax.swing.JLabel jLabel_Title_DSSP;
+    private javax.swing.JLabel jLabel_slKH;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
@@ -1922,7 +2288,14 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel21;
     private javax.swing.JPanel jPanel22;
     private javax.swing.JPanel jPanel23;
+    private javax.swing.JPanel jPanel24;
+    private javax.swing.JPanel jPanel25;
+    private javax.swing.JPanel jPanel26;
+    private javax.swing.JPanel jPanel27;
+    private javax.swing.JPanel jPanel28;
+    private javax.swing.JPanel jPanel29;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel30;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
@@ -1935,6 +2308,7 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel_Filter_Left1;
     private javax.swing.JPanel jPanel_Info_NhapKho;
     private javax.swing.JPanel jPanel_Info_SanPham;
+    private javax.swing.JPanel jPanel_ShowKH;
     private javax.swing.JPanel jPanel_Show_Info;
     private javax.swing.JPanel jPanel_Show_Info1;
     private javax.swing.JPanel jPanel_Show_NhapKho;
@@ -1946,8 +2320,10 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JTable jTable_HangHoa;
     private javax.swing.JTable jTable_PhieuNhapKho;
+    private javax.swing.JTable jTable_QLKH;
     private javax.swing.JTable jTable_SanPham;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField1;
