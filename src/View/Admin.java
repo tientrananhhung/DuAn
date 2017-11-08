@@ -322,6 +322,11 @@ public class Admin extends javax.swing.JFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         jTable_SanPham = new javax.swing.JTable();
         CardTaoSanPham = new javax.swing.JPanel();
+        jPanel31 = new javax.swing.JPanel();
+        jLabel_Title_TSP = new javax.swing.JLabel();
+        jButton5 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
+        jPanel32 = new javax.swing.JPanel();
         CardKhachHang = new javax.swing.JPanel();
         JPanel_Title_TaoNhapKho1 = new javax.swing.JPanel();
         jLabel79 = new javax.swing.JLabel();
@@ -339,6 +344,8 @@ public class Admin extends javax.swing.JFrame {
         jLabel80 = new javax.swing.JLabel();
         jLabel81 = new javax.swing.JLabel();
         jLabel82 = new javax.swing.JLabel();
+        jLabel83 = new javax.swing.JLabel();
+        jLabel84 = new javax.swing.JLabel();
         jPanel28 = new javax.swing.JPanel();
         jScrollPane6 = new javax.swing.JScrollPane();
         jTable_QLKH = new javax.swing.JTable();
@@ -1205,7 +1212,7 @@ public class Admin extends javax.swing.JFrame {
         jButton_NhapHang_huy.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jButton_NhapHang_huy.setForeground(new java.awt.Color(255, 255, 255));
         jButton_NhapHang_huy.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Back_18px.png"))); // NOI18N
-        jButton_NhapHang_huy.setText("Huỷ");
+        jButton_NhapHang_huy.setText("Trở lại");
         jButton_NhapHang_huy.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton_NhapHang_huyActionPerformed(evt);
@@ -1513,6 +1520,11 @@ public class Admin extends javax.swing.JFrame {
         jButton_ThemSP.setForeground(new java.awt.Color(255, 255, 255));
         jButton_ThemSP.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Plus_Math_18px.png"))); // NOI18N
         jButton_ThemSP.setText("Thêm sản phẩm");
+        jButton_ThemSP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_ThemSPActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 0;
@@ -1697,16 +1709,64 @@ public class Admin extends javax.swing.JFrame {
 
         HienThi.add(CardSanPham, "card5");
 
-        javax.swing.GroupLayout CardTaoSanPhamLayout = new javax.swing.GroupLayout(CardTaoSanPham);
-        CardTaoSanPham.setLayout(CardTaoSanPhamLayout);
-        CardTaoSanPhamLayout.setHorizontalGroup(
-            CardTaoSanPhamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        CardTaoSanPham.setBackground(new java.awt.Color(255, 255, 255));
+        CardTaoSanPham.setLayout(new java.awt.BorderLayout());
+
+        jPanel31.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel31.setLayout(new java.awt.GridBagLayout());
+
+        jLabel_Title_TSP.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
+        jLabel_Title_TSP.setForeground(new java.awt.Color(0, 102, 255));
+        jLabel_Title_TSP.setText("Tạo Sản Phẩm");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.weightx = 0.1;
+        gridBagConstraints.insets = new java.awt.Insets(0, 20, 20, 0);
+        jPanel31.add(jLabel_Title_TSP, gridBagConstraints);
+
+        jButton5.setBackground(new java.awt.Color(71, 184, 107));
+        jButton5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jButton5.setForeground(new java.awt.Color(255, 255, 255));
+        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Refresh_18px.png"))); // NOI18N
+        jButton5.setText("Làm mới");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.ipadx = 20;
+        gridBagConstraints.ipady = 10;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 20, 0);
+        jPanel31.add(jButton5, gridBagConstraints);
+
+        jButton6.setBackground(new java.awt.Color(172, 172, 172));
+        jButton6.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jButton6.setForeground(new java.awt.Color(255, 255, 255));
+        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Back_18px.png"))); // NOI18N
+        jButton6.setText("Trở lại");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.ipadx = 20;
+        gridBagConstraints.ipady = 10;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 20, 0);
+        jPanel31.add(jButton6, gridBagConstraints);
+
+        CardTaoSanPham.add(jPanel31, java.awt.BorderLayout.PAGE_START);
+
+        javax.swing.GroupLayout jPanel32Layout = new javax.swing.GroupLayout(jPanel32);
+        jPanel32.setLayout(jPanel32Layout);
+        jPanel32Layout.setHorizontalGroup(
+            jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 1399, Short.MAX_VALUE)
         );
-        CardTaoSanPhamLayout.setVerticalGroup(
-            CardTaoSanPhamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 733, Short.MAX_VALUE)
+        jPanel32Layout.setVerticalGroup(
+            jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 669, Short.MAX_VALUE)
         );
+
+        CardTaoSanPham.add(jPanel32, java.awt.BorderLayout.CENTER);
 
         HienThi.add(CardTaoSanPham, "card6");
 
@@ -1727,11 +1787,11 @@ public class Admin extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(0, 20, 0, 0);
         JPanel_Title_TaoNhapKho1.add(jLabel79, gridBagConstraints);
 
-        jButton_NhapHang_huy1.setBackground(new java.awt.Color(172, 172, 172));
+        jButton_NhapHang_huy1.setBackground(new java.awt.Color(71, 184, 107));
         jButton_NhapHang_huy1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jButton_NhapHang_huy1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton_NhapHang_huy1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Back_18px.png"))); // NOI18N
-        jButton_NhapHang_huy1.setText("Quay lại");
+        jButton_NhapHang_huy1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Microsoft_Excel_18px.png"))); // NOI18N
+        jButton_NhapHang_huy1.setText("Xuất Excel");
         jButton_NhapHang_huy1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton_NhapHang_huy1ActionPerformed(evt);
@@ -1744,7 +1804,7 @@ public class Admin extends javax.swing.JFrame {
         gridBagConstraints.ipady = 10;
         JPanel_Title_TaoNhapKho1.add(jButton_NhapHang_huy1, gridBagConstraints);
 
-        jButton_NhapHang_LamMoi1.setBackground(new java.awt.Color(71, 184, 107));
+        jButton_NhapHang_LamMoi1.setBackground(new java.awt.Color(65, 127, 194));
         jButton_NhapHang_LamMoi1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jButton_NhapHang_LamMoi1.setForeground(new java.awt.Color(255, 255, 255));
         jButton_NhapHang_LamMoi1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Refresh_18px.png"))); // NOI18N
@@ -1752,7 +1812,7 @@ public class Admin extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.ipadx = 30;
+        gridBagConstraints.ipadx = 50;
         gridBagConstraints.ipady = 10;
         JPanel_Title_TaoNhapKho1.add(jButton_NhapHang_LamMoi1, gridBagConstraints);
 
@@ -1764,40 +1824,75 @@ public class Admin extends javax.swing.JFrame {
         jPanel27.setBackground(new java.awt.Color(255, 255, 255));
         jPanel27.setLayout(new javax.swing.BoxLayout(jPanel27, javax.swing.BoxLayout.PAGE_AXIS));
 
+        jPanel29.setBackground(new java.awt.Color(255, 255, 255));
         jPanel29.setLayout(new java.awt.GridBagLayout());
 
+        jButton3.setBackground(new java.awt.Color(65, 127, 194));
+        jButton3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jButton3.setForeground(new java.awt.Color(255, 255, 255));
         jButton3.setText("Sửa");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.ipadx = 100;
+        gridBagConstraints.ipady = 10;
         gridBagConstraints.insets = new java.awt.Insets(20, 0, 20, 50);
         jPanel29.add(jButton3, gridBagConstraints);
 
+        jButton4.setBackground(new java.awt.Color(242, 64, 64));
+        jButton4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jButton4.setForeground(new java.awt.Color(255, 255, 255));
         jButton4.setText("Xóa");
         gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.ipadx = 100;
+        gridBagConstraints.ipady = 10;
         gridBagConstraints.insets = new java.awt.Insets(20, 50, 20, 0);
         jPanel29.add(jButton4, gridBagConstraints);
 
         jPanel27.add(jPanel29);
 
+        jPanel30.setBackground(new java.awt.Color(204, 204, 255));
         jPanel30.setLayout(new java.awt.GridBagLayout());
 
-        jLabel1.setText("Tổng khách hàng:");
-        jPanel30.add(jLabel1, new java.awt.GridBagConstraints());
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel1.setText("Tổng khách hàng: ");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 5, 0);
+        jPanel30.add(jLabel1, gridBagConstraints);
 
+        jLabel_slKH.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel_slKH.setForeground(new java.awt.Color(204, 0, 51));
         jLabel_slKH.setText("0");
-        jLabel_slKH.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel30.add(jLabel_slKH, new java.awt.GridBagConstraints());
 
-        jLabel3.setText("-");
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel3.setText(" - ");
         jPanel30.add(jLabel3, new java.awt.GridBagConstraints());
 
-        jLabel80.setText("jLabel1");
+        jLabel80.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel80.setText("Khách V.I.P: ");
         jPanel30.add(jLabel80, new java.awt.GridBagConstraints());
 
-        jLabel81.setText("jLabel1");
+        jLabel81.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel81.setForeground(new java.awt.Color(204, 0, 51));
+        jLabel81.setText("0");
         jPanel30.add(jLabel81, new java.awt.GridBagConstraints());
 
-        jLabel82.setText("jLabel1");
+        jLabel82.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel82.setText(" - ");
         jPanel30.add(jLabel82, new java.awt.GridBagConstraints());
+
+        jLabel83.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel83.setText("Khách thường: ");
+        jPanel30.add(jLabel83, new java.awt.GridBagConstraints());
+
+        jLabel84.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel84.setForeground(new java.awt.Color(204, 0, 51));
+        jLabel84.setText("0");
+        jPanel30.add(jLabel84, new java.awt.GridBagConstraints());
 
         jPanel27.add(jPanel30);
 
@@ -2101,6 +2196,26 @@ public class Admin extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton_NhapHang_huy1ActionPerformed
 
+    private void jButton_ThemSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_ThemSPActionPerformed
+        // TODO add your handling code here:
+        currenColor = 3;
+        disCard();
+        CardTaoSanPham.show();
+    }//GEN-LAST:event_jButton_ThemSPActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+        currenColor = 3;
+        disCard();
+        CardSanPham.show();
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        SuaKhachHang sKH = new SuaKhachHang(this, true);
+        sKH.setVisible(true);
+    }//GEN-LAST:event_jButton3ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -2170,6 +2285,8 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton_NhapHang_LamMoi;
     private javax.swing.JButton jButton_NhapHang_LamMoi1;
     private javax.swing.JButton jButton_NhapHang_XacNhan;
@@ -2265,12 +2382,15 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel80;
     private javax.swing.JLabel jLabel81;
     private javax.swing.JLabel jLabel82;
+    private javax.swing.JLabel jLabel83;
+    private javax.swing.JLabel jLabel84;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabel_Filter_Space;
     private javax.swing.JLabel jLabel_Filter_Space1;
     private javax.swing.JLabel jLabel_TenNguoiDung;
     private javax.swing.JLabel jLabel_TitleNhapKho;
     private javax.swing.JLabel jLabel_Title_DSSP;
+    private javax.swing.JLabel jLabel_Title_TSP;
     private javax.swing.JLabel jLabel_slKH;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
@@ -2296,6 +2416,8 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel29;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel30;
+    private javax.swing.JPanel jPanel31;
+    private javax.swing.JPanel jPanel32;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
