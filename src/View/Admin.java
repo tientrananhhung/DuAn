@@ -5,6 +5,7 @@
  */
 package View;
 
+import Controller.QLKhachHang;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -31,6 +32,7 @@ public class Admin extends javax.swing.JFrame {
     Vector head, data, head1, data1, head2, data2, head3, data3;
     DefaultTableModel modelTable, modelTable1, modelTable2, modelTable3;
     String tenND;
+    QLKhachHang KH;
 
     public Admin() {
         initComponents();
@@ -47,6 +49,7 @@ public class Admin extends javax.swing.JFrame {
     }
 
     public void changeTable() {
+        KH = new QLKhachHang();
         head = new Vector();
         data = new Vector();
         head1 = new Vector();
@@ -71,6 +74,9 @@ public class Admin extends javax.swing.JFrame {
         head2.add("Địa chỉ");
         head2.add("Email");
         head2.add("Loại khách hàng");
+        for (int i = 0; i < KH.getAllList().size(); i++) {
+            data2.add(KH.getAllList().get(i));
+        }
         modelTable = new DefaultTableModel(data, head);
         modelTable1 = new DefaultTableModel(data1, head1);
         modelTable2 = new DefaultTableModel(data2, head2);
@@ -2664,7 +2670,12 @@ public class Admin extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        SuaKhachHang sKH = new SuaKhachHang(this, true);
+        String a = (String) jTable_QLKH.getValueAt(jTable_QLKH.getSelectedRow(), 0);
+        String a1 = (String) jTable_QLKH.getValueAt(jTable_QLKH.getSelectedRow(), 1);
+        String a2 = (String) jTable_QLKH.getValueAt(jTable_QLKH.getSelectedRow(), 2);
+        String a3 = (String) jTable_QLKH.getValueAt(jTable_QLKH.getSelectedRow(), 3);
+        String a4 = (String) jTable_QLKH.getValueAt(jTable_QLKH.getSelectedRow(), 4);
+        SuaKhachHang sKH = new SuaKhachHang(this, true, a, a1, a2, a3, a4);
         sKH.setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
 

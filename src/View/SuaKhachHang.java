@@ -5,7 +5,10 @@
  */
 package View;
 
+import Controller.QLKhachHang;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import jdk.nashorn.internal.scripts.JO;
 
 /**
  *
@@ -16,9 +19,19 @@ public class SuaKhachHang extends javax.swing.JDialog {
     /**
      * Creates new form SuaKhachHang
      */
+    QLKhachHang KH;
     public SuaKhachHang(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+    }
+        public SuaKhachHang(java.awt.Frame parent, boolean modal, String a, String a1, String a2, String a3, String a4) {
+        super(parent, modal);
+        initComponents();
+        jTextField_sdt.setText(a);
+        jTextField_ten.setText(a1);
+        jTextField_dc.setText(a2);
+        jTextField_email.setText(a3);
+        jTextField_loaikh.setText(a4);
     }
 
     /**
@@ -43,11 +56,11 @@ public class SuaKhachHang extends javax.swing.JDialog {
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        jTextField6 = new javax.swing.JTextField();
-        jTextField7 = new javax.swing.JTextField();
-        jTextField8 = new javax.swing.JTextField();
-        jTextField9 = new javax.swing.JTextField();
-        jTextField10 = new javax.swing.JTextField();
+        jTextField_sdt = new javax.swing.JTextField();
+        jTextField_email = new javax.swing.JTextField();
+        jTextField_ten = new javax.swing.JTextField();
+        jTextField_dc = new javax.swing.JTextField();
+        jTextField_loaikh = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
@@ -92,7 +105,7 @@ public class SuaKhachHang extends javax.swing.JDialog {
         jPanel2.setLayout(jPanel2Layout);
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        jLabel6.setText("Họ và Tên:");
+        jLabel6.setText("Số điện thoại:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
@@ -103,7 +116,7 @@ public class SuaKhachHang extends javax.swing.JDialog {
         jPanel2.add(jLabel6, gridBagConstraints);
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        jLabel7.setText("Địa chỉ:");
+        jLabel7.setText("Họ và Tên:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
@@ -112,7 +125,7 @@ public class SuaKhachHang extends javax.swing.JDialog {
         jPanel2.add(jLabel7, gridBagConstraints);
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        jLabel8.setText("Số điện thoại:");
+        jLabel8.setText("Địa chỉ:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 4;
@@ -139,7 +152,7 @@ public class SuaKhachHang extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(0, 20, 0, 0);
         jPanel2.add(jLabel10, gridBagConstraints);
 
-        jTextField6.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jTextField_sdt.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 0;
@@ -148,9 +161,9 @@ public class SuaKhachHang extends javax.swing.JDialog {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.FIRST_LINE_START;
         gridBagConstraints.weightx = 1.7;
         gridBagConstraints.insets = new java.awt.Insets(50, 20, 0, 0);
-        jPanel2.add(jTextField6, gridBagConstraints);
+        jPanel2.add(jTextField_sdt, gridBagConstraints);
 
-        jTextField7.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jTextField_email.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 6;
@@ -158,9 +171,9 @@ public class SuaKhachHang extends javax.swing.JDialog {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.FIRST_LINE_START;
         gridBagConstraints.weightx = 0.1;
         gridBagConstraints.insets = new java.awt.Insets(0, 20, 0, 0);
-        jPanel2.add(jTextField7, gridBagConstraints);
+        jPanel2.add(jTextField_email, gridBagConstraints);
 
-        jTextField8.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jTextField_ten.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 2;
@@ -168,12 +181,12 @@ public class SuaKhachHang extends javax.swing.JDialog {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.FIRST_LINE_START;
         gridBagConstraints.weightx = 0.1;
         gridBagConstraints.insets = new java.awt.Insets(0, 20, 0, 0);
-        jPanel2.add(jTextField8, gridBagConstraints);
+        jPanel2.add(jTextField_ten, gridBagConstraints);
 
-        jTextField9.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jTextField9.addActionListener(new java.awt.event.ActionListener() {
+        jTextField_dc.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jTextField_dc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField9ActionPerformed(evt);
+                jTextField_dcActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -183,9 +196,9 @@ public class SuaKhachHang extends javax.swing.JDialog {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.FIRST_LINE_START;
         gridBagConstraints.weightx = 0.1;
         gridBagConstraints.insets = new java.awt.Insets(0, 20, 0, 0);
-        jPanel2.add(jTextField9, gridBagConstraints);
+        jPanel2.add(jTextField_dc, gridBagConstraints);
 
-        jTextField10.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jTextField_loaikh.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 8;
@@ -193,7 +206,7 @@ public class SuaKhachHang extends javax.swing.JDialog {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.FIRST_LINE_START;
         gridBagConstraints.weightx = 0.1;
         gridBagConstraints.insets = new java.awt.Insets(0, 20, 0, 0);
-        jPanel2.add(jTextField10, gridBagConstraints);
+        jPanel2.add(jTextField_loaikh, gridBagConstraints);
 
         jPanel3.setBackground(new java.awt.Color(244, 244, 244));
         jPanel3.setLayout(new java.awt.GridBagLayout());
@@ -202,6 +215,11 @@ public class SuaKhachHang extends javax.swing.JDialog {
         jButton1.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Sửa");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.ipadx = 50;
         gridBagConstraints.ipady = 10;
@@ -242,7 +260,7 @@ public class SuaKhachHang extends javax.swing.JDialog {
                 .addGap(46, 46, 46)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 675, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE)
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 57, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
@@ -272,14 +290,22 @@ public class SuaKhachHang extends javax.swing.JDialog {
         this.dispose();
     }//GEN-LAST:event_XMouseClicked
 
-    private void jTextField9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField9ActionPerformed
+    private void jTextField_dcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_dcActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField9ActionPerformed
+    }//GEN-LAST:event_jTextField_dcActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        KH = new QLKhachHang();
+        KH.update(jTextField_sdt.getText(), jTextField_ten.getText(), jTextField_dc.getText(), jTextField_email.getText(), jTextField_loaikh.getText());
+        JOptionPane.showMessageDialog(this, "Cập nhật thành công");
+        this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -339,11 +365,11 @@ public class SuaKhachHang extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel25;
     private javax.swing.JPanel jPanel26;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JTextField jTextField10;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
-    private javax.swing.JTextField jTextField9;
+    private javax.swing.JTextField jTextField_dc;
+    private javax.swing.JTextField jTextField_email;
+    private javax.swing.JTextField jTextField_loaikh;
+    private javax.swing.JTextField jTextField_sdt;
+    private javax.swing.JTextField jTextField_ten;
     // End of variables declaration//GEN-END:variables
 
 }
