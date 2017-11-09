@@ -85,6 +85,9 @@ public class Admin extends javax.swing.JFrame {
         jTable_SanPham.setModel(modelTable1);
         jTable_SanPham.setDefaultEditor(Object.class, null);
         jTable_QLKH.setModel(modelTable2);
+        jLabel_slKH.setText(jTable_QLKH.getRowCount() + "");
+        jLabel_vip.setText(KH.getAllKHVip().toString());
+        jLabel_Standard.setText(KH.getAllKHStandard().toString());
         jTable_QLKH.setDefaultEditor(Object.class, null);
         jScrollPane1.getViewport().setBackground(Color.WHITE);
         jScrollPane4.getViewport().setBackground(Color.WHITE);
@@ -384,10 +387,10 @@ public class Admin extends javax.swing.JFrame {
         jLabel_slKH = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel80 = new javax.swing.JLabel();
-        jLabel81 = new javax.swing.JLabel();
+        jLabel_vip = new javax.swing.JLabel();
         jLabel82 = new javax.swing.JLabel();
         jLabel83 = new javax.swing.JLabel();
-        jLabel84 = new javax.swing.JLabel();
+        jLabel_Standard = new javax.swing.JLabel();
         jPanel28 = new javax.swing.JPanel();
         jScrollPane6 = new javax.swing.JScrollPane();
         jTable_QLKH = new javax.swing.JTable();
@@ -2249,6 +2252,11 @@ public class Admin extends javax.swing.JFrame {
         jButton_NhapHang_LamMoi1.setForeground(new java.awt.Color(255, 255, 255));
         jButton_NhapHang_LamMoi1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Refresh_18px.png"))); // NOI18N
         jButton_NhapHang_LamMoi1.setText("Làm Mới");
+        jButton_NhapHang_LamMoi1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_NhapHang_LamMoi1ActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 0;
@@ -2286,6 +2294,11 @@ public class Admin extends javax.swing.JFrame {
         jButton4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jButton4.setForeground(new java.awt.Color(255, 255, 255));
         jButton4.setText("Xóa");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.ipadx = 100;
         gridBagConstraints.ipady = 10;
@@ -2316,10 +2329,10 @@ public class Admin extends javax.swing.JFrame {
         jLabel80.setText("Khách V.I.P: ");
         jPanel30.add(jLabel80, new java.awt.GridBagConstraints());
 
-        jLabel81.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel81.setForeground(new java.awt.Color(204, 0, 51));
-        jLabel81.setText("0");
-        jPanel30.add(jLabel81, new java.awt.GridBagConstraints());
+        jLabel_vip.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel_vip.setForeground(new java.awt.Color(204, 0, 51));
+        jLabel_vip.setText("0");
+        jPanel30.add(jLabel_vip, new java.awt.GridBagConstraints());
 
         jLabel82.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel82.setText(" - ");
@@ -2329,10 +2342,10 @@ public class Admin extends javax.swing.JFrame {
         jLabel83.setText("Khách thường: ");
         jPanel30.add(jLabel83, new java.awt.GridBagConstraints());
 
-        jLabel84.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel84.setForeground(new java.awt.Color(204, 0, 51));
-        jLabel84.setText("0");
-        jPanel30.add(jLabel84, new java.awt.GridBagConstraints());
+        jLabel_Standard.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel_Standard.setForeground(new java.awt.Color(204, 0, 51));
+        jLabel_Standard.setText("0");
+        jPanel30.add(jLabel_Standard, new java.awt.GridBagConstraints());
 
         jPanel27.add(jPanel30);
 
@@ -2670,13 +2683,17 @@ public class Admin extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        String a = (String) jTable_QLKH.getValueAt(jTable_QLKH.getSelectedRow(), 0);
-        String a1 = (String) jTable_QLKH.getValueAt(jTable_QLKH.getSelectedRow(), 1);
-        String a2 = (String) jTable_QLKH.getValueAt(jTable_QLKH.getSelectedRow(), 2);
-        String a3 = (String) jTable_QLKH.getValueAt(jTable_QLKH.getSelectedRow(), 3);
-        String a4 = (String) jTable_QLKH.getValueAt(jTable_QLKH.getSelectedRow(), 4);
-        SuaKhachHang sKH = new SuaKhachHang(this, true, a, a1, a2, a3, a4);
-        sKH.setVisible(true);
+        try {
+            String a = (String) jTable_QLKH.getValueAt(jTable_QLKH.getSelectedRow(), 0);
+            String a1 = (String) jTable_QLKH.getValueAt(jTable_QLKH.getSelectedRow(), 1);
+            String a2 = (String) jTable_QLKH.getValueAt(jTable_QLKH.getSelectedRow(), 2);
+            String a3 = (String) jTable_QLKH.getValueAt(jTable_QLKH.getSelectedRow(), 3);
+            String a4 = (String) jTable_QLKH.getValueAt(jTable_QLKH.getSelectedRow(), 4);
+            SuaKhachHang sKH = new SuaKhachHang(this, true, a, a1, a2, a3, a4);
+            sKH.setVisible(true);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Phải chọn khách hàng cần sửa");
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jFormattedTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextField2ActionPerformed
@@ -2730,6 +2747,27 @@ public class Admin extends javax.swing.JFrame {
         // TODO add your handling code here:
         jLabel_XoaNSX.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Minus_30px.png")));
     }//GEN-LAST:event_jLabel_XoaNSXMouseExited
+
+    private void jButton_NhapHang_LamMoi1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_NhapHang_LamMoi1ActionPerformed
+        // TODO add your handling code here:
+        changeTable();
+        KH = new QLKhachHang();
+        jLabel_slKH.setText(jTable_QLKH.getRowCount() + "");
+        jLabel_vip.setText(KH.getAllKHVip().toString());
+        jLabel_Standard.setText(KH.getAllKHStandard().toString());
+    }//GEN-LAST:event_jButton_NhapHang_LamMoi1ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        //delete KH
+        try {
+            KH.delete(jTable_QLKH.getValueAt(jTable_QLKH.getSelectedRow(), 0).toString());
+            modelTable2 = (DefaultTableModel) jTable_QLKH.getModel();
+            modelTable2.removeRow(jTable_QLKH.getSelectedRow());
+            JOptionPane.showMessageDialog(this, "Xóa khách hàng thành công");
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Phải chọn khach hàng cần xóa");
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -2903,10 +2941,8 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel79;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel80;
-    private javax.swing.JLabel jLabel81;
     private javax.swing.JLabel jLabel82;
     private javax.swing.JLabel jLabel83;
-    private javax.swing.JLabel jLabel84;
     private javax.swing.JLabel jLabel85;
     private javax.swing.JLabel jLabel86;
     private javax.swing.JLabel jLabel87;
@@ -2917,6 +2953,7 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel91;
     private javax.swing.JLabel jLabel_Filter_Space;
     private javax.swing.JLabel jLabel_Filter_Space1;
+    private javax.swing.JLabel jLabel_Standard;
     private javax.swing.JLabel jLabel_TenNguoiDung;
     private javax.swing.JLabel jLabel_ThemNH;
     private javax.swing.JLabel jLabel_ThemNSX;
@@ -2926,6 +2963,7 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel_XoaNH;
     private javax.swing.JLabel jLabel_XoaNSX;
     private javax.swing.JLabel jLabel_slKH;
+    private javax.swing.JLabel jLabel_vip;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
