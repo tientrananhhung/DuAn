@@ -5,11 +5,14 @@
  */
 package View;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.util.Vector;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -25,8 +28,8 @@ public class Admin extends javax.swing.JFrame {
      * Creates new form Admin
      */
     int currenColor;
-    Vector head, data, head1, data1, head2, data2;
-    DefaultTableModel modelTable, modelTable1, modelTable2;
+    Vector head, data, head1, data1, head2, data2, head3, data3;
+    DefaultTableModel modelTable, modelTable1, modelTable2, modelTable3;
     String tenND;
 
     public Admin() {
@@ -328,14 +331,38 @@ public class Admin extends javax.swing.JFrame {
         jButton6 = new javax.swing.JButton();
         jPanel32 = new javax.swing.JPanel();
         jPanel33 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel85 = new javax.swing.JLabel();
+        jLabel86 = new javax.swing.JLabel();
+        jLabel87 = new javax.swing.JLabel();
+        jLabel88 = new javax.swing.JLabel();
+        jLabel89 = new javax.swing.JLabel();
+        jLabel90 = new javax.swing.JLabel();
+        jLabel91 = new javax.swing.JLabel();
+        jTextField6 = new javax.swing.JTextField();
+        jTextField7 = new javax.swing.JTextField();
+        jFormattedTextField1 = new javax.swing.JFormattedTextField();
+        jFormattedTextField2 = new javax.swing.JFormattedTextField();
+        jComboBox2 = new javax.swing.JComboBox<>();
+        jComboBox3 = new javax.swing.JComboBox<>();
+        jFormattedTextField3 = new javax.swing.JFormattedTextField();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        jTextArea2 = new javax.swing.JTextArea();
+        jLabel_ThemNSX = new javax.swing.JLabel();
+        jLabel_XoaNSX = new javax.swing.JLabel();
+        jLabel_ThemNH = new javax.swing.JLabel();
+        jLabel_XoaNH = new javax.swing.JLabel();
         jPanel34 = new javax.swing.JPanel();
-        jPanel35 = new javax.swing.JPanel();
-        jPanel37 = new javax.swing.JPanel();
-        jPanel38 = new javax.swing.JPanel();
-        jPanel39 = new javax.swing.JPanel();
-        jPanel40 = new javax.swing.JPanel();
-        jPanel41 = new javax.swing.JPanel();
-        jPanel36 = new javax.swing.JPanel();
+        jPanel42 = new javax.swing.JPanel();
+        jButton7 = new javax.swing.JButton();
+        jPanel43 = new javax.swing.JPanel();
+        jPanel44 = new javax.swing.JPanel();
+        jPanel_Anh1 = new javax.swing.JPanel();
+        jPanel45 = new javax.swing.JPanel();
+        jPanel_Anh2 = new javax.swing.JPanel();
+        jPanel_Anh3 = new javax.swing.JPanel();
+        jPanel_Anh4 = new javax.swing.JPanel();
+        jPanel_Anh5 = new javax.swing.JPanel();
         CardKhachHang = new javax.swing.JPanel();
         JPanel_Title_TaoNhapKho1 = new javax.swing.JPanel();
         jLabel79 = new javax.swing.JLabel();
@@ -516,13 +543,13 @@ public class Admin extends javax.swing.JFrame {
 
         iconTinNhan.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         iconTinNhan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Mail_32px_2.png"))); // NOI18N
-        iconTinNhan.setText("Tin nhắn chờ");
+        iconTinNhan.setText("Tin nhắn");
 
         javax.swing.GroupLayout MailLayout = new javax.swing.GroupLayout(Mail);
         Mail.setLayout(MailLayout);
         MailLayout.setHorizontalGroup(
             MailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 178, Short.MAX_VALUE)
+            .addGap(0, 167, Short.MAX_VALUE)
             .addGroup(MailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(MailLayout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -562,7 +589,7 @@ public class Admin extends javax.swing.JFrame {
         SuKien.setLayout(SuKienLayout);
         SuKienLayout.setHorizontalGroup(
             SuKienLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 178, Short.MAX_VALUE)
+            .addGap(0, 167, Short.MAX_VALUE)
             .addGroup(SuKienLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(SuKienLayout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -656,7 +683,7 @@ public class Admin extends javax.swing.JFrame {
         jPanel15.setLayout(jPanel15Layout);
         jPanel15Layout.setHorizontalGroup(
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1399, Short.MAX_VALUE)
+            .addGap(0, 1410, Short.MAX_VALUE)
         );
         jPanel15Layout.setVerticalGroup(
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1261,7 +1288,7 @@ public class Admin extends javax.swing.JFrame {
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 905, Short.MAX_VALUE)
+            .addGap(0, 914, Short.MAX_VALUE)
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1768,130 +1795,408 @@ public class Admin extends javax.swing.JFrame {
         jPanel32.setBackground(new java.awt.Color(255, 255, 255));
         jPanel32.setLayout(new javax.swing.BoxLayout(jPanel32, javax.swing.BoxLayout.LINE_AXIS));
 
-        javax.swing.GroupLayout jPanel33Layout = new javax.swing.GroupLayout(jPanel33);
+        jPanel33.setBackground(new java.awt.Color(255, 255, 255));
+        java.awt.GridBagLayout jPanel33Layout = new java.awt.GridBagLayout();
+        jPanel33Layout.columnWidths = new int[] {0, 5, 0, 5, 0, 5, 0};
+        jPanel33Layout.rowHeights = new int[] {0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0};
         jPanel33.setLayout(jPanel33Layout);
-        jPanel33Layout.setHorizontalGroup(
-            jPanel33Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 899, Short.MAX_VALUE)
-        );
-        jPanel33Layout.setVerticalGroup(
-            jPanel33Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 669, Short.MAX_VALUE)
-        );
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        jLabel2.setText("Mã hàng hóa");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.FIRST_LINE_START;
+        gridBagConstraints.weightx = 0.1;
+        gridBagConstraints.weighty = 0.1;
+        gridBagConstraints.insets = new java.awt.Insets(0, 30, 0, 0);
+        jPanel33.add(jLabel2, gridBagConstraints);
+
+        jLabel85.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        jLabel85.setText("Tên hàng hóa");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.FIRST_LINE_START;
+        gridBagConstraints.weighty = 0.1;
+        gridBagConstraints.insets = new java.awt.Insets(0, 30, 0, 0);
+        jPanel33.add(jLabel85, gridBagConstraints);
+
+        jLabel86.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        jLabel86.setText("Giá bán");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.FIRST_LINE_START;
+        gridBagConstraints.weighty = 0.1;
+        gridBagConstraints.insets = new java.awt.Insets(0, 30, 0, 0);
+        jPanel33.add(jLabel86, gridBagConstraints);
+
+        jLabel87.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        jLabel87.setText("Giá vốn");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.FIRST_LINE_START;
+        gridBagConstraints.weighty = 0.1;
+        gridBagConstraints.insets = new java.awt.Insets(0, 30, 0, 0);
+        jPanel33.add(jLabel87, gridBagConstraints);
+
+        jLabel88.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        jLabel88.setText("Nhóm hàng");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 8;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.FIRST_LINE_START;
+        gridBagConstraints.weighty = 0.1;
+        gridBagConstraints.insets = new java.awt.Insets(0, 30, 0, 0);
+        jPanel33.add(jLabel88, gridBagConstraints);
+
+        jLabel89.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        jLabel89.setText("Nhà sản xuất");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 10;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.FIRST_LINE_START;
+        gridBagConstraints.weighty = 0.1;
+        gridBagConstraints.insets = new java.awt.Insets(0, 30, 0, 0);
+        jPanel33.add(jLabel89, gridBagConstraints);
+
+        jLabel90.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        jLabel90.setText("Thuế VAT (%)");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 12;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.FIRST_LINE_START;
+        gridBagConstraints.weighty = 0.1;
+        gridBagConstraints.insets = new java.awt.Insets(0, 30, 0, 0);
+        jPanel33.add(jLabel90, gridBagConstraints);
+
+        jLabel91.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        jLabel91.setText("Mô tả sản phẩm");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 14;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.FIRST_LINE_START;
+        gridBagConstraints.weighty = 0.1;
+        gridBagConstraints.insets = new java.awt.Insets(0, 30, 0, 0);
+        jPanel33.add(jLabel91, gridBagConstraints);
+
+        jTextField6.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 5;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.FIRST_LINE_START;
+        gridBagConstraints.weighty = 0.1;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 20);
+        jPanel33.add(jTextField6, gridBagConstraints);
+
+        jTextField7.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = 5;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.FIRST_LINE_START;
+        gridBagConstraints.weighty = 0.1;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 20);
+        jPanel33.add(jTextField7, gridBagConstraints);
+
+        jFormattedTextField1.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        jFormattedTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jFormattedTextField1ActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridwidth = 5;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.FIRST_LINE_START;
+        gridBagConstraints.weighty = 0.1;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 20);
+        jPanel33.add(jFormattedTextField1, gridBagConstraints);
+
+        jFormattedTextField2.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        jFormattedTextField2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jFormattedTextField2ActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 12;
+        gridBagConstraints.gridwidth = 5;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.FIRST_LINE_START;
+        gridBagConstraints.weighty = 0.1;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 20);
+        jPanel33.add(jFormattedTextField2, gridBagConstraints);
+
+        jComboBox2.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 8;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.ipadx = 600;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.FIRST_LINE_START;
+        gridBagConstraints.weighty = 0.1;
+        jPanel33.add(jComboBox2, gridBagConstraints);
+
+        jComboBox3.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 10;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.ipadx = 380;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.FIRST_LINE_START;
+        gridBagConstraints.weighty = 0.1;
+        jPanel33.add(jComboBox3, gridBagConstraints);
+
+        jFormattedTextField3.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        jFormattedTextField3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jFormattedTextField3ActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridwidth = 5;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.FIRST_LINE_START;
+        gridBagConstraints.weighty = 0.1;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 20);
+        jPanel33.add(jFormattedTextField3, gridBagConstraints);
+
+        jTextArea2.setColumns(20);
+        jTextArea2.setFont(new java.awt.Font("Monospaced", 0, 20)); // NOI18N
+        jTextArea2.setRows(5);
+        jScrollPane5.setViewportView(jTextArea2);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 14;
+        gridBagConstraints.gridwidth = 5;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.ipadx = 300;
+        gridBagConstraints.ipady = 50;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.FIRST_LINE_START;
+        gridBagConstraints.weightx = 0.5;
+        gridBagConstraints.weighty = 0.2;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 20);
+        jPanel33.add(jScrollPane5, gridBagConstraints);
+
+        jLabel_ThemNSX.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Plus_30px_1.png"))); // NOI18N
+        jLabel_ThemNSX.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel_ThemNSXMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel_ThemNSXMouseExited(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 10;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.FIRST_LINE_START;
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        jPanel33.add(jLabel_ThemNSX, gridBagConstraints);
+
+        jLabel_XoaNSX.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Minus_30px.png"))); // NOI18N
+        jLabel_XoaNSX.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel_XoaNSXMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel_XoaNSXMouseExited(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 5;
+        gridBagConstraints.gridy = 10;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.FIRST_LINE_START;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 30);
+        jPanel33.add(jLabel_XoaNSX, gridBagConstraints);
+
+        jLabel_ThemNH.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Plus_30px_1.png"))); // NOI18N
+        jLabel_ThemNH.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel_ThemNHMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel_ThemNHMouseExited(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 8;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.FIRST_LINE_START;
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        jPanel33.add(jLabel_ThemNH, gridBagConstraints);
+
+        jLabel_XoaNH.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Minus_30px.png"))); // NOI18N
+        jLabel_XoaNH.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel_XoaNHMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel_XoaNHMouseExited(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 5;
+        gridBagConstraints.gridy = 8;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.FIRST_LINE_START;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 30);
+        jPanel33.add(jLabel_XoaNH, gridBagConstraints);
 
         jPanel32.add(jPanel33);
 
         jPanel34.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel34.setPreferredSize(new java.awt.Dimension(500, 669));
-        jPanel34.setLayout(new javax.swing.BoxLayout(jPanel34, javax.swing.BoxLayout.PAGE_AXIS));
+        jPanel34.setPreferredSize(new java.awt.Dimension(700, 669));
+        jPanel34.setLayout(new java.awt.BorderLayout());
 
-        jPanel35.setLayout(new java.awt.GridBagLayout());
+        jPanel42.setBackground(new java.awt.Color(255, 255, 255));
 
-        jPanel37.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jButton7.setBackground(new java.awt.Color(71, 184, 107));
+        jButton7.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        jButton7.setForeground(new java.awt.Color(255, 255, 255));
+        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Add_Image_18px.png"))); // NOI18N
+        jButton7.setText("Thêm ảnh");
+        jButton7.setMargin(new java.awt.Insets(5, 15, 5, 15));
 
-        javax.swing.GroupLayout jPanel37Layout = new javax.swing.GroupLayout(jPanel37);
-        jPanel37.setLayout(jPanel37Layout);
-        jPanel37Layout.setHorizontalGroup(
-            jPanel37Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
+        javax.swing.GroupLayout jPanel42Layout = new javax.swing.GroupLayout(jPanel42);
+        jPanel42.setLayout(jPanel42Layout);
+        jPanel42Layout.setHorizontalGroup(
+            jPanel42Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 437, Short.MAX_VALUE)
+            .addGroup(jPanel42Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel42Layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jButton7)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
-        jPanel37Layout.setVerticalGroup(
-            jPanel37Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        jPanel42Layout.setVerticalGroup(
+            jPanel42Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 100, Short.MAX_VALUE)
-        );
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 4;
-        jPanel35.add(jPanel37, gridBagConstraints);
-
-        jPanel38.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        javax.swing.GroupLayout jPanel38Layout = new javax.swing.GroupLayout(jPanel38);
-        jPanel38.setLayout(jPanel38Layout);
-        jPanel38Layout.setHorizontalGroup(
-            jPanel38Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-        jPanel38Layout.setVerticalGroup(
-            jPanel38Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
+            .addGroup(jPanel42Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel42Layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jButton7)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
 
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        jPanel35.add(jPanel38, gridBagConstraints);
+        jPanel34.add(jPanel42, java.awt.BorderLayout.PAGE_END);
 
-        jPanel39.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel43.setLayout(new javax.swing.BoxLayout(jPanel43, javax.swing.BoxLayout.PAGE_AXIS));
 
-        javax.swing.GroupLayout jPanel39Layout = new javax.swing.GroupLayout(jPanel39);
-        jPanel39.setLayout(jPanel39Layout);
-        jPanel39Layout.setHorizontalGroup(
-            jPanel39Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
+        jPanel44.setBackground(new java.awt.Color(255, 255, 255));
+
+        jPanel_Anh1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel_Anh1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        javax.swing.GroupLayout jPanel_Anh1Layout = new javax.swing.GroupLayout(jPanel_Anh1);
+        jPanel_Anh1.setLayout(jPanel_Anh1Layout);
+        jPanel_Anh1Layout.setHorizontalGroup(
+            jPanel_Anh1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 435, Short.MAX_VALUE)
         );
-        jPanel39Layout.setVerticalGroup(
-            jPanel39Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 1;
-        jPanel35.add(jPanel39, gridBagConstraints);
-
-        jPanel40.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        javax.swing.GroupLayout jPanel40Layout = new javax.swing.GroupLayout(jPanel40);
-        jPanel40.setLayout(jPanel40Layout);
-        jPanel40Layout.setHorizontalGroup(
-            jPanel40Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-        jPanel40Layout.setVerticalGroup(
-            jPanel40Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
+        jPanel_Anh1Layout.setVerticalGroup(
+            jPanel_Anh1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 452, Short.MAX_VALUE)
         );
 
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 1;
-        jPanel35.add(jPanel40, gridBagConstraints);
-
-        jPanel41.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        javax.swing.GroupLayout jPanel41Layout = new javax.swing.GroupLayout(jPanel41);
-        jPanel41.setLayout(jPanel41Layout);
-        jPanel41Layout.setHorizontalGroup(
-            jPanel41Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
+        javax.swing.GroupLayout jPanel44Layout = new javax.swing.GroupLayout(jPanel44);
+        jPanel44.setLayout(jPanel44Layout);
+        jPanel44Layout.setHorizontalGroup(
+            jPanel44Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel_Anh1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-        jPanel41Layout.setVerticalGroup(
-            jPanel41Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        jPanel44Layout.setVerticalGroup(
+            jPanel44Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel44Layout.createSequentialGroup()
+                .addComponent(jPanel_Anh1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        jPanel43.add(jPanel44);
+
+        jPanel45.setLayout(new java.awt.GridLayout(1, 4, 2, 0));
+
+        jPanel_Anh2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel_Anh2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel_Anh2.setPreferredSize(new java.awt.Dimension(100, 102));
+
+        javax.swing.GroupLayout jPanel_Anh2Layout = new javax.swing.GroupLayout(jPanel_Anh2);
+        jPanel_Anh2.setLayout(jPanel_Anh2Layout);
+        jPanel_Anh2Layout.setHorizontalGroup(
+            jPanel_Anh2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 105, Short.MAX_VALUE)
+        );
+        jPanel_Anh2Layout.setVerticalGroup(
+            jPanel_Anh2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 100, Short.MAX_VALUE)
         );
 
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 1;
-        jPanel35.add(jPanel41, gridBagConstraints);
+        jPanel45.add(jPanel_Anh2);
 
-        jPanel34.add(jPanel35);
+        jPanel_Anh3.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel_Anh3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        javax.swing.GroupLayout jPanel36Layout = new javax.swing.GroupLayout(jPanel36);
-        jPanel36.setLayout(jPanel36Layout);
-        jPanel36Layout.setHorizontalGroup(
-            jPanel36Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 500, Short.MAX_VALUE)
+        javax.swing.GroupLayout jPanel_Anh3Layout = new javax.swing.GroupLayout(jPanel_Anh3);
+        jPanel_Anh3.setLayout(jPanel_Anh3Layout);
+        jPanel_Anh3Layout.setHorizontalGroup(
+            jPanel_Anh3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 105, Short.MAX_VALUE)
         );
-        jPanel36Layout.setVerticalGroup(
-            jPanel36Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 86, Short.MAX_VALUE)
+        jPanel_Anh3Layout.setVerticalGroup(
+            jPanel_Anh3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
         );
 
-        jPanel34.add(jPanel36);
+        jPanel45.add(jPanel_Anh3);
+
+        jPanel_Anh4.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel_Anh4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        javax.swing.GroupLayout jPanel_Anh4Layout = new javax.swing.GroupLayout(jPanel_Anh4);
+        jPanel_Anh4.setLayout(jPanel_Anh4Layout);
+        jPanel_Anh4Layout.setHorizontalGroup(
+            jPanel_Anh4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 105, Short.MAX_VALUE)
+        );
+        jPanel_Anh4Layout.setVerticalGroup(
+            jPanel_Anh4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+
+        jPanel45.add(jPanel_Anh4);
+
+        jPanel_Anh5.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel_Anh5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        javax.swing.GroupLayout jPanel_Anh5Layout = new javax.swing.GroupLayout(jPanel_Anh5);
+        jPanel_Anh5.setLayout(jPanel_Anh5Layout);
+        jPanel_Anh5Layout.setHorizontalGroup(
+            jPanel_Anh5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 105, Short.MAX_VALUE)
+        );
+        jPanel_Anh5Layout.setVerticalGroup(
+            jPanel_Anh5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+
+        jPanel45.add(jPanel_Anh5);
+
+        jPanel43.add(jPanel45);
+
+        jPanel34.add(jPanel43, java.awt.BorderLayout.CENTER);
 
         jPanel32.add(jPanel34);
 
@@ -2046,7 +2351,7 @@ public class Admin extends javax.swing.JFrame {
         CardTinNhan.setLayout(CardTinNhanLayout);
         CardTinNhanLayout.setHorizontalGroup(
             CardTinNhanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1399, Short.MAX_VALUE)
+            .addGap(0, 1410, Short.MAX_VALUE)
         );
         CardTinNhanLayout.setVerticalGroup(
             CardTinNhanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2342,6 +2647,9 @@ public class Admin extends javax.swing.JFrame {
 
     private void jButton_ThemSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_ThemSPActionPerformed
         // TODO add your handling code here:
+        ImageIcon image = new ImageIcon("/View/icon/icons8_Event_32px.png");
+        JLabel label = new JLabel("", image, JLabel.CENTER);
+        jPanel_Anh1.add(label, BorderLayout.CENTER);
         currenColor = 3;
         disCard();
         CardTaoSanPham.show();
@@ -2359,6 +2667,58 @@ public class Admin extends javax.swing.JFrame {
         SuaKhachHang sKH = new SuaKhachHang(this, true);
         sKH.setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jFormattedTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextField2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jFormattedTextField2ActionPerformed
+
+    private void jFormattedTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jFormattedTextField1ActionPerformed
+
+    private void jFormattedTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextField3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jFormattedTextField3ActionPerformed
+
+    private void jLabel_ThemNHMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_ThemNHMouseEntered
+        // TODO add your handling code here:
+        jLabel_ThemNH.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Plus_30px_2.png")));
+    }//GEN-LAST:event_jLabel_ThemNHMouseEntered
+
+    private void jLabel_ThemNSXMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_ThemNSXMouseEntered
+        // TODO add your handling code here:
+        jLabel_ThemNSX.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Plus_30px_2.png")));
+    }//GEN-LAST:event_jLabel_ThemNSXMouseEntered
+
+    private void jLabel_XoaNHMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_XoaNHMouseEntered
+        // TODO add your handling code here:
+        jLabel_XoaNH.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Minus_30px_1.png")));
+    }//GEN-LAST:event_jLabel_XoaNHMouseEntered
+
+    private void jLabel_XoaNSXMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_XoaNSXMouseEntered
+        // TODO add your handling code here:
+        jLabel_XoaNSX.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Minus_30px_1.png")));
+    }//GEN-LAST:event_jLabel_XoaNSXMouseEntered
+
+    private void jLabel_ThemNHMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_ThemNHMouseExited
+        // TODO add your handling code here:
+        jLabel_ThemNH.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Plus_30px_1.png")));
+    }//GEN-LAST:event_jLabel_ThemNHMouseExited
+
+    private void jLabel_ThemNSXMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_ThemNSXMouseExited
+        // TODO add your handling code here:
+        jLabel_ThemNSX.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Plus_30px_1.png")));
+    }//GEN-LAST:event_jLabel_ThemNSXMouseExited
+
+    private void jLabel_XoaNHMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_XoaNHMouseExited
+        // TODO add your handling code here:
+        jLabel_XoaNH.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Minus_30px.png")));
+    }//GEN-LAST:event_jLabel_XoaNHMouseExited
+
+    private void jLabel_XoaNSXMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_XoaNSXMouseExited
+        // TODO add your handling code here:
+        jLabel_XoaNSX.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Minus_30px.png")));
+    }//GEN-LAST:event_jLabel_XoaNSXMouseExited
 
     /**
      * @param args the command line arguments
@@ -2432,6 +2792,7 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton_NhapHang_LamMoi;
     private javax.swing.JButton jButton_NhapHang_LamMoi1;
     private javax.swing.JButton jButton_NhapHang_XacNhan;
@@ -2442,11 +2803,16 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JButton jButton_XuatExcel;
     private javax.swing.JButton jButton_XuatExcelSP;
     private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> jComboBox2;
+    private javax.swing.JComboBox<String> jComboBox3;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private com.toedter.calendar.JDateChooser jDateChooser2;
     private com.toedter.calendar.JDateChooser jDateChooser3;
     private com.toedter.calendar.JDateChooser jDateChooser4;
     private com.toedter.calendar.JDateChooser jDateChooser5;
+    private javax.swing.JFormattedTextField jFormattedTextField1;
+    private javax.swing.JFormattedTextField jFormattedTextField2;
+    private javax.swing.JFormattedTextField jFormattedTextField3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -2458,6 +2824,7 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
@@ -2529,13 +2896,24 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel82;
     private javax.swing.JLabel jLabel83;
     private javax.swing.JLabel jLabel84;
+    private javax.swing.JLabel jLabel85;
+    private javax.swing.JLabel jLabel86;
+    private javax.swing.JLabel jLabel87;
+    private javax.swing.JLabel jLabel88;
+    private javax.swing.JLabel jLabel89;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel jLabel90;
+    private javax.swing.JLabel jLabel91;
     private javax.swing.JLabel jLabel_Filter_Space;
     private javax.swing.JLabel jLabel_Filter_Space1;
     private javax.swing.JLabel jLabel_TenNguoiDung;
+    private javax.swing.JLabel jLabel_ThemNH;
+    private javax.swing.JLabel jLabel_ThemNSX;
     private javax.swing.JLabel jLabel_TitleNhapKho;
     private javax.swing.JLabel jLabel_Title_DSSP;
     private javax.swing.JLabel jLabel_Title_TSP;
+    private javax.swing.JLabel jLabel_XoaNH;
+    private javax.swing.JLabel jLabel_XoaNSX;
     private javax.swing.JLabel jLabel_slKH;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
@@ -2565,19 +2943,21 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel32;
     private javax.swing.JPanel jPanel33;
     private javax.swing.JPanel jPanel34;
-    private javax.swing.JPanel jPanel35;
-    private javax.swing.JPanel jPanel36;
-    private javax.swing.JPanel jPanel37;
-    private javax.swing.JPanel jPanel38;
-    private javax.swing.JPanel jPanel39;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel40;
-    private javax.swing.JPanel jPanel41;
+    private javax.swing.JPanel jPanel42;
+    private javax.swing.JPanel jPanel43;
+    private javax.swing.JPanel jPanel44;
+    private javax.swing.JPanel jPanel45;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
+    private javax.swing.JPanel jPanel_Anh1;
+    private javax.swing.JPanel jPanel_Anh2;
+    private javax.swing.JPanel jPanel_Anh3;
+    private javax.swing.JPanel jPanel_Anh4;
+    private javax.swing.JPanel jPanel_Anh5;
     private javax.swing.JPanel jPanel_Filter;
     private javax.swing.JPanel jPanel_Filter1;
     private javax.swing.JPanel jPanel_Filter_Left;
@@ -2596,16 +2976,20 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JTable jTable_HangHoa;
     private javax.swing.JTable jTable_PhieuNhapKho;
     private javax.swing.JTable jTable_QLKH;
     private javax.swing.JTable jTable_SanPham;
     private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTextArea jTextArea2;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
+    private javax.swing.JTextField jTextField6;
+    private javax.swing.JTextField jTextField7;
     // End of variables declaration//GEN-END:variables
 }
