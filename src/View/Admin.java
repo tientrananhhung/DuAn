@@ -354,10 +354,6 @@ public class Admin extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jLabel_Filter_Space1 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
-        jLabel32 = new javax.swing.JLabel();
-        jDateChooser4 = new com.toedter.calendar.JDateChooser();
-        jLabel33 = new javax.swing.JLabel();
-        jDateChooser5 = new com.toedter.calendar.JDateChooser();
         jPanel_Show_Info1 = new javax.swing.JPanel();
         jPanel_Under_Info1 = new javax.swing.JPanel();
         jLabel34 = new javax.swing.JLabel();
@@ -1780,41 +1776,6 @@ public class Admin extends javax.swing.JFrame {
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
         jPanel4.setLayout(new java.awt.GridBagLayout());
-
-        jLabel32.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel32.setText("Từ ngày: ");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        gridBagConstraints.weightx = 0.1;
-        gridBagConstraints.insets = new java.awt.Insets(30, 50, 0, 0);
-        jPanel4.add(jLabel32, gridBagConstraints);
-
-        jDateChooser4.setBackground(new java.awt.Color(255, 255, 255));
-        jDateChooser4.setDateFormatString("dd-MM-yyyy");
-        jDateChooser4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.ipadx = 150;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        gridBagConstraints.weightx = 0.1;
-        gridBagConstraints.insets = new java.awt.Insets(30, 0, 0, 0);
-        jPanel4.add(jDateChooser4, gridBagConstraints);
-
-        jLabel33.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel33.setText("đến ngày");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.insets = new java.awt.Insets(30, 0, 0, 0);
-        jPanel4.add(jLabel33, gridBagConstraints);
-
-        jDateChooser5.setBackground(new java.awt.Color(255, 255, 255));
-        jDateChooser5.setDateFormatString("dd-MM-yyyy");
-        jDateChooser5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.ipadx = 150;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
-        gridBagConstraints.weightx = 0.1;
-        gridBagConstraints.insets = new java.awt.Insets(30, 0, 0, 10);
-        jPanel4.add(jDateChooser5, gridBagConstraints);
-
         jPanel_Filter1.add(jPanel4);
 
         jPanel_Show_NhapKho1.add(jPanel_Filter1, java.awt.BorderLayout.PAGE_START);
@@ -3102,8 +3063,6 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jComboBox4;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private com.toedter.calendar.JDateChooser jDateChooser2;
-    private com.toedter.calendar.JDateChooser jDateChooser4;
-    private com.toedter.calendar.JDateChooser jDateChooser5;
     private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JFormattedTextField jFormattedTextField2;
     private javax.swing.JFormattedTextField jFormattedTextField3;
@@ -3132,8 +3091,6 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
-    private javax.swing.JLabel jLabel32;
-    private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel35;
     private javax.swing.JLabel jLabel36;
