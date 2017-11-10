@@ -29,8 +29,8 @@ public class Admin extends javax.swing.JFrame {
      * Creates new form Admin
      */
     int currenColor;
-    Vector head, data, head1, data1, head2, data2, head3, data3;
-    DefaultTableModel modelTable, modelTable1, modelTable2, modelTable3;
+    Vector head, data, head1, data1, head2, data2, head3, data3, head4, data4, head5, data5;
+    DefaultTableModel modelTable, modelTable1, modelTable2, modelTable3, modelTable4, modelTable5;
     String tenND;
     QLKhachHang KH;
 
@@ -56,6 +56,12 @@ public class Admin extends javax.swing.JFrame {
         data1 = new Vector();
         head2 = new Vector();
         data2 = new Vector();
+        head3 = new Vector();
+        data3 = new Vector();
+        head4 = new Vector();
+        data4 = new Vector();
+        head5 = new Vector();
+        data5 = new Vector();
         head.add("Mã hóa đơn");
         head.add("Ngày nhập");
         head.add("Nhà cung cấp");
@@ -74,24 +80,42 @@ public class Admin extends javax.swing.JFrame {
         head2.add("Địa chỉ");
         head2.add("Email");
         head2.add("Loại khách hàng");
-        for (int i = 0; i < KH.getAllList().size(); i++) {
-            data2.add(KH.getAllList().get(i));
-        }
+        head3.add("Mã sản phẩm");
+        head3.add("Tên sản phẩm");
+        head3.add("Số lượng");
+        head3.add("Đơn giá");
+        head3.add("Tổng giá");
+        head4.add("Người nhận");
+        head4.add("Nội dung");
+        head4.add("Ngày gửi");
+        head5.add("Người gửi");
+        head5.add("Nội dung");
+        head5.add("Ngày nhận");
+        head5.add("Trạng thái");
         modelTable = new DefaultTableModel(data, head);
         modelTable1 = new DefaultTableModel(data1, head1);
         modelTable2 = new DefaultTableModel(data2, head2);
+        modelTable3 = new DefaultTableModel(data3, head3);
+        modelTable4 = new DefaultTableModel(data4, head4);
+        modelTable5 = new DefaultTableModel(data5, head5);
         jTable_PhieuNhapKho.setModel(modelTable);
         jTable_PhieuNhapKho.setDefaultEditor(Object.class, null);
         jTable_SanPham.setModel(modelTable1);
         jTable_SanPham.setDefaultEditor(Object.class, null);
         jTable_QLKH.setModel(modelTable2);
-        jLabel_slKH.setText(jTable_QLKH.getRowCount() + "");
-        jLabel_vip.setText(KH.getAllKHVip().toString());
-        jLabel_Standard.setText(KH.getAllKHStandard().toString());
         jTable_QLKH.setDefaultEditor(Object.class, null);
+        jTable_HangHoa.setModel(modelTable3);
+        jTable_HangHoa.setDefaultEditor(Object.class, null);
+        jTable_HopThuDen.setModel(modelTable5);
+        jTable_HopThuDen.setDefaultEditor(Object.class, null);
+        jTable_HopThuDi.setModel(modelTable4);
+        jTable_HopThuDi.setDefaultEditor(Object.class, null);
         jScrollPane1.getViewport().setBackground(Color.WHITE);
         jScrollPane4.getViewport().setBackground(Color.WHITE);
         jScrollPane6.getViewport().setBackground(Color.WHITE);
+        jScrollPane2.getViewport().setBackground(Color.WHITE);
+        jScrollPane7.getViewport().setBackground(Color.WHITE);
+        jScrollPane8.getViewport().setBackground(Color.WHITE);
         DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer();
         headerRenderer.setBackground(new Color(65, 127, 194));
         headerRenderer.setBorder(new LineBorder(Color.black, 1));
@@ -105,6 +129,15 @@ public class Admin extends javax.swing.JFrame {
         for (int i = 0; i < jTable_QLKH.getModel().getColumnCount(); i++) {
             jTable_QLKH.getColumnModel().getColumn(i).setHeaderRenderer(headerRenderer);
         }
+        for (int i = 0; i < jTable_HangHoa.getModel().getColumnCount(); i++) {
+            jTable_HangHoa.getColumnModel().getColumn(i).setHeaderRenderer(headerRenderer);
+        }
+        for (int i = 0; i < jTable_HopThuDen.getModel().getColumnCount(); i++) {
+            jTable_HopThuDen.getColumnModel().getColumn(i).setHeaderRenderer(headerRenderer);
+        }
+        for (int i = 0; i < jTable_HopThuDi.getModel().getColumnCount(); i++) {
+            jTable_HopThuDi.getColumnModel().getColumn(i).setHeaderRenderer(headerRenderer);
+        }
 //        Color color = UIManager.getColor("Table.gridColor");
 //        MatteBorder border = new MatteBorder(5, 5, 0, 0, Color.blue);
 //        jTable_PhieuNhapKho.setBorder(border);
@@ -117,6 +150,7 @@ public class Admin extends javax.swing.JFrame {
         CardSanPham.hide();
         CardTaoSanPham.hide();
         CardKhachHang.hide();
+        CardTinNhan.hide();
     }
 
     public void disSubMenu() {
@@ -144,10 +178,6 @@ public class Admin extends javax.swing.JFrame {
         iconTinNhan.setForeground(Color.BLACK);
         Mail.setBackground(new Color(244, 244, 244));
         iconTinNhan.setFont(new java.awt.Font("Tahoma", 0, 18));
-        iconSuKien.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Event_32px_1.png")));
-        iconSuKien.setForeground(Color.BLACK);
-        SuKien.setBackground(new Color(244, 244, 244));
-        iconSuKien.setFont(new java.awt.Font("Tahoma", 0, 18));
     }
 
     /**
@@ -181,8 +211,6 @@ public class Admin extends javax.swing.JFrame {
         iconKhachHang = new javax.swing.JLabel();
         Mail = new javax.swing.JPanel();
         iconTinNhan = new javax.swing.JLabel();
-        SuKien = new javax.swing.JPanel();
-        iconSuKien = new javax.swing.JLabel();
         DangXuat = new javax.swing.JPanel();
         iconDangXuat = new javax.swing.JLabel();
         HienThi = new javax.swing.JPanel();
@@ -274,6 +302,17 @@ public class Admin extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
+        jPanel35 = new javax.swing.JPanel();
+        jLabel81 = new javax.swing.JLabel();
+        jLabel84 = new javax.swing.JLabel();
+        jLabel92 = new javax.swing.JLabel();
+        jLabel93 = new javax.swing.JLabel();
+        jTextField8 = new javax.swing.JTextField();
+        jSpinner1 = new javax.swing.JSpinner();
+        jLabel_TPN_DonGia = new javax.swing.JLabel();
+        jLabel_TPN_TongGia = new javax.swing.JLabel();
+        jPanel36 = new javax.swing.JPanel();
+        jButton8 = new javax.swing.JButton();
         jPanel9 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable_HangHoa = new javax.swing.JTable();
@@ -282,13 +321,14 @@ public class Admin extends javax.swing.JFrame {
         jLabel17 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
         jLabel18 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
         jLabel19 = new javax.swing.JLabel();
-        jDateChooser3 = new com.toedter.calendar.JDateChooser();
         jLabel20 = new javax.swing.JLabel();
-        jLabel21 = new javax.swing.JLabel();
+        jLabel_TPN_ThemNCC = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
+        jTextField9 = new javax.swing.JTextField();
+        jLabel_TPN_XoaNCC = new javax.swing.JLabel();
+        jComboBox4 = new javax.swing.JComboBox<>();
         jPanel7 = new javax.swing.JPanel();
         jLabel22 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
@@ -395,6 +435,19 @@ public class Admin extends javax.swing.JFrame {
         jScrollPane6 = new javax.swing.JScrollPane();
         jTable_QLKH = new javax.swing.JTable();
         CardTinNhan = new javax.swing.JPanel();
+        JPanel_Title_NhapKho1 = new javax.swing.JPanel();
+        jLabel_TitleTinNhan = new javax.swing.JLabel();
+        jButton_SoanTinNhan = new javax.swing.JButton();
+        jButton_CapNhat = new javax.swing.JButton();
+        jPanel38 = new javax.swing.JPanel();
+        jPanel37 = new javax.swing.JPanel();
+        jLabel21 = new javax.swing.JLabel();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        jTable_HopThuDen = new javax.swing.JTable();
+        jPanel39 = new javax.swing.JPanel();
+        jLabel95 = new javax.swing.JLabel();
+        jScrollPane8 = new javax.swing.JScrollPane();
+        jTable_HopThuDi = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setAlwaysOnTop(true);
@@ -450,7 +503,7 @@ public class Admin extends javax.swing.JFrame {
 
         Menu.setBackground(new java.awt.Color(244, 244, 244));
         Menu.setPreferredSize(new java.awt.Dimension(200, 733));
-        Menu.setLayout(new java.awt.GridLayout(7, 0));
+        Menu.setLayout(new java.awt.GridLayout(6, 0));
 
         TongQuan.setBackground(new java.awt.Color(255, 255, 255));
         TongQuan.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -558,7 +611,7 @@ public class Admin extends javax.swing.JFrame {
         Mail.setLayout(MailLayout);
         MailLayout.setHorizontalGroup(
             MailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 167, Short.MAX_VALUE)
+            .addGap(0, 143, Short.MAX_VALUE)
             .addGroup(MailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(MailLayout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -567,7 +620,7 @@ public class Admin extends javax.swing.JFrame {
         );
         MailLayout.setVerticalGroup(
             MailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 104, Short.MAX_VALUE)
+            .addGap(0, 122, Short.MAX_VALUE)
             .addGroup(MailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(MailLayout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -576,46 +629,6 @@ public class Admin extends javax.swing.JFrame {
         );
 
         Menu.add(Mail);
-
-        SuKien.setBackground(new java.awt.Color(244, 244, 244));
-        SuKien.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                SuKienMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                SuKienMouseExited(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                SuKienMousePressed(evt);
-            }
-        });
-
-        iconSuKien.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        iconSuKien.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Event_32px_1.png"))); // NOI18N
-        iconSuKien.setText("Sự kiện");
-
-        javax.swing.GroupLayout SuKienLayout = new javax.swing.GroupLayout(SuKien);
-        SuKien.setLayout(SuKienLayout);
-        SuKienLayout.setHorizontalGroup(
-            SuKienLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 167, Short.MAX_VALUE)
-            .addGroup(SuKienLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(SuKienLayout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(iconSuKien)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-        );
-        SuKienLayout.setVerticalGroup(
-            SuKienLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 104, Short.MAX_VALUE)
-            .addGroup(SuKienLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(SuKienLayout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(iconSuKien)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-        );
-
-        Menu.add(SuKien);
 
         DangXuat.setBackground(new java.awt.Color(244, 244, 244));
         DangXuat.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -692,7 +705,7 @@ public class Admin extends javax.swing.JFrame {
         jPanel15.setLayout(jPanel15Layout);
         jPanel15Layout.setHorizontalGroup(
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1410, Short.MAX_VALUE)
+            .addGap(0, 1434, Short.MAX_VALUE)
         );
         jPanel15Layout.setVerticalGroup(
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1228,7 +1241,7 @@ public class Admin extends javax.swing.JFrame {
 
         jLabel16.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         jLabel16.setForeground(new java.awt.Color(0, 102, 255));
-        jLabel16.setText("Tạo phiếu nhập");
+        jLabel16.setText("Tạo Phiếu Nhập");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
@@ -1291,25 +1304,124 @@ public class Admin extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Thông tin hàng hoá", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 0, 24))); // NOI18N
         jPanel1.setPreferredSize(new java.awt.Dimension(1052, 689));
-        jPanel1.setLayout(new java.awt.GridLayout(2, 1));
+        jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.PAGE_AXIS));
 
-        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
-        jPanel8.setLayout(jPanel8Layout);
-        jPanel8Layout.setHorizontalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 914, Short.MAX_VALUE)
-        );
-        jPanel8Layout.setVerticalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 326, Short.MAX_VALUE)
-        );
+        jPanel8.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel8.setLayout(new javax.swing.BoxLayout(jPanel8, javax.swing.BoxLayout.LINE_AXIS));
+
+        jPanel35.setBackground(new java.awt.Color(255, 255, 255));
+        java.awt.GridBagLayout jPanel35Layout = new java.awt.GridBagLayout();
+        jPanel35Layout.columnWidths = new int[] {0, 5, 0};
+        jPanel35Layout.rowHeights = new int[] {0, 5, 0, 5, 0, 5, 0};
+        jPanel35.setLayout(jPanel35Layout);
+
+        jLabel81.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        jLabel81.setText("Sản phẩm");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.weightx = 0.1;
+        gridBagConstraints.weighty = 0.1;
+        gridBagConstraints.insets = new java.awt.Insets(0, 30, 0, 0);
+        jPanel35.add(jLabel81, gridBagConstraints);
+
+        jLabel84.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        jLabel84.setText("Số lượng");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.weighty = 0.1;
+        gridBagConstraints.insets = new java.awt.Insets(0, 30, 0, 0);
+        jPanel35.add(jLabel84, gridBagConstraints);
+
+        jLabel92.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        jLabel92.setText("Đơn giá");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.weighty = 0.1;
+        gridBagConstraints.insets = new java.awt.Insets(0, 30, 0, 0);
+        jPanel35.add(jLabel92, gridBagConstraints);
+
+        jLabel93.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        jLabel93.setText("Tổng giá");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.weighty = 0.1;
+        gridBagConstraints.insets = new java.awt.Insets(0, 30, 0, 0);
+        jPanel35.add(jLabel93, gridBagConstraints);
+
+        jTextField8.setEditable(false);
+        jTextField8.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        jTextField8.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTextField8MouseClicked(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.ipadx = 600;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.weightx = 1.0;
+        jPanel35.add(jTextField8, gridBagConstraints);
+
+        jSpinner1.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        jSpinner1.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.ipadx = 567;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        jPanel35.add(jSpinner1, gridBagConstraints);
+
+        jLabel_TPN_DonGia.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        jLabel_TPN_DonGia.setText("0");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        jPanel35.add(jLabel_TPN_DonGia, gridBagConstraints);
+
+        jLabel_TPN_TongGia.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        jLabel_TPN_TongGia.setText("0");
+        jLabel_TPN_TongGia.setToolTipText("");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        jPanel35.add(jLabel_TPN_TongGia, gridBagConstraints);
+
+        jPanel8.add(jPanel35);
+
+        jPanel36.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel36.setLayout(new java.awt.GridBagLayout());
+
+        jButton8.setBackground(new java.awt.Color(65, 127, 194));
+        jButton8.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jButton8.setForeground(new java.awt.Color(255, 255, 255));
+        jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Input_18px.png"))); // NOI18N
+        jButton8.setText("Thêm/Sửa");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.ipadx = 10;
+        gridBagConstraints.ipady = 10;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
+        jPanel36.add(jButton8, gridBagConstraints);
+
+        jPanel8.add(jPanel36);
 
         jPanel1.add(jPanel8);
 
         jPanel9.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel9.setPreferredSize(new java.awt.Dimension(452, 602));
         jPanel9.setLayout(new java.awt.GridLayout(1, 0));
 
-        jTable_HangHoa.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jTable_HangHoa.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
         jTable_HangHoa.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -1334,7 +1446,7 @@ public class Admin extends javax.swing.JFrame {
         jPanel6.setBackground(new java.awt.Color(255, 255, 255));
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Thông tin hoá đơn", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 0, 24))); // NOI18N
         java.awt.GridBagLayout jPanel6Layout = new java.awt.GridBagLayout();
-        jPanel6Layout.columnWidths = new int[] {0, 5, 0, 5, 0};
+        jPanel6Layout.columnWidths = new int[] {0, 5, 0, 5, 0, 5, 0, 5, 0};
         jPanel6Layout.rowHeights = new int[] {0, 5, 0, 5, 0, 5, 0};
         jPanel6.setLayout(jPanel6Layout);
 
@@ -1346,11 +1458,12 @@ public class Admin extends javax.swing.JFrame {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
         jPanel6.add(jLabel17, gridBagConstraints);
 
+        jTextField2.setEditable(false);
         jTextField2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.gridwidth = 5;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.ipady = 10;
         gridBagConstraints.insets = new java.awt.Insets(0, 20, 0, 0);
@@ -1364,16 +1477,6 @@ public class Admin extends javax.swing.JFrame {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
         jPanel6.add(jLabel18, gridBagConstraints);
 
-        jTextField3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.ipadx = 190;
-        gridBagConstraints.ipady = 10;
-        gridBagConstraints.insets = new java.awt.Insets(0, 20, 0, 0);
-        jPanel6.add(jTextField3, gridBagConstraints);
-
         jLabel19.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel19.setText("Ngày nhập");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -1381,18 +1484,6 @@ public class Admin extends javax.swing.JFrame {
         gridBagConstraints.gridy = 4;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
         jPanel6.add(jLabel19, gridBagConstraints);
-
-        jDateChooser3.setBackground(new java.awt.Color(255, 255, 255));
-        jDateChooser3.setDateFormatString("dd-MM-yyyy");
-        jDateChooser3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.gridwidth = 3;
-        gridBagConstraints.ipadx = 140;
-        gridBagConstraints.ipady = 10;
-        gridBagConstraints.insets = new java.awt.Insets(0, 20, 0, 0);
-        jPanel6.add(jDateChooser3, gridBagConstraints);
 
         jLabel20.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel20.setText("Ghi Chú");
@@ -1402,11 +1493,22 @@ public class Admin extends javax.swing.JFrame {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
         jPanel6.add(jLabel20, gridBagConstraints);
 
-        jLabel21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Plus_2_Math_18px.png"))); // NOI18N
+        jLabel_TPN_ThemNCC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Plus_30px_1.png"))); // NOI18N
+        jLabel_TPN_ThemNCC.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel_TPN_ThemNCCMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel_TPN_ThemNCCMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel_TPN_ThemNCCMousePressed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 2;
-        jPanel6.add(jLabel21, gridBagConstraints);
+        jPanel6.add(jLabel_TPN_ThemNCC, gridBagConstraints);
 
         jTextArea1.setColumns(20);
         jTextArea1.setFont(new java.awt.Font("Monospaced", 0, 18)); // NOI18N
@@ -1416,10 +1518,49 @@ public class Admin extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 6;
-        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.gridwidth = 5;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.insets = new java.awt.Insets(0, 20, 0, 0);
         jPanel6.add(jScrollPane3, gridBagConstraints);
+
+        jTextField9.setEditable(false);
+        jTextField9.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridwidth = 5;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.ipady = 10;
+        gridBagConstraints.insets = new java.awt.Insets(0, 20, 0, 0);
+        jPanel6.add(jTextField9, gridBagConstraints);
+
+        jLabel_TPN_XoaNCC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Minus_30px.png"))); // NOI18N
+        jLabel_TPN_XoaNCC.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel_TPN_XoaNCCMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel_TPN_XoaNCCMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel_TPN_XoaNCCMousePressed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 6;
+        gridBagConstraints.gridy = 2;
+        jPanel6.add(jLabel_TPN_XoaNCC, gridBagConstraints);
+
+        jComboBox4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.ipadx = 190;
+        gridBagConstraints.ipady = 10;
+        gridBagConstraints.insets = new java.awt.Insets(0, 20, 0, 0);
+        jPanel6.add(jComboBox4, gridBagConstraints);
 
         jPanel5.add(jPanel6);
 
@@ -2084,7 +2225,7 @@ public class Admin extends javax.swing.JFrame {
         jPanel42.setLayout(jPanel42Layout);
         jPanel42Layout.setHorizontalGroup(
             jPanel42Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 437, Short.MAX_VALUE)
+            .addGap(0, 461, Short.MAX_VALUE)
             .addGroup(jPanel42Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel42Layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -2114,7 +2255,7 @@ public class Admin extends javax.swing.JFrame {
         jPanel_Anh1.setLayout(jPanel_Anh1Layout);
         jPanel_Anh1Layout.setHorizontalGroup(
             jPanel_Anh1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 435, Short.MAX_VALUE)
+            .addGap(0, 459, Short.MAX_VALUE)
         );
         jPanel_Anh1Layout.setVerticalGroup(
             jPanel_Anh1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2146,7 +2287,7 @@ public class Admin extends javax.swing.JFrame {
         jPanel_Anh2.setLayout(jPanel_Anh2Layout);
         jPanel_Anh2Layout.setHorizontalGroup(
             jPanel_Anh2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 105, Short.MAX_VALUE)
+            .addGap(0, 111, Short.MAX_VALUE)
         );
         jPanel_Anh2Layout.setVerticalGroup(
             jPanel_Anh2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2162,7 +2303,7 @@ public class Admin extends javax.swing.JFrame {
         jPanel_Anh3.setLayout(jPanel_Anh3Layout);
         jPanel_Anh3Layout.setHorizontalGroup(
             jPanel_Anh3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 105, Short.MAX_VALUE)
+            .addGap(0, 111, Short.MAX_VALUE)
         );
         jPanel_Anh3Layout.setVerticalGroup(
             jPanel_Anh3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2178,7 +2319,7 @@ public class Admin extends javax.swing.JFrame {
         jPanel_Anh4.setLayout(jPanel_Anh4Layout);
         jPanel_Anh4Layout.setHorizontalGroup(
             jPanel_Anh4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 105, Short.MAX_VALUE)
+            .addGap(0, 111, Short.MAX_VALUE)
         );
         jPanel_Anh4Layout.setVerticalGroup(
             jPanel_Anh4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2194,7 +2335,7 @@ public class Admin extends javax.swing.JFrame {
         jPanel_Anh5.setLayout(jPanel_Anh5Layout);
         jPanel_Anh5Layout.setHorizontalGroup(
             jPanel_Anh5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 105, Short.MAX_VALUE)
+            .addGap(0, 111, Short.MAX_VALUE)
         );
         jPanel_Anh5Layout.setVerticalGroup(
             jPanel_Anh5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2221,7 +2362,7 @@ public class Admin extends javax.swing.JFrame {
 
         jLabel79.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         jLabel79.setForeground(new java.awt.Color(0, 102, 255));
-        jLabel79.setText("Quản lý khách hàng");
+        jLabel79.setText("Quản Lý Khách Hàng");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
@@ -2365,17 +2506,101 @@ public class Admin extends javax.swing.JFrame {
         HienThi.add(CardKhachHang, "card7");
 
         CardTinNhan.setBackground(new java.awt.Color(255, 255, 255));
+        CardTinNhan.setLayout(new java.awt.BorderLayout());
 
-        javax.swing.GroupLayout CardTinNhanLayout = new javax.swing.GroupLayout(CardTinNhan);
-        CardTinNhan.setLayout(CardTinNhanLayout);
-        CardTinNhanLayout.setHorizontalGroup(
-            CardTinNhanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1410, Short.MAX_VALUE)
-        );
-        CardTinNhanLayout.setVerticalGroup(
-            CardTinNhanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 733, Short.MAX_VALUE)
-        );
+        JPanel_Title_NhapKho1.setBackground(new java.awt.Color(255, 255, 255));
+        JPanel_Title_NhapKho1.setLayout(new java.awt.GridBagLayout());
+
+        jLabel_TitleTinNhan.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
+        jLabel_TitleTinNhan.setForeground(new java.awt.Color(0, 102, 255));
+        jLabel_TitleTinNhan.setText("Danh Sách Tin Nhắn");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.weightx = 0.1;
+        gridBagConstraints.insets = new java.awt.Insets(0, 20, 0, 0);
+        JPanel_Title_NhapKho1.add(jLabel_TitleTinNhan, gridBagConstraints);
+
+        jButton_SoanTinNhan.setBackground(new java.awt.Color(65, 127, 194));
+        jButton_SoanTinNhan.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jButton_SoanTinNhan.setForeground(new java.awt.Color(255, 255, 255));
+        jButton_SoanTinNhan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Plus_Math_18px.png"))); // NOI18N
+        jButton_SoanTinNhan.setText("Soạn");
+        jButton_SoanTinNhan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_SoanTinNhanActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.ipadx = 80;
+        gridBagConstraints.ipady = 10;
+        JPanel_Title_NhapKho1.add(jButton_SoanTinNhan, gridBagConstraints);
+
+        jButton_CapNhat.setBackground(new java.awt.Color(71, 184, 107));
+        jButton_CapNhat.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jButton_CapNhat.setForeground(new java.awt.Color(255, 255, 255));
+        jButton_CapNhat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Refresh_18px.png"))); // NOI18N
+        jButton_CapNhat.setText("Cập nhật");
+        jButton_CapNhat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_CapNhatActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.ipadx = 50;
+        gridBagConstraints.ipady = 10;
+        JPanel_Title_NhapKho1.add(jButton_CapNhat, gridBagConstraints);
+
+        CardTinNhan.add(JPanel_Title_NhapKho1, java.awt.BorderLayout.PAGE_START);
+
+        jPanel38.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel38.setLayout(new java.awt.GridLayout(1, 2, 20, 0));
+
+        jPanel37.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel37.setLayout(new java.awt.BorderLayout(0, 10));
+
+        jLabel21.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel21.setForeground(new java.awt.Color(150, 40, 27));
+        jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel21.setText("HỘP THƯ ĐẾN");
+        jPanel37.add(jLabel21, java.awt.BorderLayout.PAGE_START);
+
+        jTable_HopThuDen.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        jTable_HopThuDen.getTableHeader().setResizingAllowed(false);
+        jTable_HopThuDen.getTableHeader().setReorderingAllowed(false);
+        jScrollPane7.setViewportView(jTable_HopThuDen);
+
+        jPanel37.add(jScrollPane7, java.awt.BorderLayout.CENTER);
+
+        jPanel38.add(jPanel37);
+
+        jPanel39.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel39.setLayout(new java.awt.BorderLayout(0, 10));
+
+        jLabel95.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel95.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel95.setForeground(new java.awt.Color(150, 40, 27));
+        jLabel95.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel95.setText("HỘP THƯ ĐI");
+        jPanel39.add(jLabel95, java.awt.BorderLayout.PAGE_START);
+
+        jTable_HopThuDi.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        jTable_HopThuDi.getTableHeader().setResizingAllowed(false);
+        jTable_HopThuDi.getTableHeader().setReorderingAllowed(false);
+        jScrollPane8.setViewportView(jTable_HopThuDi);
+
+        jPanel39.add(jScrollPane8, java.awt.BorderLayout.CENTER);
+
+        jPanel38.add(jPanel39);
+
+        CardTinNhan.add(jPanel38, java.awt.BorderLayout.CENTER);
 
         HienThi.add(CardTinNhan, "card8");
 
@@ -2586,14 +2811,6 @@ public class Admin extends javax.swing.JFrame {
         iconTinNhan.setFont(new java.awt.Font("Tahoma", 1, 18));
     }//GEN-LAST:event_MailMouseEntered
 
-    private void SuKienMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SuKienMouseEntered
-        // TODO add your handling code here:
-        iconSuKien.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Event_32px.png")));
-        SuKien.setBackground(Color.WHITE);
-        iconSuKien.setForeground(new Color(100, 149, 237));
-        iconSuKien.setFont(new java.awt.Font("Tahoma", 1, 18));
-    }//GEN-LAST:event_SuKienMouseEntered
-
     private void KhachHangMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_KhachHangMouseExited
         // TODO add your handling code here:
         if (currenColor != 4) {
@@ -2614,18 +2831,14 @@ public class Admin extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_MailMouseExited
 
-    private void SuKienMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SuKienMouseExited
-        // TODO add your handling code here:
-        if (currenColor != 6) {
-            iconSuKien.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Event_32px_1.png")));
-            iconSuKien.setForeground(Color.BLACK);
-            SuKien.setBackground(new Color(244, 244, 244));
-            iconSuKien.setFont(new java.awt.Font("Tahoma", 0, 18));
-        }
-    }//GEN-LAST:event_SuKienMouseExited
-
     private void KhachHangMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_KhachHangMousePressed
         // TODO add your handling code here:
+        for (int i = 0; i < KH.getAllList().size(); i++) {
+            data2.add(KH.getAllList().get(i));
+        }
+        jLabel_slKH.setText(jTable_QLKH.getRowCount() + "");
+        jLabel_vip.setText(KH.getAllKHVip().toString());
+        jLabel_Standard.setText(KH.getAllKHStandard().toString());
         currenColor = 4;
         disCard();
         CardKhachHang.show();
@@ -2640,25 +2853,13 @@ public class Admin extends javax.swing.JFrame {
         // TODO add your handling code here:
         currenColor = 5;
         disCard();
-        CardKhachHang.show();
+        CardTinNhan.show();
         disSubMenu();
         iconTinNhan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Mail_32px_3.png")));
         Mail.setBackground(Color.WHITE);
         iconTinNhan.setForeground(new Color(100, 149, 237));
         iconTinNhan.setFont(new java.awt.Font("Tahoma", 1, 18));
     }//GEN-LAST:event_MailMousePressed
-
-    private void SuKienMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SuKienMousePressed
-        // TODO add your handling code here:
-        currenColor = 6;
-        disCard();
-        CardSanPham.show();
-        disSubMenu();
-        iconSuKien.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Event_32px.png")));
-        SuKien.setBackground(Color.WHITE);
-        iconSuKien.setForeground(new Color(100, 149, 237));
-        iconSuKien.setFont(new java.awt.Font("Tahoma", 1, 18));
-    }//GEN-LAST:event_SuKienMousePressed
 
     private void jButton_NhapHang_huy1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_NhapHang_huy1ActionPerformed
         // TODO add your handling code here:
@@ -2769,6 +2970,48 @@ public class Admin extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton4ActionPerformed
 
+    private void jLabel_TPN_ThemNCCMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_TPN_ThemNCCMouseEntered
+        // TODO add your handling code here:
+        jLabel_TPN_ThemNCC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Plus_30px_2.png")));
+    }//GEN-LAST:event_jLabel_TPN_ThemNCCMouseEntered
+
+    private void jLabel_TPN_ThemNCCMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_TPN_ThemNCCMouseExited
+        // TODO add your handling code here:
+        jLabel_TPN_ThemNCC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Plus_30px_1.png")));
+    }//GEN-LAST:event_jLabel_TPN_ThemNCCMouseExited
+
+    private void jLabel_TPN_ThemNCCMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_TPN_ThemNCCMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel_TPN_ThemNCCMousePressed
+
+    private void jLabel_TPN_XoaNCCMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_TPN_XoaNCCMouseEntered
+        // TODO add your handling code here:
+        jLabel_TPN_XoaNCC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Minus_30px_1.png")));
+    }//GEN-LAST:event_jLabel_TPN_XoaNCCMouseEntered
+
+    private void jLabel_TPN_XoaNCCMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_TPN_XoaNCCMouseExited
+        // TODO add your handling code here:
+        jLabel_TPN_XoaNCC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Minus_30px.png")));
+    }//GEN-LAST:event_jLabel_TPN_XoaNCCMouseExited
+
+    private void jLabel_TPN_XoaNCCMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_TPN_XoaNCCMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel_TPN_XoaNCCMousePressed
+
+    private void jButton_SoanTinNhanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_SoanTinNhanActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton_SoanTinNhanActionPerformed
+
+    private void jButton_CapNhatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_CapNhatActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton_CapNhatActionPerformed
+
+    private void jTextField8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextField8MouseClicked
+        // TODO add your handling code here:
+        PhieuNhapSanPham pnsp = new PhieuNhapSanPham(this, true);
+        pnsp.setVisible(true);
+    }//GEN-LAST:event_jTextField8MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -2818,6 +3061,7 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JPanel HangHoa;
     private javax.swing.JPanel HienThi;
     private javax.swing.JPanel JPanel_Title_NhapKho;
+    private javax.swing.JPanel JPanel_Title_NhapKho1;
     private javax.swing.JPanel JPanel_Title_TaoNhapKho;
     private javax.swing.JPanel JPanel_Title_TaoNhapKho1;
     private javax.swing.JPanel KhachHang;
@@ -2825,14 +3069,12 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JPanel Menu;
     private javax.swing.JLabel Minimize;
     private javax.swing.JPanel NhapKho;
-    private javax.swing.JPanel SuKien;
     private javax.swing.JPanel TongQuan;
     private javax.swing.JLabel X;
     private javax.swing.JLabel iconDangXuat;
     private javax.swing.JLabel iconKhachHang;
     private javax.swing.JLabel iconNhapKho;
     private javax.swing.JLabel iconSanPham;
-    private javax.swing.JLabel iconSuKien;
     private javax.swing.JLabel iconTinNhan;
     private javax.swing.JLabel iconTongQuan;
     private javax.swing.JButton jButton1;
@@ -2842,11 +3084,14 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton8;
+    private javax.swing.JButton jButton_CapNhat;
     private javax.swing.JButton jButton_NhapHang_LamMoi;
     private javax.swing.JButton jButton_NhapHang_LamMoi1;
     private javax.swing.JButton jButton_NhapHang_XacNhan;
     private javax.swing.JButton jButton_NhapHang_huy;
     private javax.swing.JButton jButton_NhapHang_huy1;
+    private javax.swing.JButton jButton_SoanTinNhan;
     private javax.swing.JButton jButton_TaoPhieuNhap;
     private javax.swing.JButton jButton_ThemSP;
     private javax.swing.JButton jButton_XuatExcel;
@@ -2854,9 +3099,9 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JComboBox<String> jComboBox3;
+    private javax.swing.JComboBox<String> jComboBox4;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private com.toedter.calendar.JDateChooser jDateChooser2;
-    private com.toedter.calendar.JDateChooser jDateChooser3;
     private com.toedter.calendar.JDateChooser jDateChooser4;
     private com.toedter.calendar.JDateChooser jDateChooser5;
     private javax.swing.JFormattedTextField jFormattedTextField1;
@@ -2941,8 +3186,10 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel79;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel80;
+    private javax.swing.JLabel jLabel81;
     private javax.swing.JLabel jLabel82;
     private javax.swing.JLabel jLabel83;
+    private javax.swing.JLabel jLabel84;
     private javax.swing.JLabel jLabel85;
     private javax.swing.JLabel jLabel86;
     private javax.swing.JLabel jLabel87;
@@ -2951,13 +3198,21 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabel90;
     private javax.swing.JLabel jLabel91;
+    private javax.swing.JLabel jLabel92;
+    private javax.swing.JLabel jLabel93;
+    private javax.swing.JLabel jLabel95;
     private javax.swing.JLabel jLabel_Filter_Space;
     private javax.swing.JLabel jLabel_Filter_Space1;
     private javax.swing.JLabel jLabel_Standard;
+    private javax.swing.JLabel jLabel_TPN_DonGia;
+    private javax.swing.JLabel jLabel_TPN_ThemNCC;
+    private javax.swing.JLabel jLabel_TPN_TongGia;
+    private javax.swing.JLabel jLabel_TPN_XoaNCC;
     private javax.swing.JLabel jLabel_TenNguoiDung;
     private javax.swing.JLabel jLabel_ThemNH;
     private javax.swing.JLabel jLabel_ThemNSX;
     private javax.swing.JLabel jLabel_TitleNhapKho;
+    private javax.swing.JLabel jLabel_TitleTinNhan;
     private javax.swing.JLabel jLabel_Title_DSSP;
     private javax.swing.JLabel jLabel_Title_TSP;
     private javax.swing.JLabel jLabel_XoaNH;
@@ -2992,6 +3247,11 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel32;
     private javax.swing.JPanel jPanel33;
     private javax.swing.JPanel jPanel34;
+    private javax.swing.JPanel jPanel35;
+    private javax.swing.JPanel jPanel36;
+    private javax.swing.JPanel jPanel37;
+    private javax.swing.JPanel jPanel38;
+    private javax.swing.JPanel jPanel39;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel42;
     private javax.swing.JPanel jPanel43;
@@ -3027,7 +3287,12 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
+    private javax.swing.JScrollPane jScrollPane8;
+    private javax.swing.JSpinner jSpinner1;
     private javax.swing.JTable jTable_HangHoa;
+    private javax.swing.JTable jTable_HopThuDen;
+    private javax.swing.JTable jTable_HopThuDi;
     private javax.swing.JTable jTable_PhieuNhapKho;
     private javax.swing.JTable jTable_QLKH;
     private javax.swing.JTable jTable_SanPham;
@@ -3035,10 +3300,11 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JTextArea jTextArea2;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;
+    private javax.swing.JTextField jTextField8;
+    private javax.swing.JTextField jTextField9;
     // End of variables declaration//GEN-END:variables
 }
