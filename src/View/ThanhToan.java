@@ -5,6 +5,7 @@
  */
 package View;
 
+import Controller.QLDSHang;
 import java.awt.Color;
 import java.util.Vector;
 import javax.swing.JFrame;
@@ -27,6 +28,7 @@ public class ThanhToan extends javax.swing.JFrame {
     Vector head, data, head1, data1;
     DefaultTableModel modelTable, modelTable1;
     String tenND;
+    QLDSHang DS;
 
     public ThanhToan() {
         initComponents();
@@ -41,6 +43,7 @@ public class ThanhToan extends javax.swing.JFrame {
     }
 
     public void changeTable() {
+        DS = new QLDSHang();
         head = new Vector();
         data = new Vector();
         head1 = new Vector();
@@ -52,6 +55,9 @@ public class ThanhToan extends javax.swing.JFrame {
         head1.add("Tên mặt hàng");
         head1.add("Giá bán");
         head1.add("Số lượng");
+        for (int i = 0; i < DS.getAllList().size(); i++) {
+            data.add(DS.getAllList().get(i));
+        }
         modelTable = new DefaultTableModel(data, head);
         modelTable1 = new DefaultTableModel(data1, head1);
         jTable_HangHoa.setModel(modelTable);
@@ -210,6 +216,11 @@ public class ThanhToan extends javax.swing.JFrame {
         jPanel1.add(jLabel1, gridBagConstraints);
 
         jTextField1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField1KeyReleased(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 3.3;
@@ -222,6 +233,11 @@ public class ThanhToan extends javax.swing.JFrame {
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Search_32px.png"))); // NOI18N
         jButton1.setText("Tìm");
         jButton1.setToolTipText("Tìm kiếm theo mã hàng hoá");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.ipadx = 20;
         gridBagConstraints.ipady = 10;
@@ -340,6 +356,11 @@ public class ThanhToan extends javax.swing.JFrame {
             }
         ));
         jTable_HangHoa.getTableHeader().setReorderingAllowed(false);
+        jTable_HangHoa.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable_HangHoaMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(jTable_HangHoa);
 
         jPanel4.add(jScrollPane2);
@@ -582,6 +603,69 @@ public class ThanhToan extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_X1MouseClicked
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // Tim kiem hang hoa
+        if (jTextField1.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Không tìm thấy hàng hóa");
+        } else {
+            modelTable.setRowCount(0);
+            for (int i = 0; i < DS.findByID(jTextField1.getText()).size(); i++) {
+                data.add(DS.findByID(jTextField1.getText()).get(i));
+            }
+            modelTable.fireTableDataChanged();
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased
+        // TODO add your handling code here:
+        modelTable.setRowCount(0);
+        for (int i = 0; i < DS.findByID(jTextField1.getText()).size(); i++) {
+            data.add(DS.findByID(jTextField1.getText()).get(i));
+        }
+        modelTable.fireTableDataChanged();
+    }//GEN-LAST:event_jTextField1KeyReleased
+
+    private void jTable_HangHoaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable_HangHoaMouseClicked
+        // TODO add your handling code here:
+        // TODO add your handling code here:
+        Vector vt = new Vector();
+        boolean ck = true;
+        if (jTable_ThanhToan.getRowCount() != 0) {
+            if (Integer.parseInt(jTable_HangHoa.getValueAt(jTable_HangHoa.getSelectedRow(), 3).toString()) != 0) {
+                for (int i = 0; i < jTable_ThanhToan.getRowCount(); i++) {
+                    if (jTable_HangHoa.getValueAt(jTable_HangHoa.getSelectedRow(), 1).equals(jTable_ThanhToan.getValueAt(i, 0))) {
+                        int so1 = Integer.parseInt(jTable_HangHoa.getValueAt(jTable_HangHoa.getSelectedRow(), 3).toString()) - 1;
+                        int so2 = Integer.parseInt(jTable_ThanhToan.getValueAt(i, 2).toString()) + 1;
+                        jTable_HangHoa.setValueAt(so1, jTable_HangHoa.getSelectedRow(), 3);
+                        jTable_ThanhToan.setValueAt(so2, i, 2);
+                        ck = false;
+                        break;
+                    }
+                }
+                if (ck == true) {
+                    int so3 = Integer.parseInt(jTable_HangHoa.getValueAt(jTable_HangHoa.getSelectedRow(), 3).toString()) - 1;
+                    for (int t = 1; t < 3; t++) {
+                        vt.add(jTable_HangHoa.getValueAt(jTable_HangHoa.getSelectedRow(), t));
+                    }
+                    jTable_HangHoa.setValueAt(so3, jTable_HangHoa.getSelectedRow(), 3);
+                    vt.add(1);
+                    modelTable1.addRow(vt);
+                }
+            }
+        }
+        if (jTable_ThanhToan.getRowCount() == 0) {
+            if (Integer.parseInt(jTable_HangHoa.getValueAt(jTable_HangHoa.getSelectedRow(), 3).toString()) != 0) {
+                int so = Integer.parseInt(jTable_HangHoa.getValueAt(jTable_HangHoa.getSelectedRow(), 3).toString()) - 1;
+                for (int t = 1; t < 3; t++) {
+                    vt.add(jTable_HangHoa.getValueAt(jTable_HangHoa.getSelectedRow(), t));
+                    jTable_HangHoa.setValueAt(so, jTable_HangHoa.getSelectedRow(), 3);
+                }
+                vt.add(1);
+                modelTable1.addRow(vt);
+            }
+        }
+    }//GEN-LAST:event_jTable_HangHoaMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -649,8 +733,6 @@ public class ThanhToan extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
-    private javax.swing.JPanel jPanel13;
-    private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel15;
     private javax.swing.JPanel jPanel16;
     private javax.swing.JPanel jPanel17;
