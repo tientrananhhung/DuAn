@@ -135,10 +135,10 @@ public class QLKhachHang {
         return kq;
     }
 
-    public static void main(String[] args) {
-        QLKhachHang a = new QLKhachHang();
-        System.out.println(a.update("12", "a1", "a", "a", "a"));
-    }
+//    public static void main(String[] args) {
+//        QLKhachHang a = new QLKhachHang();
+//        System.out.println(a.update("12", "a1", "a", "a", "a"));
+//    }
 
     public Vector getAllKHVip() {
         Vector kq = new Vector();

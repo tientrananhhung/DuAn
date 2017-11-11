@@ -92,6 +92,9 @@ public class Admin extends javax.swing.JFrame {
         head5.add("Nội dung");
         head5.add("Ngày nhận");
         head5.add("Trạng thái");
+        for (int i = 0; i < KH.getAllList().size(); i++) {
+            data2.add(KH.getAllList().get(i));
+        }
         modelTable = new DefaultTableModel(data, head);
         modelTable1 = new DefaultTableModel(data1, head1);
         modelTable2 = new DefaultTableModel(data2, head2);
@@ -110,6 +113,9 @@ public class Admin extends javax.swing.JFrame {
         jTable_HopThuDen.setDefaultEditor(Object.class, null);
         jTable_HopThuDi.setModel(modelTable4);
         jTable_HopThuDi.setDefaultEditor(Object.class, null);
+        jLabel_slKH.setText(jTable_QLKH.getRowCount() + "");
+        jLabel_vip.setText(KH.getAllKHVip().toString());
+        jLabel_Standard.setText(KH.getAllKHStandard().toString());
         jScrollPane1.getViewport().setBackground(Color.WHITE);
         jScrollPane4.getViewport().setBackground(Color.WHITE);
         jScrollPane6.getViewport().setBackground(Color.WHITE);
@@ -2794,12 +2800,7 @@ public class Admin extends javax.swing.JFrame {
 
     private void KhachHangMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_KhachHangMousePressed
         // TODO add your handling code here:
-        for (int i = 0; i < KH.getAllList().size(); i++) {
-            data2.add(KH.getAllList().get(i));
-        }
-        jLabel_slKH.setText(jTable_QLKH.getRowCount() + "");
-        jLabel_vip.setText(KH.getAllKHVip().toString());
-        jLabel_Standard.setText(KH.getAllKHStandard().toString());
+
         currenColor = 4;
         disCard();
         CardKhachHang.show();
