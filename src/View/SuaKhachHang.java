@@ -20,11 +20,13 @@ public class SuaKhachHang extends javax.swing.JDialog {
      * Creates new form SuaKhachHang
      */
     QLKhachHang KH;
+
     public SuaKhachHang(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
-        public SuaKhachHang(java.awt.Frame parent, boolean modal, String a, String a1, String a2, String a3, String a4) {
+
+    public SuaKhachHang(java.awt.Frame parent, boolean modal, String a, String a1, String a2, String a3, String a4) {
         super(parent, modal);
         initComponents();
         jTextField_sdt.setText(a);
@@ -301,10 +303,22 @@ public class SuaKhachHang extends javax.swing.JDialog {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        boolean ck = true;
+        if (jTextField_ten.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Họ và tên không được để trống");
+            ck = false;
+        } else if (jTextField_dc.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Địa chỉ không được để trống");
+            ck = false;
+        } else if (!jTextField_email.getText().contains("@")) {
+            JOptionPane.showMessageDialog(this, "Email phải có @");
+            ck = false;
+        }else if(ck == true){
         KH = new QLKhachHang();
         KH.update(jTextField_sdt.getText(), jTextField_ten.getText(), jTextField_dc.getText(), jTextField_email.getText(), jTextField_loaikh.getText());
         JOptionPane.showMessageDialog(this, "Cập nhật thành công");
         this.dispose();
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

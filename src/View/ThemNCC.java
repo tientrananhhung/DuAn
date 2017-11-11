@@ -244,12 +244,30 @@ public class ThemNCC extends javax.swing.JDialog {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        NhaCungCap ncc = new NhaCungCap(jTextField1.getText(), jTextField2.getText(), jTextField3.getText(), jTextField4.getText(), jTextField5.getText());
-        if (qlNCC.addNCC(ncc) == 1) {
-            JOptionPane.showMessageDialog(this, "Thêm nhà cung cấp thành công.");
-            this.dispose();
-        } else {
-            JOptionPane.showMessageDialog(this, "Xin vui lòng kiểm tra lại thông tin nhập.");
+        boolean ck = true;
+        if (jTextField1.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Mã nhà cung cấp không được để trống");
+            ck = false;
+        } else if (jTextField2.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Tên nhà cung cấp không được để trống");
+            ck = false;
+        } else if (jTextField3.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Địa chỉ nhà cung cấp không được để trống");
+            ck = false;
+        } else if (!jTextField4.getText().contains("@")) {
+            JOptionPane.showMessageDialog(this, "Email nhà cung cấp không được để trống và phải có @");
+            ck = false;
+        } else if (jTextField5.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Số điện thoại nhà cung cấp không được để trống");
+            ck = false;
+        } else if (ck == true) {
+            NhaCungCap ncc = new NhaCungCap(jTextField1.getText(), jTextField2.getText(), jTextField3.getText(), jTextField4.getText(), jTextField5.getText());
+            if (qlNCC.addNCC(ncc) == 1) {
+                JOptionPane.showMessageDialog(this, "Thêm nhà cung cấp thành công.");
+                this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(this, "Xin vui lòng kiểm tra lại thông tin nhập.");
+            }
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
