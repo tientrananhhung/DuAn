@@ -6,11 +6,16 @@
 package View;
 
 import Controller.QLKhachHang;
+import Controller.QuanLyNCC;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.sql.SQLException;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -33,11 +38,13 @@ public class Admin extends javax.swing.JFrame {
     DefaultTableModel modelTable, modelTable1, modelTable2, modelTable3, modelTable4, modelTable5;
     String tenND;
     QLKhachHang KH;
+    QuanLyNCC qlNCC;
 
     public Admin() {
         initComponents();
         currenColor = 1;
         changeTable();
+        qlNCC = new QuanLyNCC();
     }
 
     public Admin(String tenND) {
@@ -46,6 +53,7 @@ public class Admin extends javax.swing.JFrame {
         changeTable();
         this.tenND = tenND;
         jLabel_TenNguoiDung.setText(tenND);
+        qlNCC = new QuanLyNCC();
     }
 
     public void changeTable() {
@@ -328,7 +336,7 @@ public class Admin extends javax.swing.JFrame {
         jTextArea1 = new javax.swing.JTextArea();
         jTextField9 = new javax.swing.JTextField();
         jLabel_TPN_XoaNCC = new javax.swing.JLabel();
-        jComboBox4 = new javax.swing.JComboBox<>();
+        jComboBox_NCC = new javax.swing.JComboBox<>();
         jPanel7 = new javax.swing.JPanel();
         jLabel22 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
@@ -402,12 +410,12 @@ public class Admin extends javax.swing.JFrame {
         jButton7 = new javax.swing.JButton();
         jPanel43 = new javax.swing.JPanel();
         jPanel44 = new javax.swing.JPanel();
-        jPanel_Anh1 = new javax.swing.JPanel();
+        jLabel_Anh1 = new javax.swing.JLabel();
         jPanel45 = new javax.swing.JPanel();
-        jPanel_Anh2 = new javax.swing.JPanel();
-        jPanel_Anh3 = new javax.swing.JPanel();
-        jPanel_Anh4 = new javax.swing.JPanel();
-        jPanel_Anh5 = new javax.swing.JPanel();
+        jLabel32 = new javax.swing.JLabel();
+        jLabel94 = new javax.swing.JLabel();
+        jLabel33 = new javax.swing.JLabel();
+        jLabel96 = new javax.swing.JLabel();
         CardKhachHang = new javax.swing.JPanel();
         JPanel_Title_TaoNhapKho1 = new javax.swing.JPanel();
         jLabel79 = new javax.swing.JLabel();
@@ -607,7 +615,7 @@ public class Admin extends javax.swing.JFrame {
         Mail.setLayout(MailLayout);
         MailLayout.setHorizontalGroup(
             MailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 143, Short.MAX_VALUE)
+            .addGap(0, 142, Short.MAX_VALUE)
             .addGroup(MailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(MailLayout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -701,7 +709,7 @@ public class Admin extends javax.swing.JFrame {
         jPanel15.setLayout(jPanel15Layout);
         jPanel15Layout.setHorizontalGroup(
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1434, Short.MAX_VALUE)
+            .addGap(0, 1435, Short.MAX_VALUE)
         );
         jPanel15Layout.setVerticalGroup(
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1547,8 +1555,12 @@ public class Admin extends javax.swing.JFrame {
         gridBagConstraints.gridy = 2;
         jPanel6.add(jLabel_TPN_XoaNCC, gridBagConstraints);
 
-        jComboBox4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox_NCC.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jComboBox_NCC.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox_NCCActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 2;
@@ -1556,7 +1568,7 @@ public class Admin extends javax.swing.JFrame {
         gridBagConstraints.ipadx = 190;
         gridBagConstraints.ipady = 10;
         gridBagConstraints.insets = new java.awt.Insets(0, 20, 0, 0);
-        jPanel6.add(jComboBox4, gridBagConstraints);
+        jPanel6.add(jComboBox_NCC, gridBagConstraints);
 
         jPanel5.add(jPanel6);
 
@@ -1576,11 +1588,10 @@ public class Admin extends javax.swing.JFrame {
         jPanel7.add(jLabel22, gridBagConstraints);
 
         jComboBox1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.ipadx = 140;
+        gridBagConstraints.ipadx = 200;
         gridBagConstraints.ipady = 10;
         gridBagConstraints.insets = new java.awt.Insets(0, 20, 0, 0);
         jPanel7.add(jComboBox1, gridBagConstraints);
@@ -2186,7 +2197,7 @@ public class Admin extends javax.swing.JFrame {
         jPanel42.setLayout(jPanel42Layout);
         jPanel42Layout.setHorizontalGroup(
             jPanel42Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 461, Short.MAX_VALUE)
+            .addGap(0, 462, Short.MAX_VALUE)
             .addGroup(jPanel42Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel42Layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -2209,101 +2220,50 @@ public class Admin extends javax.swing.JFrame {
 
         jPanel44.setBackground(new java.awt.Color(255, 255, 255));
 
-        jPanel_Anh1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel_Anh1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        javax.swing.GroupLayout jPanel_Anh1Layout = new javax.swing.GroupLayout(jPanel_Anh1);
-        jPanel_Anh1.setLayout(jPanel_Anh1Layout);
-        jPanel_Anh1Layout.setHorizontalGroup(
-            jPanel_Anh1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 459, Short.MAX_VALUE)
-        );
-        jPanel_Anh1Layout.setVerticalGroup(
-            jPanel_Anh1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 452, Short.MAX_VALUE)
-        );
+        jLabel_Anh1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         javax.swing.GroupLayout jPanel44Layout = new javax.swing.GroupLayout(jPanel44);
         jPanel44.setLayout(jPanel44Layout);
         jPanel44Layout.setHorizontalGroup(
             jPanel44Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel_Anh1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGap(0, 462, Short.MAX_VALUE)
+            .addGroup(jPanel44Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel44Layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jLabel_Anh1, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
         jPanel44Layout.setVerticalGroup(
             jPanel44Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel44Layout.createSequentialGroup()
-                .addComponent(jPanel_Anh1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addGap(0, 483, Short.MAX_VALUE)
+            .addGroup(jPanel44Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel44Layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jLabel_Anh1, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
 
         jPanel43.add(jPanel44);
 
+        jPanel45.setBackground(new java.awt.Color(255, 255, 255));
         jPanel45.setLayout(new java.awt.GridLayout(1, 4, 2, 0));
 
-        jPanel_Anh2.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel_Anh2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel_Anh2.setPreferredSize(new java.awt.Dimension(100, 102));
+        jLabel32.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel32.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jLabel32.setPreferredSize(new java.awt.Dimension(2, 100));
+        jPanel45.add(jLabel32);
 
-        javax.swing.GroupLayout jPanel_Anh2Layout = new javax.swing.GroupLayout(jPanel_Anh2);
-        jPanel_Anh2.setLayout(jPanel_Anh2Layout);
-        jPanel_Anh2Layout.setHorizontalGroup(
-            jPanel_Anh2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 111, Short.MAX_VALUE)
-        );
-        jPanel_Anh2Layout.setVerticalGroup(
-            jPanel_Anh2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
+        jLabel94.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel94.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel45.add(jLabel94);
 
-        jPanel45.add(jPanel_Anh2);
+        jLabel33.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel33.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel45.add(jLabel33);
 
-        jPanel_Anh3.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel_Anh3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        javax.swing.GroupLayout jPanel_Anh3Layout = new javax.swing.GroupLayout(jPanel_Anh3);
-        jPanel_Anh3.setLayout(jPanel_Anh3Layout);
-        jPanel_Anh3Layout.setHorizontalGroup(
-            jPanel_Anh3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 111, Short.MAX_VALUE)
-        );
-        jPanel_Anh3Layout.setVerticalGroup(
-            jPanel_Anh3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-
-        jPanel45.add(jPanel_Anh3);
-
-        jPanel_Anh4.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel_Anh4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        javax.swing.GroupLayout jPanel_Anh4Layout = new javax.swing.GroupLayout(jPanel_Anh4);
-        jPanel_Anh4.setLayout(jPanel_Anh4Layout);
-        jPanel_Anh4Layout.setHorizontalGroup(
-            jPanel_Anh4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 111, Short.MAX_VALUE)
-        );
-        jPanel_Anh4Layout.setVerticalGroup(
-            jPanel_Anh4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-
-        jPanel45.add(jPanel_Anh4);
-
-        jPanel_Anh5.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel_Anh5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        javax.swing.GroupLayout jPanel_Anh5Layout = new javax.swing.GroupLayout(jPanel_Anh5);
-        jPanel_Anh5.setLayout(jPanel_Anh5Layout);
-        jPanel_Anh5Layout.setHorizontalGroup(
-            jPanel_Anh5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 111, Short.MAX_VALUE)
-        );
-        jPanel_Anh5Layout.setVerticalGroup(
-            jPanel_Anh5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-
-        jPanel45.add(jPanel_Anh5);
+        jLabel96.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel96.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel45.add(jLabel96);
 
         jPanel43.add(jPanel45);
 
@@ -2672,10 +2632,20 @@ public class Admin extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton_NhapHang_XacNhanActionPerformed
 
     private void jButton_TaoPhieuNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_TaoPhieuNhapActionPerformed
-        // TODO add your handling code here:
-        currenColor = 2;
-        disCard();
-        CardTaoPhieuNhap.show();
+        try {
+            // TODO add your handling code here:
+            currenColor = 2;
+            disCard();
+            CardTaoPhieuNhap.show();
+            for (int i = 0; i < jComboBox_NCC.getItemCount(); i++) {
+                jComboBox_NCC.removeItemAt(i);
+            }
+            for (int i = 0; i < qlNCC.getAllNCC().size(); i++) {
+                jComboBox_NCC.addItem(qlNCC.getAllNCC().get(i).getTenNCC());
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton_TaoPhieuNhapActionPerformed
 
     private void HangHoaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HangHoaMouseEntered
@@ -2828,9 +2798,6 @@ public class Admin extends javax.swing.JFrame {
 
     private void jButton_ThemSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_ThemSPActionPerformed
         // TODO add your handling code here:
-        ImageIcon image = new ImageIcon("/View/icon/icons8_Event_32px.png");
-        JLabel label = new JLabel("", image, JLabel.CENTER);
-        jPanel_Anh1.add(label, BorderLayout.CENTER);
         currenColor = 3;
         disCard();
         CardTaoSanPham.show();
@@ -2943,6 +2910,8 @@ public class Admin extends javax.swing.JFrame {
 
     private void jLabel_TPN_ThemNCCMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_TPN_ThemNCCMousePressed
         // TODO add your handling code here:
+        ThemNCC ncc = new ThemNCC(this, true);
+        ncc.setVisible(true);
     }//GEN-LAST:event_jLabel_TPN_ThemNCCMousePressed
 
     private void jLabel_TPN_XoaNCCMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_TPN_XoaNCCMouseEntered
@@ -2972,6 +2941,10 @@ public class Admin extends javax.swing.JFrame {
         PhieuNhapSanPham pnsp = new PhieuNhapSanPham(this, true);
         pnsp.setVisible(true);
     }//GEN-LAST:event_jTextField8MouseClicked
+
+    private void jComboBox_NCCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox_NCCActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox_NCCActionPerformed
 
     /**
      * @param args the command line arguments
@@ -3060,7 +3033,7 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JComboBox<String> jComboBox3;
-    private javax.swing.JComboBox<String> jComboBox4;
+    private javax.swing.JComboBox<String> jComboBox_NCC;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private com.toedter.calendar.JDateChooser jDateChooser2;
     private javax.swing.JFormattedTextField jFormattedTextField1;
@@ -3091,6 +3064,8 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
+    private javax.swing.JLabel jLabel32;
+    private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel35;
     private javax.swing.JLabel jLabel36;
@@ -3157,7 +3132,10 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel91;
     private javax.swing.JLabel jLabel92;
     private javax.swing.JLabel jLabel93;
+    private javax.swing.JLabel jLabel94;
     private javax.swing.JLabel jLabel95;
+    private javax.swing.JLabel jLabel96;
+    private javax.swing.JLabel jLabel_Anh1;
     private javax.swing.JLabel jLabel_Filter_Space;
     private javax.swing.JLabel jLabel_Filter_Space1;
     private javax.swing.JLabel jLabel_Standard;
@@ -3219,11 +3197,6 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
-    private javax.swing.JPanel jPanel_Anh1;
-    private javax.swing.JPanel jPanel_Anh2;
-    private javax.swing.JPanel jPanel_Anh3;
-    private javax.swing.JPanel jPanel_Anh4;
-    private javax.swing.JPanel jPanel_Anh5;
     private javax.swing.JPanel jPanel_Filter;
     private javax.swing.JPanel jPanel_Filter1;
     private javax.swing.JPanel jPanel_Filter_Left;
