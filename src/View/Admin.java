@@ -204,6 +204,9 @@ public class Admin extends javax.swing.JFrame {
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
+        jPopupMenu_SanPham = new javax.swing.JPopupMenu();
+        jMenuItem_Sua = new javax.swing.JMenuItem();
+        jMenuItem_Xoa = new javax.swing.JMenuItem();
         BG = new javax.swing.JPanel();
         jPanel24 = new javax.swing.JPanel();
         jPanel25 = new javax.swing.JPanel();
@@ -460,8 +463,13 @@ public class Admin extends javax.swing.JFrame {
         jScrollPane8 = new javax.swing.JScrollPane();
         jTable_HopThuDi = new javax.swing.JTable();
 
+        jMenuItem_Sua.setText("jMenuItem1");
+        jPopupMenu_SanPham.add(jMenuItem_Sua);
+
+        jMenuItem_Xoa.setText("jMenuItem2");
+        jPopupMenu_SanPham.add(jMenuItem_Xoa);
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setAlwaysOnTop(true);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setUndecorated(true);
 
@@ -622,7 +630,7 @@ public class Admin extends javax.swing.JFrame {
         Mail.setLayout(MailLayout);
         MailLayout.setHorizontalGroup(
             MailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 142, Short.MAX_VALUE)
+            .addGap(0, 152, Short.MAX_VALUE)
             .addGroup(MailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(MailLayout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -716,7 +724,7 @@ public class Admin extends javax.swing.JFrame {
         jPanel15.setLayout(jPanel15Layout);
         jPanel15Layout.setHorizontalGroup(
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1435, Short.MAX_VALUE)
+            .addGap(0, 1425, Short.MAX_VALUE)
         );
         jPanel15Layout.setVerticalGroup(
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1892,9 +1900,13 @@ public class Admin extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(0, 20, 20, 0);
         jPanel31.add(jLabel_Title_TSP, gridBagConstraints);
 
+        jButton9.setBackground(new java.awt.Color(71, 184, 107));
+        jButton9.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jButton9.setForeground(new java.awt.Color(255, 255, 255));
+        jButton9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Edit_18px.png"))); // NOI18N
         jButton9.setText("Sửa");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.ipadx = 20;
+        gridBagConstraints.ipadx = 30;
         gridBagConstraints.ipady = 10;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 20, 0);
         jPanel31.add(jButton9, gridBagConstraints);
@@ -2073,7 +2085,6 @@ public class Admin extends javax.swing.JFrame {
         jPanel33.add(jFormattedTextField2, gridBagConstraints);
 
         jComboBox2.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 8;
@@ -2084,7 +2095,6 @@ public class Admin extends javax.swing.JFrame {
         jPanel33.add(jComboBox2, gridBagConstraints);
 
         jComboBox3.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 10;
@@ -2130,6 +2140,9 @@ public class Admin extends javax.swing.JFrame {
 
         jLabel_ThemNSX.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Plus_30px_1.png"))); // NOI18N
         jLabel_ThemNSX.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel_ThemNSXMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 jLabel_ThemNSXMouseEntered(evt);
             }
@@ -2162,6 +2175,9 @@ public class Admin extends javax.swing.JFrame {
 
         jLabel_ThemNH.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Plus_30px_1.png"))); // NOI18N
         jLabel_ThemNH.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel_ThemNHMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 jLabel_ThemNHMouseEntered(evt);
             }
@@ -2211,7 +2227,7 @@ public class Admin extends javax.swing.JFrame {
         jPanel42.setLayout(jPanel42Layout);
         jPanel42Layout.setHorizontalGroup(
             jPanel42Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 462, Short.MAX_VALUE)
+            .addGap(0, 505, Short.MAX_VALUE)
             .addGroup(jPanel42Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel42Layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -2240,7 +2256,7 @@ public class Admin extends javax.swing.JFrame {
         jPanel44.setLayout(jPanel44Layout);
         jPanel44Layout.setHorizontalGroup(
             jPanel44Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 462, Short.MAX_VALUE)
+            .addGap(0, 505, Short.MAX_VALUE)
             .addGroup(jPanel44Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel44Layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -2955,6 +2971,18 @@ public class Admin extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox_NCCActionPerformed
 
+    private void jLabel_ThemNHMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_ThemNHMouseClicked
+        // TODO add your handling code here:
+        ThemNhomHang tnh = new ThemNhomHang(this, true);
+        tnh.setVisible(true);
+    }//GEN-LAST:event_jLabel_ThemNHMouseClicked
+
+    private void jLabel_ThemNSXMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_ThemNSXMouseClicked
+        // TODO add your handling code here:
+        ThemNSX nsx = new ThemNSX(this, true);
+        nsx.setVisible(true);
+    }//GEN-LAST:event_jLabel_ThemNSXMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -3164,6 +3192,8 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel_XoaNSX;
     private javax.swing.JLabel jLabel_slKH;
     private javax.swing.JLabel jLabel_vip;
+    private javax.swing.JMenuItem jMenuItem_Sua;
+    private javax.swing.JMenuItem jMenuItem_Xoa;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
@@ -3221,6 +3251,7 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel_Title_SanPham;
     private javax.swing.JPanel jPanel_Under_Info;
     private javax.swing.JPanel jPanel_Under_Info1;
+    private javax.swing.JPopupMenu jPopupMenu_SanPham;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
