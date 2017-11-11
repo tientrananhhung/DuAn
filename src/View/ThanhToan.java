@@ -62,6 +62,8 @@ public class ThanhToan extends javax.swing.JFrame {
         modelTable1 = new DefaultTableModel(data1, head1);
         jTable_HangHoa.setModel(modelTable);
         jTable_ThanhToan.setModel(modelTable1);
+        jTable_HangHoa.setRowHeight(30);
+        jTable_ThanhToan.setRowHeight(30);
         jTable_HangHoa.setDefaultEditor(Object.class, null);
         jTable_ThanhToan.setDefaultEditor(Object.class, null);
         jScrollPane1.getViewport().setBackground(Color.WHITE);
