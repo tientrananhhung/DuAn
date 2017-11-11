@@ -685,9 +685,6 @@ public class ThanhToan extends javax.swing.JFrame {
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
-        String a = jLabel7.getText();
-        ThemKH tKH = new ThemKH(this, true);
-        tKH.setVisible(true);
     }//GEN-LAST:event_jButton6ActionPerformed
 
     /**
