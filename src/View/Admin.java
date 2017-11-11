@@ -100,6 +100,9 @@ public class Admin extends javax.swing.JFrame {
         head5.add("Nội dung");
         head5.add("Ngày nhận");
         head5.add("Trạng thái");
+        for (int i = 0; i < KH.getAllList().size(); i++) {
+            data2.add(KH.getAllList().get(i));
+        }
         modelTable = new DefaultTableModel(data, head);
         modelTable1 = new DefaultTableModel(data1, head1);
         modelTable2 = new DefaultTableModel(data2, head2);
@@ -118,6 +121,9 @@ public class Admin extends javax.swing.JFrame {
         jTable_HopThuDen.setDefaultEditor(Object.class, null);
         jTable_HopThuDi.setModel(modelTable4);
         jTable_HopThuDi.setDefaultEditor(Object.class, null);
+        jLabel_slKH.setText(jTable_QLKH.getRowCount() + "");
+        jLabel_vip.setText(KH.getAllKHVip().toString());
+        jLabel_Standard.setText(KH.getAllKHStandard().toString());
         jScrollPane1.getViewport().setBackground(Color.WHITE);
         jScrollPane4.getViewport().setBackground(Color.WHITE);
         jScrollPane6.getViewport().setBackground(Color.WHITE);
@@ -380,6 +386,7 @@ public class Admin extends javax.swing.JFrame {
         CardTaoSanPham = new javax.swing.JPanel();
         jPanel31 = new javax.swing.JPanel();
         jLabel_Title_TSP = new javax.swing.JLabel();
+        jButton9 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jPanel32 = new javax.swing.JPanel();
@@ -1885,6 +1892,13 @@ public class Admin extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(0, 20, 20, 0);
         jPanel31.add(jLabel_Title_TSP, gridBagConstraints);
 
+        jButton9.setText("Sửa");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.ipadx = 20;
+        gridBagConstraints.ipady = 10;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 20, 0);
+        jPanel31.add(jButton9, gridBagConstraints);
+
         jButton5.setBackground(new java.awt.Color(65, 127, 194));
         jButton5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jButton5.setForeground(new java.awt.Color(255, 255, 255));
@@ -2764,12 +2778,7 @@ public class Admin extends javax.swing.JFrame {
 
     private void KhachHangMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_KhachHangMousePressed
         // TODO add your handling code here:
-        for (int i = 0; i < KH.getAllList().size(); i++) {
-            data2.add(KH.getAllList().get(i));
-        }
-        jLabel_slKH.setText(jTable_QLKH.getRowCount() + "");
-        jLabel_vip.setText(KH.getAllKHVip().toString());
-        jLabel_Standard.setText(KH.getAllKHStandard().toString());
+
         currenColor = 4;
         disCard();
         CardKhachHang.show();
@@ -3019,6 +3028,7 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
+    private javax.swing.JButton jButton9;
     private javax.swing.JButton jButton_CapNhat;
     private javax.swing.JButton jButton_NhapHang_LamMoi;
     private javax.swing.JButton jButton_NhapHang_LamMoi1;

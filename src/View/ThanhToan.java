@@ -401,6 +401,11 @@ public class ThanhToan extends javax.swing.JFrame {
         jButton6.setForeground(new java.awt.Color(255, 255, 255));
         jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Card_Payment_32px.png"))); // NOI18N
         jButton6.setText("Thanh Toán");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
         jPanel8.add(jButton6);
 
         jButton7.setBackground(new java.awt.Color(242, 64, 64));
@@ -408,6 +413,11 @@ public class ThanhToan extends javax.swing.JFrame {
         jButton7.setForeground(new java.awt.Color(255, 255, 255));
         jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Return_Purchase_32px.png"))); // NOI18N
         jButton7.setText("Xoá");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
         jPanel8.add(jButton7);
 
         jPanel6.add(jPanel8, java.awt.BorderLayout.PAGE_END);
@@ -627,9 +637,9 @@ public class ThanhToan extends javax.swing.JFrame {
 
     private void jTable_HangHoaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable_HangHoaMouseClicked
         // TODO add your handling code here:
-        // TODO add your handling code here:
         Vector vt = new Vector();
         boolean ck = true;
+        int gia = Integer.parseInt(jTable_HangHoa.getValueAt(jTable_HangHoa.getSelectedRow(), 2).toString());
         if (jTable_ThanhToan.getRowCount() != 0) {
             if (Integer.parseInt(jTable_HangHoa.getValueAt(jTable_HangHoa.getSelectedRow(), 3).toString()) != 0) {
                 for (int i = 0; i < jTable_ThanhToan.getRowCount(); i++) {
@@ -639,6 +649,7 @@ public class ThanhToan extends javax.swing.JFrame {
                         jTable_HangHoa.setValueAt(so1, jTable_HangHoa.getSelectedRow(), 3);
                         jTable_ThanhToan.setValueAt(so2, i, 2);
                         ck = false;
+                        jTextField2.setText((gia * so2) + "");
                         break;
                     }
                 }
@@ -662,9 +673,19 @@ public class ThanhToan extends javax.swing.JFrame {
                 }
                 vt.add(1);
                 modelTable1.addRow(vt);
+                jTextField2.setText(jTable_HangHoa.getValueAt(jTable_HangHoa.getSelectedRow(), 2).toString());
             }
         }
     }//GEN-LAST:event_jTable_HangHoaMouseClicked
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        // TODO add your handling code here:
+        changeTable();
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton6ActionPerformed
 
     /**
      * @param args the command line arguments
