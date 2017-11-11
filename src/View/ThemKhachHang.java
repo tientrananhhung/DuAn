@@ -5,6 +5,10 @@
  */
 package View;
 
+import Controller.QLKhachHang;
+import Model.KhachHang;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Tien Tran
@@ -14,6 +18,8 @@ public class ThemKhachHang extends javax.swing.JDialog {
     /**
      * Creates new form ThemKhachHang
      */
+    QLKhachHang QLKH;
+    KhachHang KH;
     public ThemKhachHang(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -208,6 +214,11 @@ public class ThemKhachHang extends javax.swing.JDialog {
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Plus_Math_18px.png"))); // NOI18N
         jButton2.setText("Đăng ký");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 10;
@@ -256,6 +267,50 @@ public class ThemKhachHang extends javax.swing.JDialog {
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_jLabel3MouseClicked
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        QLKH = new QLKhachHang();
+        boolean ck = true;
+        String a;
+        for (int i = 0; i < QLKH.getAllList().size(); i++) {
+            a = QLKH.getAllList().get(i).toString().trim();
+            if (jTextField1.getText().trim().equals(a)) {
+                JOptionPane.showMessageDialog(this, "Số điện thoại không được trùng!");
+                ck = false;
+                break;
+            } else {
+                if (jTextField1.getText().equals("")) {
+                    JOptionPane.showMessageDialog(this, "Số điện thoại không được để trống!");
+                    ck = false;
+                    break;
+                } else if (jTextField2.getText().equals("")) {
+                    JOptionPane.showMessageDialog(this, "Tên khách hàng không được để trống!");
+                    ck = false;
+                    break;
+                } else if (jTextField3.getText().equals("")) {
+                    JOptionPane.showMessageDialog(this, "Địa chỉ khách hàng không được để trống!");
+                    ck = false;
+                    break;
+                } else if (!jTextField4.getText().contains("@")) {
+                    JOptionPane.showMessageDialog(this, "Email khách hàng không được để trống và phải có @!");
+                    ck = false;
+                    break;
+                }
+            }
+        }
+        if (ck == true) {
+            KH = new KhachHang();
+            KH.setSDT(jTextField1.getText());
+            KH.setTenKH(jTextField2.getText());
+            KH.setDiaChi(jTextField3.getText());
+            KH.setEmail(jTextField4.getText());
+            KH.setLoaiKH(jRadioButton1.getText());
+            KH.setLoaiKH(jRadioButton2.getText());
+            QLKH.insert(KH);
+            JOptionPane.showMessageDialog(this, "Thêm khách hàng thành công");
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments

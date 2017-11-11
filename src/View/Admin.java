@@ -7,6 +7,7 @@ package View;
 
 import Controller.QLKhachHang;
 import Controller.QuanLyNCC;
+import Controller.TinNhan;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -39,6 +40,7 @@ public class Admin extends javax.swing.JFrame {
     String tenND;
     QLKhachHang KH;
     QuanLyNCC qlNCC;
+    TinNhan TN;
 
     public Admin() {
         initComponents();
@@ -58,6 +60,7 @@ public class Admin extends javax.swing.JFrame {
 
     public void changeTable() {
         KH = new QLKhachHang();
+        TN = new TinNhan();
         head = new Vector();
         data = new Vector();
         head1 = new Vector();
@@ -102,6 +105,12 @@ public class Admin extends javax.swing.JFrame {
         head5.add("Trạng thái");
         for (int i = 0; i < KH.getAllList().size(); i++) {
             data2.add(KH.getAllList().get(i));
+        }
+        for (int i = 0; i < TN.getAllTNNV().size(); i++) {
+            data4.add(TN.getAllTNNV().get(i));
+        }
+                for (int i = 0; i < TN.getAllTNAD().size(); i++) {
+            data5.add(TN.getAllTNAD().get(i));
         }
         modelTable = new DefaultTableModel(data, head);
         modelTable1 = new DefaultTableModel(data1, head1);
