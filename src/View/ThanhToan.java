@@ -685,6 +685,8 @@ public class ThanhToan extends javax.swing.JFrame {
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
+        HoaDon hh = new HoaDon(this, true);
+        hh.setVisible(true);
     }//GEN-LAST:event_jButton6ActionPerformed
 
     /**

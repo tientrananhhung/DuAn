@@ -75,7 +75,7 @@ public class ThemNSX extends javax.swing.JDialog {
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Thêm nhà cung cấp");
+        jLabel1.setText("Thêm nhà sản xuất");
         jPanel6.add(jLabel1);
 
         jPanel5.add(jPanel6);
@@ -100,7 +100,7 @@ public class ThemNSX extends javax.swing.JDialog {
         jPanel1.setLayout(jPanel1Layout);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
-        jLabel2.setText("Mã nhà cung cấp");
+        jLabel2.setText("Mã nhà sản xuất");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
@@ -111,7 +111,7 @@ public class ThemNSX extends javax.swing.JDialog {
         jPanel1.add(jLabel2, gridBagConstraints);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
-        jLabel4.setText("Tên nhà cung cấp");
+        jLabel4.setText("Tên nhà sản xuất");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
