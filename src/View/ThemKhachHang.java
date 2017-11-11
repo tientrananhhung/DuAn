@@ -20,6 +20,7 @@ public class ThemKhachHang extends javax.swing.JDialog {
      */
     QLKhachHang QLKH;
     KhachHang KH;
+
     public ThemKhachHang(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -293,7 +294,7 @@ public class ThemKhachHang extends javax.swing.JDialog {
                     ck = false;
                     break;
                 } else if (!jTextField4.getText().contains("@")) {
-                    JOptionPane.showMessageDialog(this, "Email khách hàng không được để trống và phải có @!");
+                    JOptionPane.showMessageDialog(this, "Xin vui lòng nhập đúng định dạng mail");
                     ck = false;
                     break;
                 }
@@ -305,8 +306,11 @@ public class ThemKhachHang extends javax.swing.JDialog {
             KH.setTenKH(jTextField2.getText());
             KH.setDiaChi(jTextField3.getText());
             KH.setEmail(jTextField4.getText());
-            KH.setLoaiKH(jRadioButton1.getText());
-            KH.setLoaiKH(jRadioButton2.getText());
+            if (jRadioButton1.isSelected()) {
+                KH.setLoaiKH(jRadioButton1.getText());
+            } else {
+                KH.setLoaiKH(jRadioButton2.getText());
+            }
             QLKH.insert(KH);
             JOptionPane.showMessageDialog(this, "Thêm khách hàng thành công");
         }
