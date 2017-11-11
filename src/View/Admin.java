@@ -134,6 +134,12 @@ public class Admin extends javax.swing.JFrame {
         headerRenderer.setBackground(new Color(65, 127, 194));
         headerRenderer.setBorder(new LineBorder(Color.black, 1));
         headerRenderer.setForeground(Color.WHITE);
+        jTable_PhieuNhapKho.setRowHeight(30);
+        jTable_SanPham.setRowHeight(30);
+        jTable_QLKH.setRowHeight(30);
+        jTable_HangHoa.setRowHeight(30);
+        jTable_HopThuDen.setRowHeight(30);
+        jTable_HopThuDi.setRowHeight(30);
         for (int i = 0; i < jTable_PhieuNhapKho.getModel().getColumnCount(); i++) {
             jTable_PhieuNhapKho.getColumnModel().getColumn(i).setHeaderRenderer(headerRenderer);
         }
@@ -463,9 +469,13 @@ public class Admin extends javax.swing.JFrame {
         jScrollPane8 = new javax.swing.JScrollPane();
         jTable_HopThuDi = new javax.swing.JTable();
 
+        jMenuItem_Sua.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
+        jMenuItem_Sua.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Edit_Property_18px.png"))); // NOI18N
         jMenuItem_Sua.setText("jMenuItem1");
         jPopupMenu_SanPham.add(jMenuItem_Sua);
 
+        jMenuItem_Xoa.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
+        jMenuItem_Xoa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Delete_18px_1.png"))); // NOI18N
         jMenuItem_Xoa.setText("jMenuItem2");
         jPopupMenu_SanPham.add(jMenuItem_Xoa);
 
@@ -1870,6 +1880,7 @@ public class Admin extends javax.swing.JFrame {
 
             }
         ));
+        jTable_SanPham.setComponentPopupMenu(jPopupMenu_SanPham);
         jTable_SanPham.getTableHeader().setReorderingAllowed(false);
         jScrollPane4.setViewportView(jTable_SanPham);
 
@@ -2512,7 +2523,7 @@ public class Admin extends javax.swing.JFrame {
         CardTinNhan.add(JPanel_Title_NhapKho1, java.awt.BorderLayout.PAGE_START);
 
         jPanel38.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel38.setLayout(new java.awt.GridLayout(1, 2, 20, 0));
+        jPanel38.setLayout(new java.awt.GridLayout(1, 1, 20, 0));
 
         jPanel37.setBackground(new java.awt.Color(255, 255, 255));
         jPanel37.setLayout(new java.awt.BorderLayout(0, 10));
@@ -2955,6 +2966,8 @@ public class Admin extends javax.swing.JFrame {
 
     private void jButton_SoanTinNhanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_SoanTinNhanActionPerformed
         // TODO add your handling code here:
+        ThuAdmin tAdmin = new ThuAdmin(this, true);
+        tAdmin.setVisible(true);
     }//GEN-LAST:event_jButton_SoanTinNhanActionPerformed
 
     private void jButton_CapNhatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_CapNhatActionPerformed
