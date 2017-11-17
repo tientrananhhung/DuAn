@@ -37,6 +37,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 public class QLHH {
 
     ConnectDB dbcn;
+    PreparedStatement pre1;
 
     public QLHH() {
         dbcn = new ConnectDB();
@@ -51,10 +52,10 @@ public class QLHH {
             ps.setString(2, obj.getTenHH());
             ps.setString(3, obj.getGiaVon() + "");
             ps.setString(4, obj.getGiaBan() + "");
-            ps.setString(5, obj.getNhomHang());
-            ps.setString(6, obj.getNhaSX());
-            ps.setString(7, obj.getThueVAT() + "");
-            ps.setString(8, obj.getMoTa());
+            ps.setString(8, obj.getNhomHang());
+            ps.setString(7, obj.getNhaSX());
+            ps.setString(5, obj.getThueVAT() + "");
+            ps.setString(6, obj.getMoTa());
             ps.setString(9, obj.getImg1());
             ps.setString(10, obj.getImg2());
             ps.setString(11, obj.getImg3());
@@ -71,7 +72,7 @@ public class QLHH {
         int kq = 0;
         try {
             PreparedStatement ps;
-            ps = dbcn.getConnect().prepareStatement("Update hanghoa set `TenHH`=?,`GiaVon`=?,`GiaBan`=?,`MaNH`=?,`MaNSX`=?,`Thue`=?,`MoTa`=?,`Img1`=?,`Img2`=?,`Img3`=?,`Img4`=?,`Img5`=? WHERE `MaHH`= ?");
+            ps = dbcn.getConnect().prepareStatement("UPDATE `hanghoa` SET `TenHH`=?,`GiaNhap`=?,`GiaBan`=?,`MaNH`=?,`MaNSX`=?,`Thue`=?,`MoTa`=?,`Image1`=?,`Image2`=?,`Image3`=?,`Image4`=?,`Image5`=? WHERE `MaHH`= ?");
             ps.setString(1, obj.getTenHH());
             ps.setString(2, obj.getGiaVon() + "");
             ps.setString(3, obj.getGiaBan() + "");
@@ -125,7 +126,7 @@ public class QLHH {
         Vector kq = new Vector();
         try {
             PreparedStatement ps5;
-            ps5 = dbcn.getConnect().prepareStatement("SELECT * FROM hanghoa WHERE MaHH LIKE ? OR MaNH LIKE ? OR MaSX LIKE ? OR TenHH LIKE ?");
+            ps5 = dbcn.getConnect().prepareStatement("SELECT * FROM hanghoa WHERE MaHH LIKE ? OR MaNH LIKE ? OR MaNSX LIKE ? OR TenHH LIKE ?");
             ps5.setString(1, "%" + keyWord + "%");
             ps5.setString(2, "%" + keyWord + "%");
             ps5.setString(3, "%" + keyWord + "%");
@@ -162,12 +163,21 @@ public class QLHH {
     public int deleteHH(String a) {
         int kq = 0;
         try {
-            PreparedStatement ps;
-            ps = dbcn.getConnect().prepareStatement("delete from hanghoa where MaHH = ?");
+            PreparedStatement ps,ps2,ps3,ps4;
+            ps = dbcn.getConnect().prepareStatement("DELETE FROM phieunhapct where MaHH = ?");
+            ps2 = dbcn.getConnect().prepareStatement("DELETE FROM hoadonct where MaHH = ?");
+            ps3 = dbcn.getConnect().prepareStatement("DELETE FROM kho where MaHH = ?");
+            ps4 = dbcn.getConnect().prepareStatement("DELETE FROM hanghoa where MaHH = ?");
             ps.setString(1, a);
-            kq = ps.executeUpdate();
+            ps2.setString(1, a);
+            ps3.setString(1, a);
+            ps4.setString(1, a);
+            ps.executeUpdate();
+            ps2.executeUpdate();
+            ps3.executeUpdate();
+            kq = ps4.executeUpdate();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Sai câu lệnh database");
+            Logger.getLogger(QLHH.class.getName()).log(Level.SEVERE, null, ex);
         }
         return kq;
     }
@@ -248,6 +258,7 @@ public class QLHH {
         }
         return kq;
     }
+
     public Vector getNCC() {
         Vector kq = new Vector();
         try {
@@ -263,6 +274,7 @@ public class QLHH {
         }
         return kq;
     }
+
     public Vector getTenNH() {
         Vector kq = new Vector();
         try {
@@ -311,9 +323,49 @@ public class QLHH {
         return kq;
     }
 
+    public Vector getImg(String a) {
+        Vector vt = new Vector();
+        try {
+            PreparedStatement ps;
+            ps = dbcn.getConnect().prepareStatement("SELECT `Image1`, `Image2`, `Image3`, `Image4`, `Image5` FROM `hanghoa` WHERE MaHH = ?");
+            ps.setString(1, a);
+            ResultSet rs = ps.executeQuery();
+            ResultSetMetaData rsmd = rs.getMetaData();
+            while (rs.next()) {
+                Vector t = new Vector();
+                for (int i = 1; i <= rsmd.getColumnCount(); i++) {
+                    vt.add(rs.getString(i));
+                }
+            }
+            rs.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Sai link ảnh");
+        }
+        return vt;
+    }
+
+    public Vector getMaNH1() {
+        Vector kq = new Vector();
+        try {
+            pre1 = dbcn.getConnect().prepareStatement("SELECT * FROM `nhomhang`");
+            ResultSet rs = pre1.executeQuery();
+            while (rs.next()) {
+                Vector t = new Vector();
+                t.add(rs.getString(1));
+                t.add(rs.getString(2));
+                kq.add(t);
+            }
+            rs.close();
+            pre1.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(QLHH.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return kq;
+    }
+
     public static void main(String[] args) {
-        QLHH ql = new QLHH();
-        modelHangHoa hh = new modelHangHoa("a1", "a", 1, 2, "A001", "TQ", 2, "s", "a", "a", "a", "a", "a");
-        System.out.println(ql.updateHangHoa(hh));
+        QLHH qlhh = new QLHH();
+        System.out.println(qlhh.deleteHH("sp2"));
+        
     }
 }

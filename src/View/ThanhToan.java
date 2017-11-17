@@ -6,6 +6,7 @@
 package View;
 
 import Controller.QLDSHang;
+import Model.Account;
 import java.awt.Color;
 import java.util.Vector;
 import javax.swing.JFrame;
@@ -27,19 +28,19 @@ public class ThanhToan extends javax.swing.JFrame {
      */
     Vector head, data, head1, data1;
     DefaultTableModel modelTable, modelTable1;
-    String tenND;
     QLDSHang DS;
+    Account acc;
 
     public ThanhToan() {
         initComponents();
         changeTable();
     }
 
-    public ThanhToan(String tenND) {
+    public ThanhToan(Account acc) {
         initComponents();
         changeTable();
-        this.tenND = tenND;
-        jButton_User.setText(tenND);
+        this.acc = acc;
+        jButton_User.setText(acc.getTenNguoiDung());
     }
 
     public void changeTable() {
@@ -600,7 +601,7 @@ public class ThanhToan extends javax.swing.JFrame {
 
     private void jButton_UserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_UserActionPerformed
         // TODO add your handling code here:
-        UserInfomation ui = new UserInfomation(this, true);
+        UserInfomation ui = new UserInfomation(this, true, acc);
         ui.setVisible(true);
     }//GEN-LAST:event_jButton_UserActionPerformed
 

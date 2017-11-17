@@ -5,6 +5,12 @@
  */
 package View;
 
+import Model.Account;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Tien Tran
@@ -14,9 +20,25 @@ public class UserInfomation extends javax.swing.JDialog {
     /**
      * Creates new form UserInfomation
      */
+    Account acc;
+    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
     public UserInfomation(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+    }
+
+    public UserInfomation(java.awt.Frame parent, boolean modal, Account acc) {
+        super(parent, modal);
+        initComponents();
+        this.acc = acc;
+        jLabel_user.setText(acc.getTenTK());
+        jLabel_name.setText(acc.getTenNguoiDung());
+        jLabel_role.setText(acc.getChucVu());
+        jLabel_address.setText(acc.getDiaChi());
+        jLabel_phone.setText(acc.getSdt());
+        jLabel_email.setText(acc.getEmail());
+        jLabel_date.setText(sdf.format(acc.getNgaySinh()));
     }
 
     /**
@@ -33,7 +55,7 @@ public class UserInfomation extends javax.swing.JDialog {
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        jLabel_user = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jPanel4 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
@@ -41,11 +63,13 @@ public class UserInfomation extends javax.swing.JDialog {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
+        jLabel_name = new javax.swing.JLabel();
+        jLabel_role = new javax.swing.JLabel();
+        jLabel_address = new javax.swing.JLabel();
+        jLabel_email = new javax.swing.JLabel();
+        jLabel_phone = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel_date = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -66,8 +90,8 @@ public class UserInfomation extends javax.swing.JDialog {
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
         jLabel8.setText("Tài khoản:");
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 30)); // NOI18N
-        jLabel2.setText("User");
+        jLabel_user.setFont(new java.awt.Font("Tahoma", 0, 30)); // NOI18N
+        jLabel_user.setText("User");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -75,14 +99,14 @@ public class UserInfomation extends javax.swing.JDialog {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel8)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(47, Short.MAX_VALUE)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 692, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(38, 38, 38))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jSeparator1)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel8)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel_user)
+                        .addGap(0, 787, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -90,19 +114,16 @@ public class UserInfomation extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(jLabel2))
+                    .addComponent(jLabel_user))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 10, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jPanel2.add(jPanel3, java.awt.BorderLayout.PAGE_START);
 
         jPanel4.setBackground(new java.awt.Color(244, 244, 244));
-        java.awt.GridBagLayout jPanel4Layout = new java.awt.GridBagLayout();
-        jPanel4Layout.columnWidths = new int[] {0, 5, 0};
-        jPanel4Layout.rowHeights = new int[] {0, 5, 0, 5, 0, 5, 0, 5, 0};
-        jPanel4.setLayout(jPanel4Layout);
+        jPanel4.setLayout(new java.awt.GridBagLayout());
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel4.setText("Tên người dùng:");
@@ -114,10 +135,10 @@ public class UserInfomation extends javax.swing.JDialog {
         jPanel4.add(jLabel4, gridBagConstraints);
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel5.setText("Quyền hạn:");
+        jLabel5.setText("Chức vụ:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridy = 1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(40, -370, 0, 0);
         jPanel4.add(jLabel5, gridBagConstraints);
@@ -126,7 +147,7 @@ public class UserInfomation extends javax.swing.JDialog {
         jLabel6.setText("Địa chỉ:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridy = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(40, -370, 0, 0);
         jPanel4.add(jLabel6, gridBagConstraints);
@@ -135,7 +156,7 @@ public class UserInfomation extends javax.swing.JDialog {
         jLabel7.setText("Số điện thoại:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridy = 3;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(40, -370, 0, 0);
         jPanel4.add(jLabel7, gridBagConstraints);
@@ -144,55 +165,73 @@ public class UserInfomation extends javax.swing.JDialog {
         jLabel9.setText("Email:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 8;
+        gridBagConstraints.gridy = 4;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(40, -370, 40, 0);
+        gridBagConstraints.insets = new java.awt.Insets(40, -370, 0, 0);
         jPanel4.add(jLabel9, gridBagConstraints);
 
-        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel10.setText("name");
+        jLabel_name.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel_name.setText("name");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(0, -150, 0, 0);
-        jPanel4.add(jLabel10, gridBagConstraints);
+        jPanel4.add(jLabel_name, gridBagConstraints);
 
-        jLabel11.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel11.setText("role");
+        jLabel_role.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel_role.setText("role");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(40, -150, 0, 0);
+        jPanel4.add(jLabel_role, gridBagConstraints);
+
+        jLabel_address.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel_address.setText("address");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(40, -150, 0, 0);
-        jPanel4.add(jLabel11, gridBagConstraints);
+        jPanel4.add(jLabel_address, gridBagConstraints);
 
-        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel12.setText("address");
+        jLabel_email.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel_email.setText("email");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 4;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(40, -150, 0, 0);
-        jPanel4.add(jLabel12, gridBagConstraints);
+        jPanel4.add(jLabel_email, gridBagConstraints);
 
-        jLabel13.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel13.setText("email");
+        jLabel_phone.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel_phone.setText("phone");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 8;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, -150, 0, 0);
-        jPanel4.add(jLabel13, gridBagConstraints);
-
-        jLabel14.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel14.setText("phone");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 3;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(40, -150, 0, 0);
-        jPanel4.add(jLabel14, gridBagConstraints);
+        jPanel4.add(jLabel_phone, gridBagConstraints);
+
+        jLabel15.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel15.setText("Ngày sinh:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(40, -370, 40, 0);
+        jPanel4.add(jLabel15, gridBagConstraints);
+
+        jLabel_date.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel_date.setText("date");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, -150, 0, 0);
+        jPanel4.add(jLabel_date, gridBagConstraints);
 
         jPanel2.add(jPanel4, java.awt.BorderLayout.CENTER);
 
@@ -241,7 +280,7 @@ public class UserInfomation extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 561, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -308,12 +347,7 @@ public class UserInfomation extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -321,6 +355,13 @@ public class UserInfomation extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel jLabel_address;
+    private javax.swing.JLabel jLabel_date;
+    private javax.swing.JLabel jLabel_email;
+    private javax.swing.JLabel jLabel_name;
+    private javax.swing.JLabel jLabel_phone;
+    private javax.swing.JLabel jLabel_role;
+    private javax.swing.JLabel jLabel_user;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

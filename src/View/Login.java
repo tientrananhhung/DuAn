@@ -102,13 +102,13 @@ public class Login extends javax.swing.JFrame {
         Account acc = aDAO.checkLogin(jTextField_User.getText(), jPasswordField_Pass.getText());
         if (acc != null) {
             if (acc.getChucVu().equals("Administrator")) {
-                Admin admin = new Admin(acc.getTenNguoiDung().toUpperCase());
+                Admin admin = new Admin(acc);
                 admin.setVisible(true);
-                dispose();
-            } else if (acc.getChucVu().equals("User")) {
-                ThanhToan thanhToan = new ThanhToan(acc.getTenNguoiDung().toUpperCase());
+                this.dispose();
+            } else if (acc.getChucVu().equals("Nhân Viên")) {
+                ThanhToan thanhToan = new ThanhToan(acc);
                 thanhToan.setVisible(true);
-                dispose();
+                this.dispose();
             }
             dispose();
         } else {
@@ -153,7 +153,6 @@ public class Login extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Login");
-        setAlwaysOnTop(true);
         setBackground(new java.awt.Color(255, 255, 255));
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setUndecorated(true);
