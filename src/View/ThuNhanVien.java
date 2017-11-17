@@ -5,6 +5,12 @@
  */
 package View;
 
+import Controller.TinNhanDAO;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Tien Tran
@@ -14,12 +20,15 @@ public class ThuNhanVien extends javax.swing.JDialog {
     /**
      * Creates new form ThuNhanVien
      */
+    TinNhanDAO tnDAO;
+    String user;
+
     public ThuNhanVien(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
 
-    public ThuNhanVien(java.awt.Frame parent, boolean modal, int trangThai, String noiDung) {
+    public ThuNhanVien(java.awt.Frame parent, boolean modal, int trangThai, String noiDung, String user) {
         super(parent, modal);
         initComponents();
         if (trangThai == 1) {
@@ -30,6 +39,8 @@ public class ThuNhanVien extends javax.swing.JDialog {
             jTextArea_noiDung.setText(noiDung);
             jTextArea_noiDung.setEditable(true);
         }
+        tnDAO = new TinNhanDAO();
+        this.user = user;
     }
 
     /**
@@ -226,20 +237,19 @@ public class ThuNhanVien extends javax.swing.JDialog {
 
     private void jButton_SendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_SendActionPerformed
         // TODO add your handling code here:
-        if (!jTextArea_noiDung.getText().equals("")) {
-            jTextArea_noiDung.setText("");
-            jTextArea_noiDung.setEditable(true);
-            jButton_Refresh.setEnabled(true);
-            jButton_Rep.setEnabled(true);
-            jButton_Send.setEnabled(false);
-        } else {
-
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Date date = new Date();
+        if (tnDAO.sendMailNV(user, jTextArea_noiDung.getText(), dateFormat.format(date)) == 1) {
+            JOptionPane.showMessageDialog(this, "Gửi thư thành công!");
+            this.dispose();
         }
     }//GEN-LAST:event_jButton_SendActionPerformed
 
     private void jButton_RefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_RefreshActionPerformed
         // TODO add your handling code here:
         jTextArea_noiDung.setText("");
+        jButton_Refresh.setEnabled(false);
+        jButton_Send.setEnabled(false);
     }//GEN-LAST:event_jButton_RefreshActionPerformed
 
     private void jButton_RepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_RepActionPerformed
@@ -251,10 +261,10 @@ public class ThuNhanVien extends javax.swing.JDialog {
 
     private void jTextArea_noiDungKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextArea_noiDungKeyReleased
         // TODO add your handling code here:
-        if(jTextArea_noiDung.getText().equals("")){
+        if (jTextArea_noiDung.getText().equals("")) {
             jButton_Refresh.setEnabled(false);
             jButton_Send.setEnabled(false);
-        }else{
+        } else {
             jButton_Refresh.setEnabled(true);
             jButton_Send.setEnabled(true);
         }
