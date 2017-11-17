@@ -13,39 +13,29 @@ import java.util.Date;
  */
 public class Account {
 
-    private String id;
     private String tenTK;
     private String matKhau;
-    private String chucVu;
     private String tenNguoiDung;
+    private String chucVu;
     private Date ngaySinh;
     private String gioiTinh;
     private String diaChi;
     private String sdt;
     private String email;
 
-    public Account(String id, String tenTK, String matKhau, String chucVu, String tenNguoiDung, Date ngaySinh, String gioiTinh, String diaChi, String sdt, String email) {
-        this.id = id;
+    public Account() {
+    }
+
+    public Account(String tenTK, String matKhau, String tenNguoiDung, String chucVu, Date ngaySinh, String gioiTinh, String diaChi, String sdt, String email) {
         this.tenTK = tenTK;
         this.matKhau = matKhau;
-        this.chucVu = chucVu;
         this.tenNguoiDung = tenNguoiDung;
+        this.chucVu = chucVu;
         this.ngaySinh = ngaySinh;
         this.gioiTinh = gioiTinh;
         this.diaChi = diaChi;
         this.sdt = sdt;
         this.email = email;
-    }
-
-    public Account() {
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String getTenTK() {
@@ -64,20 +54,20 @@ public class Account {
         this.matKhau = matKhau;
     }
 
-    public String getChucVu() {
-        return chucVu;
-    }
-
-    public void setChucVu(String chucVu) {
-        this.chucVu = chucVu;
-    }
-
     public String getTenNguoiDung() {
         return tenNguoiDung;
     }
 
     public void setTenNguoiDung(String tenNguoiDung) {
         this.tenNguoiDung = tenNguoiDung;
+    }
+
+    public String getChucVu() {
+        return chucVu;
+    }
+
+    public void setChucVu(String chucVu) {
+        this.chucVu = chucVu;
     }
 
     public Date getNgaySinh() {

@@ -5,6 +5,10 @@
  */
 package View;
 
+import Controller.QLHH;
+import Model.NhomHang;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Tien Tran
@@ -14,9 +18,12 @@ public class ThemNhomHang extends javax.swing.JDialog {
     /**
      * Creates new form ThemNhomHang
      */
+    QLHH hh;
+
     public ThemNhomHang(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        hh = new QLHH();
     }
 
     /**
@@ -123,6 +130,11 @@ public class ThemNhomHang extends javax.swing.JDialog {
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Plus_Math_18px.png"))); // NOI18N
         jButton1.setText("Thêm");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
@@ -170,6 +182,49 @@ public class ThemNhomHang extends javax.swing.JDialog {
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_jLabel3MouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        boolean ck = true;
+        String a, b;
+        for (int i = 0; i < hh.getMaNH().size(); i++) {
+            a = hh.getMaNH().get(i).toString().trim();
+            if (jTextField1.getText().trim().equals(a)) {
+                JOptionPane.showMessageDialog(this, "Mã nhóm hàng không được trùng");
+                ck = false;
+                break;
+            } else {
+                if (jTextField1.getText().equals("")) {
+                    JOptionPane.showMessageDialog(this, "Mã nhóm hàng không được để trống!");
+                    ck = false;
+                    break;
+                } else if (jTextField1.getText().length() > 10) {
+                    JOptionPane.showMessageDialog(this, "Mã nhóm hàng không được quá 10 kí tự!");
+                    ck = false;
+                    break;
+                } else if (jTextField2.getText().equals("")) {
+                    JOptionPane.showMessageDialog(this, "Tên nhóm hàng không được để trống!");
+                    ck = false;
+                    break;
+                } else if (jTextField2.getText().length() > 50) {
+                    JOptionPane.showMessageDialog(this, "Tên nhóm hàng không được quá 50 kí tự!");
+                    ck = false;
+                    break;
+                }
+            }
+        }
+        if (ck == true) {
+            NhomHang nh = new NhomHang();
+            nh.setMaNH(jTextField1.getText());
+            nh.setTenNH(jTextField2.getText());
+            hh.insertNhomHang(nh);
+            Admin ad = new Admin();
+            ad.setNhomHang(jTextField1.getText(), jTextField2.getText());
+            jTextField1.setText("");
+            jTextField2.setText("");
+            this.dispose();
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments

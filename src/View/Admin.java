@@ -5,16 +5,25 @@
  */
 package View;
 
+import Controller.QLHH;
 import Controller.QLKhachHang;
 import Controller.QuanLyNCC;
 import Controller.TinNhan;
+import Model.Account;
+import Model.modelHangHoa;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
@@ -35,32 +44,58 @@ public class Admin extends javax.swing.JFrame {
      * Creates new form Admin
      */
     int currenColor;
-    Vector head, data, head1, data1, head2, data2, head3, data3, head4, data4, head5, data5;
-    DefaultTableModel modelTable, modelTable1, modelTable2, modelTable3, modelTable4, modelTable5;
-    String tenND;
+    Vector head, data, head1, data1, head2, data2, head3, data3, head4, data4, head5, data5, head6, data6;
+    DefaultTableModel modelTable, modelTable1, modelTable2, modelTable3, modelTable4, modelTable5, modelTable6;
+    Account acc;
     QLKhachHang KH;
     QuanLyNCC qlNCC;
     TinNhan TN;
+    QLHH hh;
+    int tong1 = 0, tong2 = 0;
+    String a1 = "", b1 = "";
+    String a2 = "", b2 = "";
+    String a3 = "", b3 = "";
+    String a4 = "", b4 = "";
+    String a5 = "", b5 = "";
+    ThemNSX nsx;
 
     public Admin() {
         initComponents();
         currenColor = 1;
         changeTable();
         qlNCC = new QuanLyNCC();
+        a();
     }
 
-    public Admin(String tenND) {
+    public Admin(Account acc) {
         initComponents();
         currenColor = 1;
         changeTable();
-        this.tenND = tenND;
-        jLabel_TenNguoiDung.setText(tenND);
+        jLabel_TenNguoiDung.setText(acc.getTenNguoiDung());
         qlNCC = new QuanLyNCC();
+        a();
+    }
+
+    public void a() {
+        jLabel35.setText(jTable_SanPham.getRowCount() + "");
+        for (int i = 0; i < jTable_SanPham.getRowCount(); i++) {
+            tong1 += Integer.parseInt(jTable_SanPham.getValueAt(i, 2).toString());
+            tong2 += Integer.parseInt(jTable_SanPham.getValueAt(i, 3).toString());
+        }
+        jLabel38.setText(tong1 + "");
+        jLabel42.setText(tong2 + "");
+        for (int i = 0; i < hh.getMaNH().size(); i++) {
+            jComboBoxNhomHang.addItem((String) hh.getMaNH().get(i) + " (" + (String) hh.getTenNH().get(i) + ")");
+        }
+        for (int i = 0; i < hh.getMaNSX().size(); i++) {
+            jComboBoxNhaSX.addItem((String) hh.getMaNSX().get(i) + " (" + (String) hh.getTenNSX().get(i) + ")");
+        }
     }
 
     public void changeTable() {
         KH = new QLKhachHang();
         TN = new TinNhan();
+        hh = new QLHH();
         head = new Vector();
         data = new Vector();
         head1 = new Vector();
@@ -73,6 +108,9 @@ public class Admin extends javax.swing.JFrame {
         data4 = new Vector();
         head5 = new Vector();
         data5 = new Vector();
+        head6 = new Vector();
+        data6 = new Vector();
+        data1 = hh.getAllList();
         head.add("Mã hóa đơn");
         head.add("Ngày nhập");
         head.add("Nhà cung cấp");
@@ -82,10 +120,12 @@ public class Admin extends javax.swing.JFrame {
         head.add("");
         head1.add("Mã sản phẩm");
         head1.add("Tên sản phẩm");
-        head1.add("Số lượng");
         head1.add("Giá nhập");
-        head1.add("Giá xuất");
-        head1.add("Loại sản phẩm");
+        head1.add("Giá bán");
+        head1.add("Thuế");
+        head1.add("Mô tả");
+        head1.add("Tên nhà sản xuất");
+        head1.add("Tên nhóm hàng");
         head2.add("Tên khách hàng");
         head2.add("Số điện thoại");
         head2.add("Địa chỉ");
@@ -103,13 +143,18 @@ public class Admin extends javax.swing.JFrame {
         head5.add("Nội dung");
         head5.add("Ngày nhận");
         head5.add("Trạng thái");
+        head6.add("Mã hàng hóa");
+        head6.add("Tên hàng hóa");
+        head6.add("Tên nhóm hàng");
+        head6.add("Tên nhà sản xuất");
+        head6.add("Giá nhập");
         for (int i = 0; i < KH.getAllList().size(); i++) {
             data2.add(KH.getAllList().get(i));
         }
         for (int i = 0; i < TN.getAllTNNV().size(); i++) {
             data4.add(TN.getAllTNNV().get(i));
         }
-                for (int i = 0; i < TN.getAllTNAD().size(); i++) {
+        for (int i = 0; i < TN.getAllTNAD().size(); i++) {
             data5.add(TN.getAllTNAD().get(i));
         }
         modelTable = new DefaultTableModel(data, head);
@@ -118,6 +163,7 @@ public class Admin extends javax.swing.JFrame {
         modelTable3 = new DefaultTableModel(data3, head3);
         modelTable4 = new DefaultTableModel(data4, head4);
         modelTable5 = new DefaultTableModel(data5, head5);
+        modelTable6 = new DefaultTableModel(data6, head6);
         jTable_PhieuNhapKho.setModel(modelTable);
         jTable_PhieuNhapKho.setDefaultEditor(Object.class, null);
         jTable_SanPham.setModel(modelTable1);
@@ -130,6 +176,8 @@ public class Admin extends javax.swing.JFrame {
         jTable_HopThuDen.setDefaultEditor(Object.class, null);
         jTable_HopThuDi.setModel(modelTable4);
         jTable_HopThuDi.setDefaultEditor(Object.class, null);
+        jTable_HH.setModel(modelTable6);
+        jTable_HH.setDefaultEditor(Object.class, null);
         jLabel_slKH.setText(jTable_QLKH.getRowCount() + "");
         jLabel_vip.setText(KH.getAllKHVip().toString());
         jLabel_Standard.setText(KH.getAllKHStandard().toString());
@@ -139,6 +187,7 @@ public class Admin extends javax.swing.JFrame {
         jScrollPane2.getViewport().setBackground(Color.WHITE);
         jScrollPane7.getViewport().setBackground(Color.WHITE);
         jScrollPane8.getViewport().setBackground(Color.WHITE);
+        jScrollPane9.getViewport().setBackground(Color.WHITE);
         DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer();
         headerRenderer.setBackground(new Color(65, 127, 194));
         headerRenderer.setBorder(new LineBorder(Color.black, 1));
@@ -149,6 +198,7 @@ public class Admin extends javax.swing.JFrame {
         jTable_HangHoa.setRowHeight(30);
         jTable_HopThuDen.setRowHeight(30);
         jTable_HopThuDi.setRowHeight(30);
+        jTable_HH.setRowHeight(30);
         for (int i = 0; i < jTable_PhieuNhapKho.getModel().getColumnCount(); i++) {
             jTable_PhieuNhapKho.getColumnModel().getColumn(i).setHeaderRenderer(headerRenderer);
         }
@@ -167,9 +217,18 @@ public class Admin extends javax.swing.JFrame {
         for (int i = 0; i < jTable_HopThuDi.getModel().getColumnCount(); i++) {
             jTable_HopThuDi.getColumnModel().getColumn(i).setHeaderRenderer(headerRenderer);
         }
+        for (int i = 0; i < jTable_HH.getModel().getColumnCount(); i++) {
+            jTable_HH.getColumnModel().getColumn(i).setHeaderRenderer(headerRenderer);
+        }
 //        Color color = UIManager.getColor("Table.gridColor");
 //        MatteBorder border = new MatteBorder(5, 5, 0, 0, Color.blue);
 //        jTable_PhieuNhapKho.setBorder(border);
+    }
+
+    public void setNhomHang(String item1, String item2) {
+        String a = item1 + " (" + item2 + ")";
+        System.out.println(a);
+        jComboBoxNhomHang.addItem(a);
     }
 
     public void disCard() {
@@ -180,6 +239,7 @@ public class Admin extends javax.swing.JFrame {
         CardTaoSanPham.hide();
         CardKhachHang.hide();
         CardTinNhan.hide();
+        CardDSSP.hide();
     }
 
     public void disSubMenu() {
@@ -207,6 +267,20 @@ public class Admin extends javax.swing.JFrame {
         iconTinNhan.setForeground(Color.BLACK);
         Mail.setBackground(new Color(244, 244, 244));
         iconTinNhan.setFont(new java.awt.Font("Tahoma", 0, 18));
+    }
+
+    public void reset() {
+        jTextFieldMaHH.setText("");
+        jTextFieldTenHH.setText("");
+        jTextFieldGiaBan.setText("");
+        jTextFieldGiaVon.setText("");
+        jTextArea2.setText("");
+        jFormattedThue.setText("");
+        jLabelImage1.setIcon(null);
+        jLabelImage2.setIcon(null);
+        jLabelImage3.setIcon(null);
+        jLabelImage4.setIcon(null);
+        jLabelImage5.setIcon(null);
     }
 
     /**
@@ -417,13 +491,13 @@ public class Admin extends javax.swing.JFrame {
         jLabel89 = new javax.swing.JLabel();
         jLabel90 = new javax.swing.JLabel();
         jLabel91 = new javax.swing.JLabel();
-        jTextField6 = new javax.swing.JTextField();
-        jTextField7 = new javax.swing.JTextField();
-        jFormattedTextField1 = new javax.swing.JFormattedTextField();
-        jFormattedTextField2 = new javax.swing.JFormattedTextField();
-        jComboBox2 = new javax.swing.JComboBox<>();
-        jComboBox3 = new javax.swing.JComboBox<>();
-        jFormattedTextField3 = new javax.swing.JFormattedTextField();
+        jTextFieldMaHH = new javax.swing.JTextField();
+        jTextFieldTenHH = new javax.swing.JTextField();
+        jTextFieldGiaBan = new javax.swing.JFormattedTextField();
+        jFormattedThue = new javax.swing.JFormattedTextField();
+        jComboBoxNhomHang = new javax.swing.JComboBox<>();
+        jComboBoxNhaSX = new javax.swing.JComboBox<>();
+        jTextFieldGiaVon = new javax.swing.JFormattedTextField();
         jScrollPane5 = new javax.swing.JScrollPane();
         jTextArea2 = new javax.swing.JTextArea();
         jLabel_ThemNSX = new javax.swing.JLabel();
@@ -435,12 +509,12 @@ public class Admin extends javax.swing.JFrame {
         jButton7 = new javax.swing.JButton();
         jPanel43 = new javax.swing.JPanel();
         jPanel44 = new javax.swing.JPanel();
-        jLabel_Anh1 = new javax.swing.JLabel();
+        jLabelImage1 = new javax.swing.JLabel();
         jPanel45 = new javax.swing.JPanel();
-        jLabel32 = new javax.swing.JLabel();
-        jLabel94 = new javax.swing.JLabel();
-        jLabel33 = new javax.swing.JLabel();
-        jLabel96 = new javax.swing.JLabel();
+        jLabelImage2 = new javax.swing.JLabel();
+        jLabelImage3 = new javax.swing.JLabel();
+        jLabelImage4 = new javax.swing.JLabel();
+        jLabelImage5 = new javax.swing.JLabel();
         CardKhachHang = new javax.swing.JPanel();
         JPanel_Title_TaoNhapKho1 = new javax.swing.JPanel();
         jLabel79 = new javax.swing.JLabel();
@@ -477,15 +551,37 @@ public class Admin extends javax.swing.JFrame {
         jLabel95 = new javax.swing.JLabel();
         jScrollPane8 = new javax.swing.JScrollPane();
         jTable_HopThuDi = new javax.swing.JTable();
+        CardDSSP = new javax.swing.JPanel();
+        JPanel_Title_TaoNhapKho2 = new javax.swing.JPanel();
+        jLabel94 = new javax.swing.JLabel();
+        jButton_NhapHang_huy2 = new javax.swing.JButton();
+        jButton_NhapHang_LamMoi2 = new javax.swing.JButton();
+        jPanel40 = new javax.swing.JPanel();
+        jPanel41 = new javax.swing.JPanel();
+        jLabel32 = new javax.swing.JLabel();
+        jTextField3 = new javax.swing.JTextField();
+        jButton10 = new javax.swing.JButton();
+        jScrollPane9 = new javax.swing.JScrollPane();
+        jTable_HH = new javax.swing.JTable();
 
         jMenuItem_Sua.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
         jMenuItem_Sua.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Edit_Property_18px.png"))); // NOI18N
-        jMenuItem_Sua.setText("jMenuItem1");
+        jMenuItem_Sua.setText("Sửa");
+        jMenuItem_Sua.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem_SuaActionPerformed(evt);
+            }
+        });
         jPopupMenu_SanPham.add(jMenuItem_Sua);
 
         jMenuItem_Xoa.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
         jMenuItem_Xoa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Delete_18px_1.png"))); // NOI18N
-        jMenuItem_Xoa.setText("jMenuItem2");
+        jMenuItem_Xoa.setText("Xóa");
+        jMenuItem_Xoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem_XoaActionPerformed(evt);
+            }
+        });
         jPopupMenu_SanPham.add(jMenuItem_Xoa);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -1789,6 +1885,11 @@ public class Admin extends javax.swing.JFrame {
         jPanel_Filter_Left1.setLayout(new java.awt.GridBagLayout());
 
         jTextField5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jTextField5.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField5KeyReleased(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.ipadx = 300;
@@ -1936,6 +2037,11 @@ public class Admin extends javax.swing.JFrame {
         jButton5.setForeground(new java.awt.Color(255, 255, 255));
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Plus_Math_18px.png"))); // NOI18N
         jButton5.setText("Thêm");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.ipadx = 20;
         gridBagConstraints.ipady = 10;
@@ -2050,7 +2156,7 @@ public class Admin extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(0, 30, 0, 0);
         jPanel33.add(jLabel91, gridBagConstraints);
 
-        jTextField6.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        jTextFieldMaHH.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 0;
@@ -2059,9 +2165,9 @@ public class Admin extends javax.swing.JFrame {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.FIRST_LINE_START;
         gridBagConstraints.weighty = 0.1;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 20);
-        jPanel33.add(jTextField6, gridBagConstraints);
+        jPanel33.add(jTextFieldMaHH, gridBagConstraints);
 
-        jTextField7.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        jTextFieldTenHH.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 2;
@@ -2070,12 +2176,12 @@ public class Admin extends javax.swing.JFrame {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.FIRST_LINE_START;
         gridBagConstraints.weighty = 0.1;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 20);
-        jPanel33.add(jTextField7, gridBagConstraints);
+        jPanel33.add(jTextFieldTenHH, gridBagConstraints);
 
-        jFormattedTextField1.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
-        jFormattedTextField1.addActionListener(new java.awt.event.ActionListener() {
+        jTextFieldGiaBan.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        jTextFieldGiaBan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jFormattedTextField1ActionPerformed(evt);
+                jTextFieldGiaBanActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -2086,12 +2192,13 @@ public class Admin extends javax.swing.JFrame {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.FIRST_LINE_START;
         gridBagConstraints.weighty = 0.1;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 20);
-        jPanel33.add(jFormattedTextField1, gridBagConstraints);
+        jPanel33.add(jTextFieldGiaBan, gridBagConstraints);
 
-        jFormattedTextField2.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
-        jFormattedTextField2.addActionListener(new java.awt.event.ActionListener() {
+        jFormattedThue.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
+        jFormattedThue.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        jFormattedThue.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jFormattedTextField2ActionPerformed(evt);
+                jFormattedThueActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -2102,9 +2209,9 @@ public class Admin extends javax.swing.JFrame {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.FIRST_LINE_START;
         gridBagConstraints.weighty = 0.1;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 20);
-        jPanel33.add(jFormattedTextField2, gridBagConstraints);
+        jPanel33.add(jFormattedThue, gridBagConstraints);
 
-        jComboBox2.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        jComboBoxNhomHang.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 8;
@@ -2112,9 +2219,9 @@ public class Admin extends javax.swing.JFrame {
         gridBagConstraints.ipadx = 600;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.FIRST_LINE_START;
         gridBagConstraints.weighty = 0.1;
-        jPanel33.add(jComboBox2, gridBagConstraints);
+        jPanel33.add(jComboBoxNhomHang, gridBagConstraints);
 
-        jComboBox3.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        jComboBoxNhaSX.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 10;
@@ -2122,12 +2229,12 @@ public class Admin extends javax.swing.JFrame {
         gridBagConstraints.ipadx = 380;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.FIRST_LINE_START;
         gridBagConstraints.weighty = 0.1;
-        jPanel33.add(jComboBox3, gridBagConstraints);
+        jPanel33.add(jComboBoxNhaSX, gridBagConstraints);
 
-        jFormattedTextField3.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
-        jFormattedTextField3.addActionListener(new java.awt.event.ActionListener() {
+        jTextFieldGiaVon.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        jTextFieldGiaVon.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jFormattedTextField3ActionPerformed(evt);
+                jTextFieldGiaVonActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -2138,7 +2245,7 @@ public class Admin extends javax.swing.JFrame {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.FIRST_LINE_START;
         gridBagConstraints.weighty = 0.1;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 20);
-        jPanel33.add(jFormattedTextField3, gridBagConstraints);
+        jPanel33.add(jTextFieldGiaVon, gridBagConstraints);
 
         jTextArea2.setColumns(20);
         jTextArea2.setFont(new java.awt.Font("Monospaced", 0, 20)); // NOI18N
@@ -2185,6 +2292,9 @@ public class Admin extends javax.swing.JFrame {
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 jLabel_XoaNSXMouseExited(evt);
             }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel_XoaNSXMousePressed(evt);
+            }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 5;
@@ -2220,6 +2330,9 @@ public class Admin extends javax.swing.JFrame {
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 jLabel_XoaNHMouseExited(evt);
             }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel_XoaNHMousePressed(evt);
+            }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 5;
@@ -2242,6 +2355,11 @@ public class Admin extends javax.swing.JFrame {
         jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Add_Image_18px.png"))); // NOI18N
         jButton7.setText("Thêm ảnh");
         jButton7.setMargin(new java.awt.Insets(5, 15, 5, 15));
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel42Layout = new javax.swing.GroupLayout(jPanel42);
         jPanel42.setLayout(jPanel42Layout);
@@ -2270,7 +2388,7 @@ public class Admin extends javax.swing.JFrame {
 
         jPanel44.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel_Anh1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jLabelImage1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         javax.swing.GroupLayout jPanel44Layout = new javax.swing.GroupLayout(jPanel44);
         jPanel44.setLayout(jPanel44Layout);
@@ -2280,7 +2398,7 @@ public class Admin extends javax.swing.JFrame {
             .addGroup(jPanel44Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel44Layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jLabel_Anh1, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelImage1, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(0, 0, Short.MAX_VALUE)))
         );
         jPanel44Layout.setVerticalGroup(
@@ -2289,7 +2407,7 @@ public class Admin extends javax.swing.JFrame {
             .addGroup(jPanel44Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel44Layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jLabel_Anh1, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelImage1, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(0, 0, Short.MAX_VALUE)))
         );
 
@@ -2298,22 +2416,22 @@ public class Admin extends javax.swing.JFrame {
         jPanel45.setBackground(new java.awt.Color(255, 255, 255));
         jPanel45.setLayout(new java.awt.GridLayout(1, 4, 2, 0));
 
-        jLabel32.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel32.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jLabel32.setPreferredSize(new java.awt.Dimension(2, 100));
-        jPanel45.add(jLabel32);
+        jLabelImage2.setBackground(new java.awt.Color(255, 255, 255));
+        jLabelImage2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jLabelImage2.setPreferredSize(new java.awt.Dimension(2, 100));
+        jPanel45.add(jLabelImage2);
 
-        jLabel94.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel94.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel45.add(jLabel94);
+        jLabelImage3.setBackground(new java.awt.Color(255, 255, 255));
+        jLabelImage3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel45.add(jLabelImage3);
 
-        jLabel33.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel33.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel45.add(jLabel33);
+        jLabelImage4.setBackground(new java.awt.Color(255, 255, 255));
+        jLabelImage4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel45.add(jLabelImage4);
 
-        jLabel96.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel96.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel45.add(jLabel96);
+        jLabelImage5.setBackground(new java.awt.Color(255, 255, 255));
+        jLabelImage5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel45.add(jLabelImage5);
 
         jPanel43.add(jPanel45);
 
@@ -2532,7 +2650,7 @@ public class Admin extends javax.swing.JFrame {
         CardTinNhan.add(JPanel_Title_NhapKho1, java.awt.BorderLayout.PAGE_START);
 
         jPanel38.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel38.setLayout(new java.awt.GridLayout(1, 1, 20, 0));
+        jPanel38.setLayout(new java.awt.GridLayout(2, 1, 0, 10));
 
         jPanel37.setBackground(new java.awt.Color(255, 255, 255));
         jPanel37.setLayout(new java.awt.BorderLayout(0, 10));
@@ -2574,6 +2692,103 @@ public class Admin extends javax.swing.JFrame {
         CardTinNhan.add(jPanel38, java.awt.BorderLayout.CENTER);
 
         HienThi.add(CardTinNhan, "card8");
+
+        CardDSSP.setBackground(new java.awt.Color(255, 255, 255));
+        CardDSSP.setLayout(new java.awt.BorderLayout());
+
+        JPanel_Title_TaoNhapKho2.setBackground(new java.awt.Color(255, 255, 255));
+        JPanel_Title_TaoNhapKho2.setLayout(new java.awt.GridBagLayout());
+
+        jLabel94.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
+        jLabel94.setForeground(new java.awt.Color(0, 102, 255));
+        jLabel94.setText("Danh Sách Sản Phẩm");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.weightx = 0.1;
+        gridBagConstraints.insets = new java.awt.Insets(0, 20, 0, 0);
+        JPanel_Title_TaoNhapKho2.add(jLabel94, gridBagConstraints);
+
+        jButton_NhapHang_huy2.setBackground(new java.awt.Color(172, 172, 172));
+        jButton_NhapHang_huy2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jButton_NhapHang_huy2.setForeground(new java.awt.Color(255, 255, 255));
+        jButton_NhapHang_huy2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Back_18px.png"))); // NOI18N
+        jButton_NhapHang_huy2.setText("Trở lại");
+        jButton_NhapHang_huy2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_NhapHang_huy2ActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 6;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.ipadx = 60;
+        gridBagConstraints.ipady = 10;
+        JPanel_Title_TaoNhapKho2.add(jButton_NhapHang_huy2, gridBagConstraints);
+
+        jButton_NhapHang_LamMoi2.setBackground(new java.awt.Color(65, 127, 194));
+        jButton_NhapHang_LamMoi2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jButton_NhapHang_LamMoi2.setForeground(new java.awt.Color(255, 255, 255));
+        jButton_NhapHang_LamMoi2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Refresh_18px.png"))); // NOI18N
+        jButton_NhapHang_LamMoi2.setText("Làm Mới");
+        jButton_NhapHang_LamMoi2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_NhapHang_LamMoi2ActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.ipadx = 50;
+        gridBagConstraints.ipady = 10;
+        JPanel_Title_TaoNhapKho2.add(jButton_NhapHang_LamMoi2, gridBagConstraints);
+
+        CardDSSP.add(JPanel_Title_TaoNhapKho2, java.awt.BorderLayout.PAGE_START);
+
+        jPanel40.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel40.setLayout(new java.awt.BorderLayout());
+
+        jPanel41.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel41.setLayout(new java.awt.GridBagLayout());
+
+        jLabel32.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel32.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        jLabel32.setText("Tìm kiếm:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.weightx = 0.1;
+        jPanel41.add(jLabel32, gridBagConstraints);
+
+        jTextField3.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 3.3;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 50);
+        jPanel41.add(jTextField3, gridBagConstraints);
+
+        jButton10.setBackground(new java.awt.Color(65, 127, 194));
+        jButton10.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        jButton10.setForeground(new java.awt.Color(255, 255, 255));
+        jButton10.setText("Tìm");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.ipadx = 20;
+        gridBagConstraints.ipady = 10;
+        jPanel41.add(jButton10, gridBagConstraints);
+
+        jPanel40.add(jPanel41, java.awt.BorderLayout.PAGE_START);
+
+        jTable_HH.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        jTable_HH.getTableHeader().setResizingAllowed(false);
+        jTable_HH.getTableHeader().setReorderingAllowed(false);
+        jScrollPane9.setViewportView(jTable_HH);
+
+        jPanel40.add(jScrollPane9, java.awt.BorderLayout.CENTER);
+
+        CardDSSP.add(jPanel40, java.awt.BorderLayout.CENTER);
+
+        HienThi.add(CardDSSP, "card9");
 
         Function.add(HienThi);
 
@@ -2726,6 +2941,8 @@ public class Admin extends javax.swing.JFrame {
         HangHoa.setBackground(Color.WHITE);
         iconSanPham.setForeground(new Color(100, 149, 237));
         iconSanPham.setFont(new java.awt.Font("Tahoma", 1, 18));
+
+        modelTable1.fireTableDataChanged();
     }//GEN-LAST:event_HangHoaMousePressed
 
     private void jButton_XuatExcelSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_XuatExcelSPActionPerformed
@@ -2846,6 +3063,10 @@ public class Admin extends javax.swing.JFrame {
         currenColor = 3;
         disCard();
         CardTaoSanPham.show();
+        jButton5.setVisible(true);
+        jButton9.hide();
+        jTextFieldMaHH.setEnabled(true);
+        reset();
     }//GEN-LAST:event_jButton_ThemSPActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
@@ -2870,17 +3091,17 @@ public class Admin extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    private void jFormattedTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextField2ActionPerformed
+    private void jFormattedThueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedThueActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jFormattedTextField2ActionPerformed
+    }//GEN-LAST:event_jFormattedThueActionPerformed
 
-    private void jFormattedTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextField1ActionPerformed
+    private void jTextFieldGiaBanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldGiaBanActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jFormattedTextField1ActionPerformed
+    }//GEN-LAST:event_jTextFieldGiaBanActionPerformed
 
-    private void jFormattedTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextField3ActionPerformed
+    private void jTextFieldGiaVonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldGiaVonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jFormattedTextField3ActionPerformed
+    }//GEN-LAST:event_jTextFieldGiaVonActionPerformed
 
     private void jLabel_ThemNHMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_ThemNHMouseEntered
         // TODO add your handling code here:
@@ -2985,8 +3206,8 @@ public class Admin extends javax.swing.JFrame {
 
     private void jTextField8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextField8MouseClicked
         // TODO add your handling code here:
-        PhieuNhapSanPham pnsp = new PhieuNhapSanPham(this, true);
-        pnsp.setVisible(true);
+        disCard();
+        CardDSSP.show();
     }//GEN-LAST:event_jTextField8MouseClicked
 
     private void jComboBox_NCCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox_NCCActionPerformed
@@ -3004,6 +3225,248 @@ public class Admin extends javax.swing.JFrame {
         ThemNSX nsx = new ThemNSX(this, true);
         nsx.setVisible(true);
     }//GEN-LAST:event_jLabel_ThemNSXMouseClicked
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        // TODO add your handling code here:
+        try {
+            if (jLabelImage1.getIcon() == null) {
+                String a = hh.copyFile().getPath();
+                b1 = a.substring(a.lastIndexOf("\\") + 1, a.length());
+                String b = System.getProperty("user.dir") + "\\src\\img\\" + jTextFieldMaHH.getText() + "1" + a.substring(a.lastIndexOf("."), a.length());
+                a1 = b;
+                FileInputStream fis = new FileInputStream(a);
+                FileOutputStream fos = new FileOutputStream(b);
+                int i;
+                while ((i = fis.read()) != -1) {
+                    fos.write(i);
+                }
+                BufferedImage image = ImageIO.read(new File(b));
+                ImageIcon icon = new ImageIcon(image.getScaledInstance(jLabelImage1.getSize().width, jLabelImage1.getSize().height, image.SCALE_SMOOTH));
+                jLabelImage1.setIcon(icon);
+            } else if (jLabelImage1.getIcon() != null && jLabelImage2.getIcon() == null) {
+                String a = hh.copyFile().getPath();
+                b2 = a.substring(a.lastIndexOf("\\") + 1, a.length());
+                String b = System.getProperty("user.dir") + "\\src\\img\\" + jTextFieldMaHH.getText() + "2" + a.substring(a.lastIndexOf("."), a.length());
+                a2 = b;
+                FileInputStream fis = new FileInputStream(a);
+                FileOutputStream fos = new FileOutputStream(b);
+                int i;
+                while ((i = fis.read()) != -1) {
+                    fos.write(i);
+                }
+                BufferedImage image = ImageIO.read(new File(b));
+                ImageIcon icon = new ImageIcon(image.getScaledInstance(jLabelImage2.getSize().width, jLabelImage2.getSize().height, image.SCALE_SMOOTH));
+                jLabelImage2.setIcon(icon);
+            } else if (jLabelImage2.getIcon() != null && jLabelImage3.getIcon() == null) {
+                String a = hh.copyFile().getPath();
+                b3 = a.substring(a.lastIndexOf("\\") + 1, a.length());
+                String b = System.getProperty("user.dir") + "\\src\\img\\" + jTextFieldMaHH.getText() + "3" + a.substring(a.lastIndexOf("."), a.length());
+                a3 = b;
+                FileInputStream fis = new FileInputStream(a);
+                FileOutputStream fos = new FileOutputStream(b);
+                int i;
+                while ((i = fis.read()) != -1) {
+                    fos.write(i);
+                }
+                BufferedImage image = ImageIO.read(new File(b));
+                ImageIcon icon = new ImageIcon(image.getScaledInstance(jLabelImage3.getSize().width, jLabelImage3.getSize().height, image.SCALE_SMOOTH));
+                jLabelImage3.setIcon(icon);
+            } else if (jLabelImage3.getIcon() != null && jLabelImage4.getIcon() == null) {
+                String a = hh.copyFile().getPath();
+                b4 = a.substring(a.lastIndexOf("\\") + 1, a.length());
+                String b = System.getProperty("user.dir") + "\\src\\img\\" + jTextFieldMaHH.getText() + "4" + a.substring(a.lastIndexOf("."), a.length());
+                a4 = b;
+                FileInputStream fis = new FileInputStream(a);
+                FileOutputStream fos = new FileOutputStream(b);
+                int i;
+                while ((i = fis.read()) != -1) {
+                    fos.write(i);
+                }
+                BufferedImage image = ImageIO.read(new File(b));
+                ImageIcon icon = new ImageIcon(image.getScaledInstance(jLabelImage4.getSize().width, jLabelImage4.getSize().height, image.SCALE_SMOOTH));
+                jLabelImage4.setIcon(icon);
+            } else if (jLabelImage4.getIcon() != null && jLabelImage5.getIcon() == null) {
+                String a = hh.copyFile().getPath();
+                b5 = a.substring(a.lastIndexOf("\\") + 1, a.length());
+                String b = System.getProperty("user.dir") + "\\src\\img\\" + jTextFieldMaHH.getText() + "5" + a.substring(a.lastIndexOf("."), a.length());
+                a5 = b;
+                FileInputStream fis = new FileInputStream(a);
+                FileOutputStream fos = new FileOutputStream(b);
+                int i;
+                while ((i = fis.read()) != -1) {
+                    fos.write(i);
+                }
+                BufferedImage image = ImageIO.read(new File(b));
+                ImageIcon icon = new ImageIcon(image.getScaledInstance(jLabelImage5.getSize().width, jLabelImage5.getSize().height, image.SCALE_SMOOTH));
+                jLabelImage5.setIcon(icon);
+            }
+        } catch (Exception ex) {
+
+        }
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jMenuItem_SuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem_SuaActionPerformed
+        // TODO add your handling code here:
+        disCard();
+        reset();
+        CardTaoSanPham.show();
+        jTextFieldMaHH.setEnabled(false);
+        jButton9.setVisible(true);
+        jButton5.hide();
+        jTextFieldMaHH.setText((String) jTable_SanPham.getValueAt(jTable_SanPham.getSelectedRow(), 0));
+        jTextFieldTenHH.setText((String) jTable_SanPham.getValueAt(jTable_SanPham.getSelectedRow(), 1));
+        jTextFieldGiaVon.setText((String) jTable_SanPham.getValueAt(jTable_SanPham.getSelectedRow(), 2));
+        jTextFieldGiaBan.setText((String) jTable_SanPham.getValueAt(jTable_SanPham.getSelectedRow(), 3));
+        jFormattedThue.setText((String) jTable_SanPham.getValueAt(jTable_SanPham.getSelectedRow(), 4));
+        jTextArea2.setText((String) jTable_SanPham.getValueAt(jTable_SanPham.getSelectedRow(), 5));
+        jComboBoxNhaSX.setSelectedItem((String) jTable_SanPham.getValueAt(jTable_SanPham.getSelectedRow(), 6));
+        jComboBoxNhomHang.setSelectedItem((String) jTable_SanPham.getValueAt(jTable_SanPham.getSelectedRow(), 7));
+        a1 = System.getProperty("user.dir") + "\\src\\img\\" + hh.getImg(jTextFieldMaHH.getText()).get(0);
+        a2 = System.getProperty("user.dir") + "\\src\\img\\" + hh.getImg(jTextFieldMaHH.getText()).get(1);
+        a3 = System.getProperty("user.dir") + "\\src\\img\\" + hh.getImg(jTextFieldMaHH.getText()).get(2);
+        a4 = System.getProperty("user.dir") + "\\src\\img\\" + hh.getImg(jTextFieldMaHH.getText()).get(3);
+        a5 = System.getProperty("user.dir") + "\\src\\img\\" + hh.getImg(jTextFieldMaHH.getText()).get(4);
+        try {
+            BufferedImage image, image2, image3, image4, image5;
+            ImageIcon icon, icon2, icon3, icon4, icon5;
+            image = ImageIO.read(new File(a1));
+            icon = new ImageIcon(image.getScaledInstance(jLabelImage1.getSize().width, jLabelImage1.getSize().height, image.SCALE_SMOOTH));
+            jLabelImage1.setIcon(icon);
+            image2 = ImageIO.read(new File(a2));
+            icon2 = new ImageIcon(image2.getScaledInstance(jLabelImage2.getSize().width, jLabelImage2.getSize().height, image2.SCALE_SMOOTH));
+            jLabelImage2.setIcon(icon2);
+            image3 = ImageIO.read(new File(a3));
+            icon3 = new ImageIcon(image3.getScaledInstance(jLabelImage3.getSize().width, jLabelImage3.getSize().height, image3.SCALE_SMOOTH));
+            jLabelImage3.setIcon(icon3);
+            image4 = ImageIO.read(new File(a4));
+            icon4 = new ImageIcon(image4.getScaledInstance(jLabelImage4.getSize().width, jLabelImage4.getSize().height, image4.SCALE_SMOOTH));
+            jLabelImage4.setIcon(icon4);
+            image5 = ImageIO.read(new File(a5));
+            icon5 = new ImageIcon(image5.getScaledInstance(jLabelImage5.getSize().width, jLabelImage5.getSize().height, image5.SCALE_SMOOTH));
+            jLabelImage5.setIcon(icon5);
+            jTextFieldMaHH.setEnabled(false);
+        } catch (IOException ex) {
+        }
+    }//GEN-LAST:event_jMenuItem_SuaActionPerformed
+
+    private void jMenuItem_XoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem_XoaActionPerformed
+        // TODO add your handling code here:
+        hh.deleteHH(jTable_SanPham.getValueAt(jTable_SanPham.getSelectedRow(), 0).toString());
+        modelTable1.removeRow(jTable_SanPham.getSelectedRow());
+    }//GEN-LAST:event_jMenuItem_XoaActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+        String a = jFormattedThue.getText().replace(",", ".");
+        try {
+            if (jTextFieldMaHH.getText().equals("") || jTextFieldTenHH.getText().equals("") || jTextFieldGiaVon.getText().equals("") || jTextFieldGiaBan.getText().equals("")
+                    || jFormattedThue.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Vui lòng nhập đầy đủ thông tin");
+            } else {
+                jButton9.hide();
+                jButton5.show();
+                modelHangHoa mhh = new modelHangHoa();
+                mhh.setMaHH(jTextFieldMaHH.getText());
+                mhh.setTenHH(jTextFieldTenHH.getText());
+                mhh.setGiaVon(Integer.parseInt(jTextFieldGiaVon.getText()));
+                mhh.setGiaBan(Integer.parseInt(jTextFieldGiaBan.getText()));
+                mhh.setNhomHang(jComboBoxNhomHang.getSelectedItem().toString().substring(0, jComboBoxNhomHang.getSelectedItem().toString().indexOf("(")).trim());
+                mhh.setNhaSX(jComboBoxNhaSX.getSelectedItem().toString().substring(0, jComboBoxNhaSX.getSelectedItem().toString().indexOf("(")).trim());
+                mhh.setThueVAT(Double.parseDouble(a));
+                mhh.setMoTa(jTextArea2.getText());
+                if (jLabelImage5.getIcon() != null) {
+                    mhh.setImg1(jTextFieldMaHH.getText() + "1" + a1.substring(a1.lastIndexOf(".")));
+                    mhh.setImg2(jTextFieldMaHH.getText() + "2" + a1.substring(a1.lastIndexOf(".")));
+                    mhh.setImg3(jTextFieldMaHH.getText() + "3" + a1.substring(a1.lastIndexOf(".")));
+                    mhh.setImg4(jTextFieldMaHH.getText() + "4" + a1.substring(a1.lastIndexOf(".")));
+                    mhh.setImg5(jTextFieldMaHH.getText() + "5" + a1.substring(a1.lastIndexOf(".")));
+                } else if (jLabelImage4.getIcon() != null) {
+                    mhh.setImg1(jTextFieldMaHH.getText() + "1" + a1.substring(a1.lastIndexOf(".")));
+                    mhh.setImg2(jTextFieldMaHH.getText() + "2" + a1.substring(a1.lastIndexOf(".")));
+                    mhh.setImg3(jTextFieldMaHH.getText() + "3" + a1.substring(a1.lastIndexOf(".")));
+                    mhh.setImg4(jTextFieldMaHH.getText() + "4" + a1.substring(a1.lastIndexOf(".")));
+                } else if (jLabelImage3.getIcon() != null) {
+                    mhh.setImg1(jTextFieldMaHH.getText() + "1" + a1.substring(a1.lastIndexOf(".")));
+                    mhh.setImg2(jTextFieldMaHH.getText() + "2" + a1.substring(a1.lastIndexOf(".")));
+                    mhh.setImg3(jTextFieldMaHH.getText() + "3" + a1.substring(a1.lastIndexOf(".")));
+                } else if (jLabelImage2.getIcon() != null) {
+                    mhh.setImg1(jTextFieldMaHH.getText() + "1" + a1.substring(a1.lastIndexOf(".")));
+                    mhh.setImg2(jTextFieldMaHH.getText() + "2" + a1.substring(a1.lastIndexOf(".")));
+                } else if (jLabelImage1.getIcon() != null) {
+                    mhh.setImg1(jTextFieldMaHH.getText() + "1" + a1.substring(a1.lastIndexOf(".")));
+                } else {
+                }
+                if (hh.insertHangHoa(mhh) != 0) {
+                    String Nrow[] = new String[13];
+                    Nrow[0] = mhh.getMaHH();
+                    Nrow[1] = mhh.getTenHH();
+                    Nrow[2] = mhh.getGiaVon() + "";
+                    Nrow[3] = mhh.getGiaBan() + "";
+                    Nrow[4] = mhh.getThueVAT() + "";
+                    Nrow[5] = mhh.getMoTa();
+                    Nrow[6] = mhh.getNhaSX();
+                    Nrow[7] = mhh.getNhomHang();
+                    modelTable1.addRow(Nrow);
+                    String tam = jTextFieldMaHH.getText().trim();
+                    reset();
+                    for (int i = 1; i <= 5; i++) {
+                        File file = new File(a1.substring(0, a1.lastIndexOf(".") - 1) + i + a1.substring(a1.lastIndexOf(".")));
+                        File newFile = new File(a1.substring(0, a1.lastIndexOf(".") - 1) + tam + i + a1.substring(a1.lastIndexOf(".")));
+                        System.out.println(a1.substring(0, a1.lastIndexOf(".") - 1) + i + a1.substring(a1.lastIndexOf(".")));
+                        System.out.println(a1.substring(0, a1.lastIndexOf(".") - 1) + tam + i + a1.substring(a1.lastIndexOf(".")));
+                        if (file.renameTo(newFile)) {
+                            System.out.println("1");
+                        } else {
+                            System.out.println("2");
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jTextField5KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField5KeyReleased
+        // TODO add your handling code here:
+        modelTable1.setRowCount(0);
+        for (int i = 0; i < hh.findByID(jTextField5.getText()).size(); i++) {
+            data1.add(hh.findByID(jTextField5.getText()).get(i));
+        }
+        modelTable1.fireTableDataChanged();
+    }//GEN-LAST:event_jTextField5KeyReleased
+
+    private void jLabel_XoaNHMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_XoaNHMousePressed
+        // TODO add your handling code here:
+        String a;
+        int vt;
+        vt = jComboBoxNhomHang.getSelectedItem().toString().indexOf("(") - 1;
+        a = jComboBoxNhomHang.getSelectedItem().toString().substring(0, vt);
+        if (hh.deleteNH(a) != 0) {
+            jComboBoxNhomHang.removeItem(jComboBoxNhomHang.getSelectedItem().toString());
+        }
+    }//GEN-LAST:event_jLabel_XoaNHMousePressed
+
+    private void jLabel_XoaNSXMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_XoaNSXMousePressed
+        // TODO add your handling code here:
+        String a;
+        int vt;
+        vt = jComboBoxNhaSX.getSelectedItem().toString().indexOf("(") - 1;
+        a = jComboBoxNhaSX.getSelectedItem().toString().substring(0, vt);
+        if (hh.deleteNSX(a) != 0) {
+            jComboBoxNhaSX.removeItem(jComboBoxNhaSX.getSelectedItem().toString());
+        }
+    }//GEN-LAST:event_jLabel_XoaNSXMousePressed
+
+    private void jButton_NhapHang_huy2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_NhapHang_huy2ActionPerformed
+        // TODO add your handling code here:
+        disCard();
+        CardTaoPhieuNhap.show();
+    }//GEN-LAST:event_jButton_NhapHang_huy2ActionPerformed
+
+    private void jButton_NhapHang_LamMoi2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_NhapHang_LamMoi2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton_NhapHang_LamMoi2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -3042,6 +3505,7 @@ public class Admin extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel BG;
+    private javax.swing.JPanel CardDSSP;
     private javax.swing.JPanel CardKhachHang;
     private javax.swing.JPanel CardNhapKho;
     private javax.swing.JPanel CardSanPham;
@@ -3057,6 +3521,7 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JPanel JPanel_Title_NhapKho1;
     private javax.swing.JPanel JPanel_Title_TaoNhapKho;
     private javax.swing.JPanel JPanel_Title_TaoNhapKho1;
+    private javax.swing.JPanel JPanel_Title_TaoNhapKho2;
     private javax.swing.JPanel KhachHang;
     private javax.swing.JPanel Mail;
     private javax.swing.JPanel Menu;
@@ -3071,6 +3536,7 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JLabel iconTinNhan;
     private javax.swing.JLabel iconTongQuan;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -3082,23 +3548,23 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JButton jButton_CapNhat;
     private javax.swing.JButton jButton_NhapHang_LamMoi;
     private javax.swing.JButton jButton_NhapHang_LamMoi1;
+    private javax.swing.JButton jButton_NhapHang_LamMoi2;
     private javax.swing.JButton jButton_NhapHang_XacNhan;
     private javax.swing.JButton jButton_NhapHang_huy;
     private javax.swing.JButton jButton_NhapHang_huy1;
+    private javax.swing.JButton jButton_NhapHang_huy2;
     private javax.swing.JButton jButton_SoanTinNhan;
     private javax.swing.JButton jButton_TaoPhieuNhap;
     private javax.swing.JButton jButton_ThemSP;
     private javax.swing.JButton jButton_XuatExcel;
     private javax.swing.JButton jButton_XuatExcelSP;
     private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JComboBox<String> jComboBox3;
+    private javax.swing.JComboBox<String> jComboBoxNhaSX;
+    private javax.swing.JComboBox<String> jComboBoxNhomHang;
     private javax.swing.JComboBox<String> jComboBox_NCC;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private com.toedter.calendar.JDateChooser jDateChooser2;
-    private javax.swing.JFormattedTextField jFormattedTextField1;
-    private javax.swing.JFormattedTextField jFormattedTextField2;
-    private javax.swing.JFormattedTextField jFormattedTextField3;
+    private javax.swing.JFormattedTextField jFormattedThue;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -3125,7 +3591,6 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
-    private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel35;
     private javax.swing.JLabel jLabel36;
@@ -3194,8 +3659,11 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel93;
     private javax.swing.JLabel jLabel94;
     private javax.swing.JLabel jLabel95;
-    private javax.swing.JLabel jLabel96;
-    private javax.swing.JLabel jLabel_Anh1;
+    private javax.swing.JLabel jLabelImage1;
+    private javax.swing.JLabel jLabelImage2;
+    private javax.swing.JLabel jLabelImage3;
+    private javax.swing.JLabel jLabelImage4;
+    private javax.swing.JLabel jLabelImage5;
     private javax.swing.JLabel jLabel_Filter_Space;
     private javax.swing.JLabel jLabel_Filter_Space1;
     private javax.swing.JLabel jLabel_Standard;
@@ -3250,6 +3718,8 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel38;
     private javax.swing.JPanel jPanel39;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel40;
+    private javax.swing.JPanel jPanel41;
     private javax.swing.JPanel jPanel42;
     private javax.swing.JPanel jPanel43;
     private javax.swing.JPanel jPanel44;
@@ -3282,7 +3752,9 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
+    private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JSpinner jSpinner1;
+    private javax.swing.JTable jTable_HH;
     private javax.swing.JTable jTable_HangHoa;
     private javax.swing.JTable jTable_HopThuDen;
     private javax.swing.JTable jTable_HopThuDi;
@@ -3293,11 +3765,14 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JTextArea jTextArea2;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
     private javax.swing.JTextField jTextField8;
     private javax.swing.JTextField jTextField9;
+    private javax.swing.JFormattedTextField jTextFieldGiaBan;
+    private javax.swing.JFormattedTextField jTextFieldGiaVon;
+    private javax.swing.JTextField jTextFieldMaHH;
+    private javax.swing.JTextField jTextFieldTenHH;
     // End of variables declaration//GEN-END:variables
 }
