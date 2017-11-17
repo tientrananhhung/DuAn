@@ -8,14 +8,20 @@ package View;
 import Controller.QLDSHang;
 import Model.Account;
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.util.Vector;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JPopupMenu;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.UIManager;
 import javax.swing.border.LineBorder;
 import javax.swing.border.MatteBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 
 /**
  *
@@ -26,21 +32,73 @@ public class ThanhToan extends javax.swing.JFrame {
     /**
      * Creates new form ThanhToan
      */
-    Vector head, data, head1, data1;
-    DefaultTableModel modelTable, modelTable1;
+    Vector head, data, head1, data1, head2, data2;
+    DefaultTableModel modelTable, modelTable1, modelTable2;
     QLDSHang DS;
     Account acc;
+    JPopupMenu menu = new JPopupMenu();
+    JTable jt;
 
     public ThanhToan() {
         initComponents();
+        popup();
         changeTable();
     }
 
     public ThanhToan(Account acc) {
         initComponents();
+        popup();
         changeTable();
         this.acc = acc;
         jButton_User.setText(acc.getTenNguoiDung());
+    }
+
+    public void popup() {
+        head2 = new Vector();
+        data2 = new Vector();
+        head2.add("Ngày gửi");
+        head2.add("Nội dung");
+        head2.add("Trạng thái");
+        for (int i = 0; i < 50; i++) {
+            int a = i + 1;
+            Vector t = new Vector();
+            t.add(i);
+            t.add(a);
+            t.add("Chưa xem");
+            data2.add(t);
+        }
+        jt = new JTable();
+        jt.setBounds(30, 40, 200, 300);
+        JScrollPane sp = new JScrollPane(jt, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        jt.setRowHeight(30);
+        sp.setPreferredSize(new Dimension(800, 500));
+        JScrollPane item1 = sp;
+        JTableHeader header = jt.getTableHeader();
+        header.setFont(new Font("Dialog", Font.BOLD, 24));
+        jt.setFont(new Font("Serif", Font.PLAIN, 18));
+        jt.getTableHeader().setReorderingAllowed(false);
+        jt.getTableHeader().setResizingAllowed(false);
+        sp.getViewport().setBackground(Color.WHITE);
+        modelTable2 = new DefaultTableModel(data2, head2) {
+
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                //all cells false
+                return false;
+            }
+        };
+
+        jt.setModel(modelTable2);
+        menu.add(item1);
+        jt.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                if (evt.getClickCount() == 2) {
+                    ThuNhanVien tnv = new ThuNhanVien(null, true, 1, jt.getValueAt(jt.getSelectedRow(), 1).toString());
+                    tnv.setVisible(true);
+                }
+            }
+        });
     }
 
     public void changeTable() {
@@ -70,22 +128,18 @@ public class ThanhToan extends javax.swing.JFrame {
         jScrollPane1.getViewport().setBackground(Color.WHITE);
         jScrollPane2.getViewport().setBackground(Color.WHITE);
         DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer();
-        DefaultTableCellRenderer headerRenderer1 = new DefaultTableCellRenderer();
         headerRenderer.setBackground(new Color(65, 127, 194));
         headerRenderer.setBorder(new LineBorder(Color.black, 1));
         headerRenderer.setForeground(Color.WHITE);
-        headerRenderer1.setBackground(new Color(65, 127, 194));
-        headerRenderer1.setBorder(new LineBorder(Color.black, 1));
-        headerRenderer1.setForeground(Color.WHITE);
         for (int i = 0; i < jTable_HangHoa.getModel().getColumnCount(); i++) {
             jTable_HangHoa.getColumnModel().getColumn(i).setHeaderRenderer(headerRenderer);
         }
         for (int i = 0; i < jTable_ThanhToan.getModel().getColumnCount(); i++) {
-            jTable_ThanhToan.getColumnModel().getColumn(i).setHeaderRenderer(headerRenderer1);
+            jTable_ThanhToan.getColumnModel().getColumn(i).setHeaderRenderer(headerRenderer);
         }
-//        Color color = UIManager.getColor("Table.gridColor");
-//        MatteBorder border = new MatteBorder(5, 5, 0, 0, Color.blue);
-//        jTable_HangHoa.setBorder(border);
+        for (int i = 0; i < jt.getModel().getColumnCount(); i++) {
+            jt.getColumnModel().getColumn(i).setHeaderRenderer(headerRenderer);
+        }
     }
 
     public static boolean isNumeric(String str) {
@@ -272,6 +326,11 @@ public class ThanhToan extends javax.swing.JFrame {
         jButton_Mail.setForeground(new java.awt.Color(255, 255, 255));
         jButton_Mail.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Mail_32px.png"))); // NOI18N
         jButton_Mail.setText("Thư đến");
+        jButton_Mail.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton_MailMouseClicked(evt);
+            }
+        });
         jButton_Mail.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton_MailActionPerformed(evt);
@@ -288,6 +347,11 @@ public class ThanhToan extends javax.swing.JFrame {
         jButton_Feedback.setForeground(new java.awt.Color(255, 255, 255));
         jButton_Feedback.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Feedback_32px.png"))); // NOI18N
         jButton_Feedback.setText("Phản hồi");
+        jButton_Feedback.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_FeedbackActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.ipadx = 20;
@@ -358,6 +422,7 @@ public class ThanhToan extends javax.swing.JFrame {
 
             }
         ));
+        jTable_HangHoa.getTableHeader().setResizingAllowed(false);
         jTable_HangHoa.getTableHeader().setReorderingAllowed(false);
         jTable_HangHoa.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -582,6 +647,7 @@ public class ThanhToan extends javax.swing.JFrame {
 
     private void jButton_MailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_MailActionPerformed
         // TODO add your handling code here:
+
     }//GEN-LAST:event_jButton_MailActionPerformed
 
     private void jFormattedTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jFormattedTextField1KeyReleased
@@ -691,6 +757,19 @@ public class ThanhToan extends javax.swing.JFrame {
         HoaDon hh = new HoaDon(this, true);
         hh.setVisible(true);
     }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton_MailMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_MailMouseClicked
+        // TODO add your handling code here:
+        if (evt.getButton() == 1) { // 1-left, 2-middle, 3-right button
+            menu.show(evt.getComponent(), evt.getX(), evt.getY());
+        }
+    }//GEN-LAST:event_jButton_MailMouseClicked
+
+    private void jButton_FeedbackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_FeedbackActionPerformed
+        // TODO add your handling code here:
+        ThuNhanVien tnv = new ThuNhanVien(this, true, 2, "");
+        tnv.setVisible(true);
+    }//GEN-LAST:event_jButton_FeedbackActionPerformed
 
     /**
      * @param args the command line arguments
