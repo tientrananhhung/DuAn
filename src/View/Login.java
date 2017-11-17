@@ -6,7 +6,7 @@
 package View;
 
 import Model.Account;
-import Model.AccountDAO;
+import Controller.AccountDAO;
 import com.placeholder.PlaceHolder;
 import java.awt.Frame;
 import java.awt.GraphicsDevice;

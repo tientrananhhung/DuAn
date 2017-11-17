@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Model;
+package Controller;
 
 import Controller.ConnectDB;
+import Model.Account;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Connection;
@@ -36,10 +37,5 @@ public class AccountDAO {
 
         }
         return kq;
-    }
-    
-    public static void main(String[] args) {
-        AccountDAO aDAO = new AccountDAO();
-        System.out.println(aDAO.checkLogin("admin", "admin").getTenNguoiDung());
     }
 }

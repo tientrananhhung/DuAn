@@ -20,6 +20,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -58,6 +59,7 @@ public class Admin extends javax.swing.JFrame {
     String a4 = "", b4 = "";
     String a5 = "", b5 = "";
     ThemNSX nsx;
+    DecimalFormat formatter = new DecimalFormat("###,###,###");
 
     public Admin() {
         initComponents();
