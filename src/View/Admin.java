@@ -9,6 +9,7 @@ import Controller.QLHH;
 import Controller.QLKhachHang;
 import Controller.QuanLyNCC;
 import Controller.TinNhan;
+import Controller.TinNhanDAO;
 import Model.Account;
 import Model.modelHangHoa;
 import java.awt.BorderLayout;
@@ -31,6 +32,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -60,6 +62,8 @@ public class Admin extends javax.swing.JFrame {
     String a5 = "", b5 = "";
     ThemNSX nsx;
     DecimalFormat formatter = new DecimalFormat("###,###,###");
+    TinNhanDAO tnDAO;
+    TinNhan tn;
 
     public Admin() {
         initComponents();
@@ -79,6 +83,9 @@ public class Admin extends javax.swing.JFrame {
     }
 
     public void a() {
+        tnDAO = new TinNhanDAO();
+        tn = new TinNhan();
+        jLabel46.setText(tnDAO.demTNAD() + "");
         jLabel35.setText(jTable_SanPham.getRowCount() + "");
         for (int i = 0; i < jTable_SanPham.getRowCount(); i++) {
             tong1 += Integer.parseInt(jTable_SanPham.getValueAt(i, 2).toString());
@@ -92,6 +99,30 @@ public class Admin extends javax.swing.JFrame {
         for (int i = 0; i < hh.getMaNSX().size(); i++) {
             jComboBoxNhaSX.addItem((String) hh.getMaNSX().get(i) + " (" + (String) hh.getTenNSX().get(i) + ")");
         }
+    }
+
+    public Vector getData4() {
+        return data4;
+    }
+
+    public void setData4(Vector data4) {
+        this.data4 = data4;
+    }
+
+    public DefaultTableModel getModelTable4() {
+        return modelTable4;
+    }
+
+    public void setModelTable4(DefaultTableModel modelTable4) {
+        this.modelTable4 = modelTable4;
+    }
+
+    public JTable getjTable_HopThuDi() {
+        return jTable_HopThuDi;
+    }
+
+    public void setjTable_HopThuDi(JTable jTable_HopThuDi) {
+        this.jTable_HopThuDi = jTable_HopThuDi;
     }
 
     public void changeTable() {
@@ -141,6 +172,7 @@ public class Admin extends javax.swing.JFrame {
         head4.add("Người nhận");
         head4.add("Nội dung");
         head4.add("Ngày gửi");
+        head4.add("Trạng thái");
         head5.add("Người gửi");
         head5.add("Nội dung");
         head5.add("Ngày nhận");
@@ -298,6 +330,13 @@ public class Admin extends javax.swing.JFrame {
         jPopupMenu_SanPham = new javax.swing.JPopupMenu();
         jMenuItem_Sua = new javax.swing.JMenuItem();
         jMenuItem_Xoa = new javax.swing.JMenuItem();
+        jPopupMenu_HopThuDen = new javax.swing.JPopupMenu();
+        jMenuItem_DocHTDen = new javax.swing.JMenuItem();
+        jMenuItem_TraLoiHTDen = new javax.swing.JMenuItem();
+        jMenuItem_XoaHTDen = new javax.swing.JMenuItem();
+        jPopupMenu_HopThuDi = new javax.swing.JPopupMenu();
+        jMenuItem_XoaHTDi = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
         BG = new javax.swing.JPanel();
         jPanel24 = new javax.swing.JPanel();
         jPanel25 = new javax.swing.JPanel();
@@ -374,7 +413,6 @@ public class Admin extends javax.swing.JFrame {
         JPanel_Title_NhapKho = new javax.swing.JPanel();
         jLabel_TitleNhapKho = new javax.swing.JLabel();
         jButton_TaoPhieuNhap = new javax.swing.JButton();
-        jButton_XuatExcel = new javax.swing.JButton();
         jPanel_Show_NhapKho = new javax.swing.JPanel();
         jPanel_Filter = new javax.swing.JPanel();
         jPanel_Filter_Left = new javax.swing.JPanel();
@@ -454,7 +492,6 @@ public class Admin extends javax.swing.JFrame {
         jPanel_Title_SanPham = new javax.swing.JPanel();
         jLabel_Title_DSSP = new javax.swing.JLabel();
         jButton_ThemSP = new javax.swing.JButton();
-        jButton_XuatExcelSP = new javax.swing.JButton();
         jPanel_Show_NhapKho1 = new javax.swing.JPanel();
         jPanel_Filter1 = new javax.swing.JPanel();
         jPanel_Filter_Left1 = new javax.swing.JPanel();
@@ -520,7 +557,6 @@ public class Admin extends javax.swing.JFrame {
         CardKhachHang = new javax.swing.JPanel();
         JPanel_Title_TaoNhapKho1 = new javax.swing.JPanel();
         jLabel79 = new javax.swing.JLabel();
-        jButton_NhapHang_huy1 = new javax.swing.JButton();
         jButton_NhapHang_LamMoi1 = new javax.swing.JButton();
         jPanel_ShowKH = new javax.swing.JPanel();
         jPanel27 = new javax.swing.JPanel();
@@ -585,6 +621,48 @@ public class Admin extends javax.swing.JFrame {
             }
         });
         jPopupMenu_SanPham.add(jMenuItem_Xoa);
+
+        jMenuItem_DocHTDen.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
+        jMenuItem_DocHTDen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Post_Office_18px_1.png"))); // NOI18N
+        jMenuItem_DocHTDen.setText("Đọc");
+        jMenuItem_DocHTDen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem_DocHTDenActionPerformed(evt);
+            }
+        });
+        jPopupMenu_HopThuDen.add(jMenuItem_DocHTDen);
+
+        jMenuItem_TraLoiHTDen.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
+        jMenuItem_TraLoiHTDen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Send_18px_2.png"))); // NOI18N
+        jMenuItem_TraLoiHTDen.setText("Trả lời");
+        jMenuItem_TraLoiHTDen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem_TraLoiHTDenActionPerformed(evt);
+            }
+        });
+        jPopupMenu_HopThuDen.add(jMenuItem_TraLoiHTDen);
+
+        jMenuItem_XoaHTDen.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
+        jMenuItem_XoaHTDen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Delete_18px_1.png"))); // NOI18N
+        jMenuItem_XoaHTDen.setText("Xóa");
+        jMenuItem_XoaHTDen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem_XoaHTDenActionPerformed(evt);
+            }
+        });
+        jPopupMenu_HopThuDen.add(jMenuItem_XoaHTDen);
+
+        jMenuItem_XoaHTDi.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
+        jMenuItem_XoaHTDi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Delete_18px_1.png"))); // NOI18N
+        jMenuItem_XoaHTDi.setText("Xóa");
+        jMenuItem_XoaHTDi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem_XoaHTDiActionPerformed(evt);
+            }
+        });
+        jPopupMenu_HopThuDi.add(jMenuItem_XoaHTDi);
+
+        jMenuItem1.setText("jMenuItem1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -1192,19 +1270,6 @@ public class Admin extends javax.swing.JFrame {
         gridBagConstraints.ipadx = 20;
         gridBagConstraints.ipady = 10;
         JPanel_Title_NhapKho.add(jButton_TaoPhieuNhap, gridBagConstraints);
-
-        jButton_XuatExcel.setBackground(new java.awt.Color(71, 184, 107));
-        jButton_XuatExcel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton_XuatExcel.setForeground(new java.awt.Color(255, 255, 255));
-        jButton_XuatExcel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Microsoft_Excel_18px.png"))); // NOI18N
-        jButton_XuatExcel.setText("Xuất Excel");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 4;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.ipadx = 50;
-        gridBagConstraints.ipady = 10;
-        JPanel_Title_NhapKho.add(jButton_XuatExcel, gridBagConstraints);
 
         CardNhapKho.add(JPanel_Title_NhapKho, java.awt.BorderLayout.PAGE_START);
 
@@ -1857,24 +1922,6 @@ public class Admin extends javax.swing.JFrame {
         gridBagConstraints.ipady = 10;
         jPanel_Title_SanPham.add(jButton_ThemSP, gridBagConstraints);
 
-        jButton_XuatExcelSP.setBackground(new java.awt.Color(71, 184, 107));
-        jButton_XuatExcelSP.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton_XuatExcelSP.setForeground(new java.awt.Color(255, 255, 255));
-        jButton_XuatExcelSP.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Microsoft_Excel_18px.png"))); // NOI18N
-        jButton_XuatExcelSP.setText("Xuất Excel");
-        jButton_XuatExcelSP.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton_XuatExcelSPActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 4;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.ipadx = 40;
-        gridBagConstraints.ipady = 10;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 20);
-        jPanel_Title_SanPham.add(jButton_XuatExcelSP, gridBagConstraints);
-
         CardSanPham.add(jPanel_Title_SanPham, java.awt.BorderLayout.PAGE_START);
 
         jPanel_Show_NhapKho1.setBackground(new java.awt.Color(255, 255, 255));
@@ -2462,23 +2509,6 @@ public class Admin extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(0, 20, 0, 0);
         JPanel_Title_TaoNhapKho1.add(jLabel79, gridBagConstraints);
 
-        jButton_NhapHang_huy1.setBackground(new java.awt.Color(71, 184, 107));
-        jButton_NhapHang_huy1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton_NhapHang_huy1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton_NhapHang_huy1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Microsoft_Excel_18px.png"))); // NOI18N
-        jButton_NhapHang_huy1.setText("Xuất Excel");
-        jButton_NhapHang_huy1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton_NhapHang_huy1ActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 6;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.ipadx = 60;
-        gridBagConstraints.ipady = 10;
-        JPanel_Title_TaoNhapKho1.add(jButton_NhapHang_huy1, gridBagConstraints);
-
         jButton_NhapHang_LamMoi1.setBackground(new java.awt.Color(65, 127, 194));
         jButton_NhapHang_LamMoi1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jButton_NhapHang_LamMoi1.setForeground(new java.awt.Color(255, 255, 255));
@@ -2624,11 +2654,9 @@ public class Admin extends javax.swing.JFrame {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.ipadx = 80;
+        gridBagConstraints.ipadx = 70;
         gridBagConstraints.ipady = 10;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 20);
         JPanel_Title_NhapKho1.add(jButton_SoanTinNhan, gridBagConstraints);
 
         jButton_CapNhat.setBackground(new java.awt.Color(71, 184, 107));
@@ -2664,8 +2692,22 @@ public class Admin extends javax.swing.JFrame {
         jPanel37.add(jLabel21, java.awt.BorderLayout.PAGE_START);
 
         jTable_HopThuDen.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        jTable_HopThuDen.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        jTable_HopThuDen.setComponentPopupMenu(jPopupMenu_HopThuDen);
         jTable_HopThuDen.getTableHeader().setResizingAllowed(false);
         jTable_HopThuDen.getTableHeader().setReorderingAllowed(false);
+        jTable_HopThuDen.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable_HopThuDenMouseClicked(evt);
+            }
+        });
         jScrollPane7.setViewportView(jTable_HopThuDen);
 
         jPanel37.add(jScrollPane7, java.awt.BorderLayout.CENTER);
@@ -2683,6 +2725,7 @@ public class Admin extends javax.swing.JFrame {
         jPanel39.add(jLabel95, java.awt.BorderLayout.PAGE_START);
 
         jTable_HopThuDi.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        jTable_HopThuDi.setComponentPopupMenu(jPopupMenu_HopThuDi);
         jTable_HopThuDi.getTableHeader().setResizingAllowed(false);
         jTable_HopThuDi.getTableHeader().setReorderingAllowed(false);
         jScrollPane8.setViewportView(jTable_HopThuDi);
@@ -2855,6 +2898,7 @@ public class Admin extends javax.swing.JFrame {
         TongQuan.setBackground(Color.WHITE);
         iconTongQuan.setForeground(new Color(100, 149, 237));
         iconTongQuan.setFont(new java.awt.Font("Tahoma", 1, 18));
+        jLabel46.setText(tnDAO.demTNAD() + "");
     }//GEN-LAST:event_TongQuanMousePressed
 
     private void NhapKhoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_NhapKhoMouseEntered
@@ -2946,10 +2990,6 @@ public class Admin extends javax.swing.JFrame {
 
         modelTable1.fireTableDataChanged();
     }//GEN-LAST:event_HangHoaMousePressed
-
-    private void jButton_XuatExcelSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_XuatExcelSPActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton_XuatExcelSPActionPerformed
 
     private void DangXuatMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DangXuatMouseEntered
         // TODO add your handling code here:
@@ -3054,11 +3094,17 @@ public class Admin extends javax.swing.JFrame {
         Mail.setBackground(Color.WHITE);
         iconTinNhan.setForeground(new Color(100, 149, 237));
         iconTinNhan.setFont(new java.awt.Font("Tahoma", 1, 18));
+        modelTable5.setRowCount(0);
+        for (int i = 0; i < tn.getAllTNAD().size(); i++) {
+            Vector t = (Vector) tn.getAllTNAD().get(i);
+            data5.add(t);
+        }
+        modelTable4.setRowCount(0);
+        for (int i = 0; i < tn.getAllTNNV().size(); i++) {
+            Vector t = (Vector) tn.getAllTNNV().get(i);
+            data4.add(t);
+        }
     }//GEN-LAST:event_MailMousePressed
-
-    private void jButton_NhapHang_huy1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_NhapHang_huy1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton_NhapHang_huy1ActionPerformed
 
     private void jButton_ThemSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_ThemSPActionPerformed
         // TODO add your handling code here:
@@ -3204,6 +3250,16 @@ public class Admin extends javax.swing.JFrame {
 
     private void jButton_CapNhatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_CapNhatActionPerformed
         // TODO add your handling code here:
+        modelTable5.setRowCount(0);
+        for (int i = 0; i < tn.getAllTNAD().size(); i++) {
+            Vector t = (Vector) tn.getAllTNAD().get(i);
+            data5.add(t);
+        }
+        modelTable4.setRowCount(0);
+        for (int i = 0; i < tn.getAllTNNV().size(); i++) {
+            Vector t = (Vector) tn.getAllTNNV().get(i);
+            data4.add(t);
+        }
     }//GEN-LAST:event_jButton_CapNhatActionPerformed
 
     private void jTextField8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextField8MouseClicked
@@ -3470,6 +3526,48 @@ public class Admin extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton_NhapHang_LamMoi2ActionPerformed
 
+    private void jMenuItem_DocHTDenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem_DocHTDenActionPerformed
+        // TODO add your handling code here:
+        ThuAdmin ta = new ThuAdmin(this, true, jTable_HopThuDen.getValueAt(jTable_HopThuDen.getSelectedRow(), 1).toString(), jTable_HopThuDen.getValueAt(jTable_HopThuDen.getSelectedRow(), 0).toString(), 2);
+        jTable_HopThuDen.setValueAt("Đã xem", jTable_HopThuDen.getSelectedRow(), 3);
+        tnDAO.seenAD(jTable_HopThuDen.getValueAt(jTable_HopThuDen.getSelectedRow(), 0).toString(), jTable_HopThuDen.getValueAt(jTable_HopThuDen.getSelectedRow(), 2).toString());
+        ta.setVisible(true);
+    }//GEN-LAST:event_jMenuItem_DocHTDenActionPerformed
+
+    private void jTable_HopThuDenMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable_HopThuDenMouseClicked
+        // TODO add your handling code here:
+        if (evt.getClickCount() == 2) {
+            ThuAdmin ta = new ThuAdmin(this, true, jTable_HopThuDen.getValueAt(jTable_HopThuDen.getSelectedRow(), 1).toString(), jTable_HopThuDen.getValueAt(jTable_HopThuDen.getSelectedRow(), 0).toString(), 2);
+            jTable_HopThuDen.setValueAt("Đã xem", jTable_HopThuDen.getSelectedRow(), 3);
+            tnDAO.seenAD(jTable_HopThuDen.getValueAt(jTable_HopThuDen.getSelectedRow(), 0).toString(), jTable_HopThuDen.getValueAt(jTable_HopThuDen.getSelectedRow(), 2).toString());
+            ta.setVisible(true);
+        }
+    }//GEN-LAST:event_jTable_HopThuDenMouseClicked
+
+    private void jMenuItem_TraLoiHTDenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem_TraLoiHTDenActionPerformed
+        // TODO add your handling code here:
+        ThuAdmin ta = new ThuAdmin(this, true, "", jTable_HopThuDen.getValueAt(jTable_HopThuDen.getSelectedRow(), 0).toString(), 1);
+        jTable_HopThuDen.setValueAt("Đã xem", jTable_HopThuDen.getSelectedRow(), 3);
+        tnDAO.seenAD(jTable_HopThuDen.getValueAt(jTable_HopThuDen.getSelectedRow(), 0).toString(), jTable_HopThuDen.getValueAt(jTable_HopThuDen.getSelectedRow(), 2).toString());
+        ta.setVisible(true);
+    }//GEN-LAST:event_jMenuItem_TraLoiHTDenActionPerformed
+
+    private void jMenuItem_XoaHTDenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem_XoaHTDenActionPerformed
+        // TODO add your handling code here:
+        if (tnDAO.deleteMailAD(jTable_HopThuDen.getValueAt(jTable_HopThuDen.getSelectedRow(), 0).toString(), jTable_HopThuDen.getValueAt(jTable_HopThuDen.getSelectedRow(), 2).toString()) == 1) {
+            JOptionPane.showMessageDialog(this, "Đã xóa thư người dùng " + jTable_HopThuDen.getValueAt(jTable_HopThuDen.getSelectedRow(), 0).toString() + " được gửi vào lúc " + jTable_HopThuDen.getValueAt(jTable_HopThuDen.getSelectedRow(), 2).toString());
+            modelTable5.removeRow(jTable_HopThuDen.getSelectedRow());
+        }
+    }//GEN-LAST:event_jMenuItem_XoaHTDenActionPerformed
+
+    private void jMenuItem_XoaHTDiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem_XoaHTDiActionPerformed
+        // TODO add your handling code here:
+        if (tnDAO.deleteMailNV(jTable_HopThuDi.getValueAt(jTable_HopThuDi.getSelectedRow(), 0).toString(), jTable_HopThuDi.getValueAt(jTable_HopThuDi.getSelectedRow(), 2).toString()) == 1) {
+            JOptionPane.showMessageDialog(this, "Đã xóa thư gửi cho người dùng " + jTable_HopThuDi.getValueAt(jTable_HopThuDi.getSelectedRow(), 0).toString() + " được gửi vào lúc " + jTable_HopThuDi.getValueAt(jTable_HopThuDi.getSelectedRow(), 2).toString());
+            modelTable4.removeRow(jTable_HopThuDi.getSelectedRow());
+        }
+    }//GEN-LAST:event_jMenuItem_XoaHTDiActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -3553,13 +3651,10 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JButton jButton_NhapHang_LamMoi2;
     private javax.swing.JButton jButton_NhapHang_XacNhan;
     private javax.swing.JButton jButton_NhapHang_huy;
-    private javax.swing.JButton jButton_NhapHang_huy1;
     private javax.swing.JButton jButton_NhapHang_huy2;
     private javax.swing.JButton jButton_SoanTinNhan;
     private javax.swing.JButton jButton_TaoPhieuNhap;
     private javax.swing.JButton jButton_ThemSP;
-    private javax.swing.JButton jButton_XuatExcel;
-    private javax.swing.JButton jButton_XuatExcelSP;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBoxNhaSX;
     private javax.swing.JComboBox<String> jComboBoxNhomHang;
@@ -3684,8 +3779,13 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel_XoaNSX;
     private javax.swing.JLabel jLabel_slKH;
     private javax.swing.JLabel jLabel_vip;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem_DocHTDen;
     private javax.swing.JMenuItem jMenuItem_Sua;
+    private javax.swing.JMenuItem jMenuItem_TraLoiHTDen;
     private javax.swing.JMenuItem jMenuItem_Xoa;
+    private javax.swing.JMenuItem jMenuItem_XoaHTDen;
+    private javax.swing.JMenuItem jMenuItem_XoaHTDi;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
@@ -3745,6 +3845,8 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel_Title_SanPham;
     private javax.swing.JPanel jPanel_Under_Info;
     private javax.swing.JPanel jPanel_Under_Info1;
+    private javax.swing.JPopupMenu jPopupMenu_HopThuDen;
+    private javax.swing.JPopupMenu jPopupMenu_HopThuDi;
     private javax.swing.JPopupMenu jPopupMenu_SanPham;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;

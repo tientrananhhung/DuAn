@@ -5,6 +5,7 @@
  */
 package View;
 
+import Controller.AccountDAO;
 import java.awt.Color;
 import java.util.Vector;
 import javax.swing.border.LineBorder;
@@ -22,14 +23,30 @@ public class NhanVien extends javax.swing.JDialog {
      */
     Vector head, data;
     DefaultTableModel modelTable;
+    AccountDAO aDAO;
+    String noiDung;
 
     public NhanVien(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        changeTable();
+    }
+
+    public NhanVien(java.awt.Frame parent, boolean modal, String noiDung) {
+        super(parent, modal);
+        initComponents();
+        changeTable();
+        this.noiDung = noiDung;
+    }
+
+    public void changeTable() {
+        aDAO = new AccountDAO();
         head = new Vector();
         data = new Vector();
         head.add("Mã nhân viên");
         head.add("Tên nhân viên");
+        head.add("Ngày sinh");
+        head.add("Địa chỉ");
         head.add("Số điện thoại");
         head.add("Email");
         modelTable = new DefaultTableModel(data, head);
@@ -41,8 +58,20 @@ public class NhanVien extends javax.swing.JDialog {
         headerRenderer.setBorder(new LineBorder(Color.black, 1));
         headerRenderer.setForeground(Color.WHITE);
         jTable_NV.setRowHeight(30);
+        jTable_NV.getColumnModel().getColumn(0).setPreferredWidth(0);
+        jTable_NV.getColumnModel().getColumn(4).setPreferredWidth(0);
         for (int i = 0; i < jTable_NV.getModel().getColumnCount(); i++) {
             jTable_NV.getColumnModel().getColumn(i).setHeaderRenderer(headerRenderer);
+        }
+        for (int i = 0; i < aDAO.getAllAccount().size(); i++) {
+            Vector t = new Vector();
+            t.add(aDAO.getAllAccount().get(i).getTenTK());
+            t.add(aDAO.getAllAccount().get(i).getTenNguoiDung());
+            t.add(aDAO.getAllAccount().get(i).getNgaySinh());
+            t.add(aDAO.getAllAccount().get(i).getDiaChi());
+            t.add(aDAO.getAllAccount().get(i).getSdt());
+            t.add(aDAO.getAllAccount().get(i).getEmail());
+            data.add(t);
         }
     }
 
@@ -142,6 +171,11 @@ public class NhanVien extends javax.swing.JDialog {
         jTable_NV.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
         jTable_NV.getTableHeader().setResizingAllowed(false);
         jTable_NV.getTableHeader().setReorderingAllowed(false);
+        jTable_NV.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable_NVMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable_NV);
 
         jPanel3.add(jScrollPane1);
@@ -156,6 +190,11 @@ public class NhanVien extends javax.swing.JDialog {
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Checked_Checkbox_18px.png"))); // NOI18N
         jButton2.setText("Chọn");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.ipadx = 20;
         gridBagConstraints.ipady = 10;
@@ -168,15 +207,15 @@ public class NhanVien extends javax.swing.JDialog {
         bg.setLayout(bgLayout);
         bgLayout.setHorizontalGroup(
             bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1135, Short.MAX_VALUE)
             .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(jPanel18, javax.swing.GroupLayout.DEFAULT_SIZE, 840, Short.MAX_VALUE))
         );
         bgLayout.setVerticalGroup(
             bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgLayout.createSequentialGroup()
-                .addGap(0, 43, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 504, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 45, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 647, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(bgLayout.createSequentialGroup()
                     .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -201,7 +240,25 @@ public class NhanVien extends javax.swing.JDialog {
     private void X1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_X1MouseClicked
         // TODO add your handling code here:
         this.dispose();
+        ThuAdmin ta = new ThuAdmin(null, true);
+        ta.setVisible(true);
     }//GEN-LAST:event_X1MouseClicked
+
+    private void jTable_NVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable_NVMouseClicked
+        // TODO add your handling code here:
+        if (evt.getClickCount() == 2) {
+            ThuAdmin ta = new ThuAdmin(null, true, noiDung, jTable_NV.getValueAt(jTable_NV.getSelectedRow(), 0).toString(), 1);
+            this.dispose();
+            ta.setVisible(true);
+        }
+    }//GEN-LAST:event_jTable_NVMouseClicked
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        ThuAdmin ta = new ThuAdmin(null, true, noiDung, jTable_NV.getValueAt(jTable_NV.getSelectedRow(), 0).toString(), 1);
+        this.dispose();
+        ta.setVisible(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments

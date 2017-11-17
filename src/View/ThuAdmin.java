@@ -5,7 +5,13 @@
  */
 package View;
 
+import Controller.TinNhanDAO;
 import java.awt.Cursor;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Vector;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -16,11 +22,37 @@ public class ThuAdmin extends javax.swing.JDialog {
     /**
      * Creates new form ThuAdmin
      */
+    String noiDung;
+    TinNhanDAO tnDAO;
+
     public ThuAdmin(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         jLabel1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         jTextArea1.setLineWrap(true);
+    }
+
+    public ThuAdmin(java.awt.Frame parent, boolean modal, String noiDung, String user, int loai) {
+        super(parent, modal);
+        initComponents();
+        jLabel1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        jTextArea1.setLineWrap(true);
+        if (loai == 2) {
+            this.noiDung = noiDung;
+            jTextArea1.setText(noiDung);
+            jTextField1.setText(user);
+            tnDAO = new TinNhanDAO();
+            jButton_Rep.setEnabled(true);
+        } else {
+            this.noiDung = noiDung;
+            jTextArea1.setText(noiDung);
+            jTextField1.setText(user);
+            tnDAO = new TinNhanDAO();
+            if (!jTextArea1.getText().equals("")) {
+                jButton_Send.setEnabled(true);
+                jButton_Refresh.setEnabled(true);
+            }
+        }
     }
 
     /**
@@ -48,8 +80,9 @@ public class ThuAdmin extends javax.swing.JDialog {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
         jPanel4 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jButton_Send = new javax.swing.JButton();
+        jButton_Refresh = new javax.swing.JButton();
+        jButton_Rep = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -125,6 +158,11 @@ public class ThuAdmin extends javax.swing.JDialog {
         jTextArea1.setFont(new java.awt.Font("Monospaced", 0, 20)); // NOI18N
         jTextArea1.setRows(5);
         jTextArea1.setBorder(null);
+        jTextArea1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextArea1KeyReleased(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTextArea1);
 
         jPanel3.add(jScrollPane1);
@@ -133,26 +171,56 @@ public class ThuAdmin extends javax.swing.JDialog {
         jPanel4.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 0, 0, new java.awt.Color(0, 0, 0)));
         jPanel4.setLayout(new java.awt.GridBagLayout());
 
-        jButton1.setBackground(new java.awt.Color(65, 127, 194));
-        jButton1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Send_18px_1.png"))); // NOI18N
-        jButton1.setText("Gửi");
+        jButton_Send.setBackground(new java.awt.Color(65, 127, 194));
+        jButton_Send.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jButton_Send.setForeground(new java.awt.Color(255, 255, 255));
+        jButton_Send.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Send_18px_1.png"))); // NOI18N
+        jButton_Send.setText("Gửi");
+        jButton_Send.setEnabled(false);
+        jButton_Send.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_SendActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.ipadx = 60;
+        gridBagConstraints.ipady = 10;
+        gridBagConstraints.insets = new java.awt.Insets(10, 0, 10, 50);
+        jPanel4.add(jButton_Send, gridBagConstraints);
+
+        jButton_Refresh.setBackground(new java.awt.Color(71, 184, 107));
+        jButton_Refresh.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jButton_Refresh.setForeground(new java.awt.Color(255, 255, 255));
+        jButton_Refresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Refresh_18px.png"))); // NOI18N
+        jButton_Refresh.setText("Làm mới");
+        jButton_Refresh.setEnabled(false);
+        jButton_Refresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_RefreshActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.ipadx = 10;
+        gridBagConstraints.ipady = 10;
+        gridBagConstraints.insets = new java.awt.Insets(10, 50, 10, 0);
+        jPanel4.add(jButton_Refresh, gridBagConstraints);
+
+        jButton_Rep.setBackground(new java.awt.Color(65, 127, 194));
+        jButton_Rep.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jButton_Rep.setForeground(new java.awt.Color(255, 255, 255));
+        jButton_Rep.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Send_18px_1.png"))); // NOI18N
+        jButton_Rep.setText("Trả lời");
+        jButton_Rep.setEnabled(false);
+        jButton_Rep.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_RepActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.ipadx = 40;
         gridBagConstraints.ipady = 10;
-        gridBagConstraints.insets = new java.awt.Insets(10, 0, 10, 50);
-        jPanel4.add(jButton1, gridBagConstraints);
-
-        jButton2.setBackground(new java.awt.Color(71, 184, 107));
-        jButton2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Refresh_18px.png"))); // NOI18N
-        jButton2.setText("Làm mới");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.ipady = 10;
-        gridBagConstraints.insets = new java.awt.Insets(0, 50, 0, 0);
-        jPanel4.add(jButton2, gridBagConstraints);
+        gridBagConstraints.insets = new java.awt.Insets(10, 100, 10, 0);
+        jPanel4.add(jButton_Rep, gridBagConstraints);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -219,9 +287,51 @@ public class ThuAdmin extends javax.swing.JDialog {
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
         // TODO add your handling code here:
-        NhanVien nv = new NhanVien(null, true);
+        NhanVien nv = new NhanVien(null, true, jTextArea1.getText());
         nv.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jLabel1MouseClicked
+
+    private void jButton_RefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_RefreshActionPerformed
+        // TODO add your handling code here:
+        jTextField1.setText("");
+        jTextArea1.setText("");
+        jButton_Send.setEnabled(false);
+        jButton_Refresh.setEnabled(false);
+    }//GEN-LAST:event_jButton_RefreshActionPerformed
+
+    private void jButton_SendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_SendActionPerformed
+        // TODO add your handling code here:
+        if (jTextField1.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Xin vui lòng nhân viên.");
+        } else {
+            DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+            Date date = new Date();
+            String day = dateFormat.format(date);
+            if (tnDAO.sendMailAD(jTextField1.getText(), jTextArea1.getText(), day) == 1) {
+                JOptionPane.showMessageDialog(this, "Gửi thư thành công!");
+                this.dispose();
+            }
+        }
+    }//GEN-LAST:event_jButton_SendActionPerformed
+
+    private void jButton_RepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_RepActionPerformed
+        // TODO add your handling code here:
+        jTextArea1.setEditable(true);
+        jTextArea1.setText("");
+        jButton_Rep.setEnabled(false);
+    }//GEN-LAST:event_jButton_RepActionPerformed
+
+    private void jTextArea1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextArea1KeyReleased
+        // TODO add your handling code here:
+        if (jTextArea1.getText().equals("")) {
+            jButton_Send.setEnabled(false);
+            jButton_Refresh.setEnabled(false);
+        } else {
+            jButton_Send.setEnabled(true);
+            jButton_Refresh.setEnabled(true);
+        }
+    }//GEN-LAST:event_jTextArea1KeyReleased
 
     /**
      * @param args the command line arguments
@@ -268,8 +378,9 @@ public class ThuAdmin extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel X1;
     private javax.swing.JPanel bg;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton_Refresh;
+    private javax.swing.JButton jButton_Rep;
+    private javax.swing.JButton jButton_Send;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JPanel jPanel1;

@@ -7,6 +7,7 @@ package View;
 
 import Model.Account;
 import Controller.AccountDAO;
+import Controller.TinNhanDAO;
 import com.placeholder.PlaceHolder;
 import java.awt.Frame;
 import java.awt.GraphicsDevice;
@@ -21,6 +22,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.util.Scanner;
 import java.util.TimerTask;
+import java.util.Vector;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -37,6 +39,7 @@ public class Login extends javax.swing.JFrame {
     Connection conn;
     AccountDAO aDAO;
     File file;
+    TinNhanDAO tnDAO;
 
     public Login() {
         initComponents();
@@ -48,6 +51,7 @@ public class Login extends javax.swing.JFrame {
         holder.setCursiva(true);
         file = new File("save.bin");
         update();
+        tnDAO = new TinNhanDAO();
     }
 
     public void save() {
@@ -100,13 +104,14 @@ public class Login extends javax.swing.JFrame {
             file.delete();
         }
         Account acc = aDAO.checkLogin(jTextField_User.getText(), jPasswordField_Pass.getText());
+        Vector t = tnDAO.getAllMessengeNV(jTextField_User.getText());
         if (acc != null) {
             if (acc.getChucVu().equals("Administrator")) {
                 Admin admin = new Admin(acc);
                 admin.setVisible(true);
                 this.dispose();
             } else if (acc.getChucVu().equals("Nhân Viên")) {
-                ThanhToan thanhToan = new ThanhToan(acc);
+                ThanhToan thanhToan = new ThanhToan(acc, t);
                 thanhToan.setVisible(true);
                 this.dispose();
             }

@@ -6,6 +6,7 @@
 package View;
 
 import Controller.QLDSHang;
+import Controller.TinNhanDAO;
 import Model.Account;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -38,6 +39,9 @@ public class ThanhToan extends javax.swing.JFrame {
     Account acc;
     JPopupMenu menu = new JPopupMenu();
     JTable jt;
+    Vector a, n;
+    TinNhanDAO tnDAO;
+    int tong;
 
     public ThanhToan() {
         initComponents();
@@ -45,12 +49,16 @@ public class ThanhToan extends javax.swing.JFrame {
         changeTable();
     }
 
-    public ThanhToan(Account acc) {
+    public ThanhToan(Account acc, Vector t) {
         initComponents();
+        a = t;
         popup();
         changeTable();
         this.acc = acc;
         jButton_User.setText(acc.getTenNguoiDung());
+        n = new Vector();
+        tnDAO = new TinNhanDAO();
+        jButton_Mail.setText("Thư đến " + tnDAO.demTNNV(acc.getTenTK()));
     }
 
     public void popup() {
@@ -59,13 +67,17 @@ public class ThanhToan extends javax.swing.JFrame {
         head2.add("Ngày gửi");
         head2.add("Nội dung");
         head2.add("Trạng thái");
-        for (int i = 0; i < 50; i++) {
-            int a = i + 1;
-            Vector t = new Vector();
-            t.add(i);
-            t.add(a);
-            t.add("Chưa xem");
-            data2.add(t);
+        if (a.size() != 0) {
+            for (int i = 0; i < a.size(); i++) {
+                n = (Vector) a.get(i);
+                System.out.println(n);
+                Vector t = new Vector();
+                t.add(n.get(2));
+                t.add(n.get(1));
+                t.add(n.get(3));
+                data2.add(t);
+            }
+        } else {
         }
         jt = new JTable();
         jt.setBounds(30, 40, 200, 300);
@@ -94,7 +106,16 @@ public class ThanhToan extends javax.swing.JFrame {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 if (evt.getClickCount() == 2) {
-                    ThuNhanVien tnv = new ThuNhanVien(null, true, 1, jt.getValueAt(jt.getSelectedRow(), 1).toString());
+                    tong = 0;
+                    tnDAO.seenNV(acc.getTenTK(), jt.getValueAt(jt.getSelectedRow(), 0).toString());
+                    jt.setValueAt("Đã xem", jt.getSelectedRow(), 2);
+                    ThuNhanVien tnv = new ThuNhanVien(null, true, 1, jt.getValueAt(jt.getSelectedRow(), 1).toString(), acc.getTenTK());
+                    for (int i = 0; i < jt.getRowCount(); i++) {
+                        if (jt.getValueAt(i, 2).equals("Chưa xem")) {
+                            tong = tong + 1;
+                        }
+                    }
+                    jButton_Mail.setText("Thư đến " + tong);
                     tnv.setVisible(true);
                 }
             }
@@ -211,7 +232,6 @@ public class ThanhToan extends javax.swing.JFrame {
         jTable_ThanhToan = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setAlwaysOnTop(true);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setUndecorated(true);
 
@@ -767,7 +787,7 @@ public class ThanhToan extends javax.swing.JFrame {
 
     private void jButton_FeedbackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_FeedbackActionPerformed
         // TODO add your handling code here:
-        ThuNhanVien tnv = new ThuNhanVien(this, true, 2, "");
+        ThuNhanVien tnv = new ThuNhanVien(this, true, 2, "", acc.getTenTK());
         tnv.setVisible(true);
     }//GEN-LAST:event_jButton_FeedbackActionPerformed
 
