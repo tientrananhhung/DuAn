@@ -20,12 +20,22 @@ public class ThemKhachHang extends javax.swing.JDialog {
      */
     QLKhachHang QLKH;
     KhachHang KH;
+    String sdt;
 
     public ThemKhachHang(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         buttonGroup1.add(jRadioButton1);
         buttonGroup1.add(jRadioButton2);
+    }
+
+    public ThemKhachHang(java.awt.Frame parent, boolean modal, String sdt) {
+        super(parent, modal);
+        initComponents();
+        buttonGroup1.add(jRadioButton1);
+        buttonGroup1.add(jRadioButton2);
+        this.sdt = sdt;
+        jTextField1.setText(sdt);
     }
 
     /**

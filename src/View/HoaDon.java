@@ -5,8 +5,15 @@
  */
 package View;
 
+import Controller.QLDSHang;
+import Controller.QLKhachHang;
 import java.awt.Color;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Vector;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -22,6 +29,9 @@ public class HoaDon extends javax.swing.JDialog {
      */
     Vector head, data;
     DefaultTableModel modelTable;
+    QLKhachHang QLKH;
+    QLDSHang qlDSH;
+    String user;
 
     public HoaDon(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -42,6 +52,41 @@ public class HoaDon extends javax.swing.JDialog {
         for (int i = 0; i < jTable_HH.getModel().getColumnCount(); i++) {
             jTable_HH.getColumnModel().getColumn(i).setHeaderRenderer(headerRenderer);
         }
+        qlDSH = new QLDSHang();
+        QLKH = new QLKhachHang();
+    }
+
+    public HoaDon(java.awt.Frame parent, boolean modal, String a, String b, String user) {
+        super(parent, modal);
+        initComponents();
+        jLabel_TongTien.setText(b);
+        head = new Vector();
+        data = new Vector();
+        head.add("Tên sản phẩm");
+        head.add("Số lượng");
+        head.add("Tổng");
+        modelTable = new DefaultTableModel(data, head);
+        jTable_HH.setModel(modelTable);
+        jTable_HH.setDefaultEditor(Object.class, null);
+        jScrollPane2.getViewport().setBackground(Color.WHITE);
+        DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer();
+        headerRenderer.setBackground(new Color(65, 127, 194));
+        headerRenderer.setBorder(new LineBorder(Color.black, 1));
+        headerRenderer.setForeground(Color.WHITE);
+        for (int i = 0; i < jTable_HH.getModel().getColumnCount(); i++) {
+            jTable_HH.getColumnModel().getColumn(i).setHeaderRenderer(headerRenderer);
+        }
+        qlDSH = new QLDSHang();
+        QLKH = new QLKhachHang();
+        this.user = user;
+    }
+
+    public JTable getjTable_HH() {
+        return jTable_HH;
+    }
+
+    public void setjTable_HH(JTable jTable_HH) {
+        this.jTable_HH = jTable_HH;
     }
 
     /**
@@ -149,6 +194,11 @@ public class HoaDon extends javax.swing.JDialog {
         jLabel10.setText("Khách hàng:");
 
         jTextField2.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        jTextField2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField2KeyReleased(evt);
+            }
+        });
 
         jPanel2.setBackground(new java.awt.Color(244, 244, 244));
         jPanel2.setLayout(new java.awt.GridBagLayout());
@@ -290,9 +340,59 @@ public class HoaDon extends javax.swing.JDialog {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        ThemKhachHang tKH = new ThemKhachHang(null, true);
-        tKH.setVisible(true);
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = new Date();
+        String day = dateFormat.format(date);
+
+        if (jTextField3.getText().equals("")) {
+            if (qlDSH.themHD(user, "0000000000", day) == 1) {
+                for (int i = 0; i < jTable_HH.getRowCount(); i++) {
+                    int tongGia = Integer.parseInt(jTable_HH.getValueAt(i, 2).toString()) * Integer.parseInt(jTable_HH.getValueAt(i, 3).toString());
+                    qlDSH.themHDCT(qlDSH.getMaHD().get(0).toString(), jTable_HH.getValueAt(i, 0).toString(), Integer.parseInt(jTable_HH.getValueAt(i, 3).toString()), tongGia);
+                }
+                int sl = 0;
+                String ma = null;
+                for (int i = 0; i < jTable_HH.getRowCount(); i++) {
+                    sl = Integer.parseInt(jTable_HH.getValueAt(i, 3).toString());
+                    ma = jTable_HH.getValueAt(i, 0).toString();
+                    qlDSH.update(ma, sl);
+                }
+                JOptionPane.showMessageDialog(this, "Thanh toán thành công!");
+                this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(this, "Thanh toán thất bại!");
+            }
+        } else {
+            if (QLKH.findByID(jTextField3.getText()).size() != 0) {
+                if (qlDSH.themHD(user, jTextField3.getText(), day) == 1) {
+                    for (int i = 0; i < jTable_HH.getRowCount(); i++) {
+                        int tongGia = Integer.parseInt(jTable_HH.getValueAt(i, 2).toString()) * Integer.parseInt(jTable_HH.getValueAt(i, 3).toString());
+                        qlDSH.themHDCT(qlDSH.getMaHD().get(0).toString(), jTable_HH.getValueAt(i, 0).toString(), Integer.parseInt(jTable_HH.getValueAt(i, 3).toString()), tongGia);
+                    }
+                    int sl = 0;
+                    String ma = null;
+                    for (int i = 0; i < jTable_HH.getRowCount(); i++) {
+                        sl = Integer.parseInt(jTable_HH.getValueAt(i, 3).toString());
+                        ma = jTable_HH.getValueAt(i, 0).toString();
+                        qlDSH.update(ma, sl);
+                    }
+                    JOptionPane.showMessageDialog(this, "Thanh toán thành công!");
+                    this.dispose();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Thanh toán thất bại!");
+                }
+            } else {
+                ThemKhachHang themKhachHang = new ThemKhachHang(null, true, jTextField3.getText());
+                themKhachHang.setVisible(true);
+            }
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jTextField2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyReleased
+        // TODO add your handling code here:
+        int a = Integer.parseInt(jTextField2.getText()) - Integer.parseInt(jLabel_TongTien.getText());
+        jLabel_TienThua.setText(a + "");
+    }//GEN-LAST:event_jTextField2KeyReleased
 
     /**
      * @param args the command line arguments

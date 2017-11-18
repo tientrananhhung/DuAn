@@ -8,6 +8,8 @@ package Controller;
 import Controller.ConnectDB;
 import Model.NhaSanXuat;
 import Model.NhomHang;
+import Model.PhieuNhap;
+import Model.PhieuNhapCT;
 import Model.modelHangHoa;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -21,6 +23,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.util.Date;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -62,6 +68,60 @@ public class QLHH {
             ps.setString(12, obj.getImg4());
             ps.setString(13, obj.getImg5());
             kq = ps.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Sai câu lệnh database");
+        }
+        return kq;
+    }
+
+    public int insertPN(PhieuNhap obj) {
+        int kq = 0;
+        try {
+            PreparedStatement ps;
+            ps = dbcn.getConnect().prepareStatement("INSERT INTO `phieunhap` (`MaPN`, `MaNCC`, `NgayNhap`, `GhiChu`, `HinhThuc`, `TongTien`, `ThanhToan`, `No`) VALUES (?,?,?,?,?,?,?,?)");
+            ps.setString(1, obj.getMaPN());
+            ps.setString(2, obj.getMaNCC());
+            ps.setString(3, obj.getNgayNhap());
+            ps.setString(4, obj.getGhiChu());
+            ps.setString(5, obj.getHinhThuc());
+            ps.setString(6, obj.getTongTien() + "");
+            ps.setString(7, obj.getThanhToan() + "");
+            ps.setString(8, obj.getConNo() + "");
+            kq = ps.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return kq;
+    }
+    public int insertPNCT(PhieuNhapCT obj) {
+        int kq = 0;
+        try {
+            PreparedStatement ps;
+            ps = dbcn.getConnect().prepareStatement("INSERT INTO `phieunhapct` VALUES (?,?,?)");
+            ps.setString(1, obj.getMaPN());
+            ps.setString(2, obj.getMaHH());
+            ps.setString(3, obj.getSoLuong()+"");
+            kq = ps.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return kq;
+    }
+    public Vector getPhieuNhap(){
+        Vector kq = new Vector();
+        try {
+            PreparedStatement ps;
+            ps = dbcn.getConnect().prepareStatement("Select * from phieunhap");
+            ResultSet rs = ps.executeQuery();
+            ResultSetMetaData rsmd = rs.getMetaData();
+            while (rs.next()) {
+                Vector t = new Vector();
+                for (int i = 1; i <= rsmd.getColumnCount(); i++) {
+                    t.add(rs.getString(i));
+                }
+                kq.add(t);
+            }
+            rs.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Sai câu lệnh database");
         }
@@ -120,7 +180,7 @@ public class QLHH {
         }
         return kq;
     }
-
+    
     public Vector findByID(String keyWord) {
         // Tìm kiếm theo username
         Vector kq = new Vector();
@@ -146,7 +206,29 @@ public class QLHH {
         }
         return kq;
     }
+    public Vector findByID2(String keyWord) {
+        // Tìm kiếm theo username
+        Vector kq = new Vector();
+        try {
+            PreparedStatement ps5;
+            ps5 = dbcn.getConnect().prepareStatement("SELECT * FROM phieunhap WHERE MaPN LIKE ? OR MaNCC LIKE ?");
+            ps5.setString(1, "%" + keyWord + "%");
+            ps5.setString(2, "%" + keyWord + "%");
+            ResultSet rs = ps5.executeQuery();
+            ResultSetMetaData rsmd = rs.getMetaData();
+            while (rs.next()) {
+                Vector t = new Vector();
+                for (int i = 1; i <= rsmd.getColumnCount(); i++) {
+                    t.add(rs.getString(i));
+                }
+                kq.add(t);
+            }
+            rs.close();
+        } catch (SQLException ex) {
 
+        }
+        return kq;
+    }
     public int deleteNSX(String a) {
         int kq = 0;
         try {
@@ -159,11 +241,11 @@ public class QLHH {
         }
         return kq;
     }
-
+    
     public int deleteHH(String a) {
         int kq = 0;
         try {
-            PreparedStatement ps,ps2,ps3,ps4;
+            PreparedStatement ps, ps2, ps3, ps4;
             ps = dbcn.getConnect().prepareStatement("DELETE FROM phieunhapct where MaHH = ?");
             ps2 = dbcn.getConnect().prepareStatement("DELETE FROM hoadonct where MaHH = ?");
             ps3 = dbcn.getConnect().prepareStatement("DELETE FROM kho where MaHH = ?");
@@ -194,7 +276,18 @@ public class QLHH {
         }
         return kq;
     }
-
+    public int deletePN(String a) {
+        int kq = 0;
+        try {
+            PreparedStatement ps;
+            ps = dbcn.getConnect().prepareStatement("delete from phieunhap where MaPN = ?");
+            ps.setString(1, a);
+            kq = ps.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Sai câu lệnh database");
+        }
+        return kq;
+    }
     public File copyFile() {
         JFileChooser openImg = new JFileChooser();
         openImg.addChoosableFileFilter(new FileNameExtensionFilter("Images", "jpg", "png", "gif", "bmp"));
@@ -202,23 +295,6 @@ public class QLHH {
         int a = openImg.showOpenDialog(null);
         java.io.File file = openImg.getSelectedFile();
         return file;
-    }
-
-    public Vector getColumnName() {
-        Vector kq = new Vector();
-        try {
-            PreparedStatement ps;
-            ps = dbcn.getConnect().prepareStatement("Select * from hanghoa");
-            ResultSet rs = ps.executeQuery();
-            ResultSetMetaData rsmd = rs.getMetaData();
-            for (int i = 1; i <= rsmd.getColumnCount(); i++) {
-                kq.add(rsmd.getColumnName(i));
-            }
-            rs.close();
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Sai câu lệnh database");
-        }
-        return kq;
     }
 
     public Vector getAllList() {
@@ -248,22 +324,6 @@ public class QLHH {
         try {
             PreparedStatement ps;
             ps = dbcn.getConnect().prepareStatement("Select * from nhomhang");
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                kq.add(rs.getString(1));
-            }
-            rs.close();
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Sai câu lệnh database");
-        }
-        return kq;
-    }
-
-    public Vector getNCC() {
-        Vector kq = new Vector();
-        try {
-            PreparedStatement ps;
-            ps = dbcn.getConnect().prepareStatement("Select * from nhacungcap");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 kq.add(rs.getString(1));
@@ -363,9 +423,11 @@ public class QLHH {
         return kq;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ParseException {
         QLHH qlhh = new QLHH();
-        System.out.println(qlhh.deleteHH("sp2"));
-        
+//        PhieuNhapCT pnct=new PhieuNhapCT("sp1", "áo sơ mi", 1, 2, 3);
+//        System.out.println(qlhh.insertPNCT(pnct));
+        PhieuNhap pt = new PhieuNhap("1", "NCC01", "2017-11-03", "a", "Tiền mặt", 0, 0, 0);
+        System.out.println(qlhh.insertPN(pt));
     }
 }
