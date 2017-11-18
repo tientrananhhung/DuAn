@@ -139,7 +139,6 @@ public class QLKhachHang {
 //        QLKhachHang a = new QLKhachHang();
 //        System.out.println(a.update("12", "a1", "a", "a", "a"));
 //    }
-
     public Vector getAllKHVip() {
         Vector kq = new Vector();
         try {
@@ -176,5 +175,10 @@ public class QLKhachHang {
             Logger.getLogger(QLKhachHang.class.getName()).log(Level.SEVERE, null, ex);
         }
         return kq;
+    }
+    
+    public static void main(String[] args) {
+        QLKhachHang qlkh = new QLKhachHang();
+        System.out.println(qlkh.findByID("0165").size());
     }
 }

@@ -11,6 +11,8 @@ import Controller.QuanLyNCC;
 import Controller.TinNhan;
 import Controller.TinNhanDAO;
 import Model.Account;
+import Model.PhieuNhap;
+import Model.PhieuNhapCT;
 import Model.modelHangHoa;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -21,10 +23,15 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.DateFormat;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
@@ -71,6 +78,9 @@ public class Admin extends javax.swing.JFrame {
         changeTable();
         qlNCC = new QuanLyNCC();
         a();
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = new Date();
+        jTextField9.setText(dateFormat.format(date));
     }
 
     public Admin(Account acc) {
@@ -99,6 +109,22 @@ public class Admin extends javax.swing.JFrame {
         for (int i = 0; i < hh.getMaNSX().size(); i++) {
             jComboBoxNhaSX.addItem((String) hh.getMaNSX().get(i) + " (" + (String) hh.getTenNSX().get(i) + ")");
         }
+        String ma = "1";
+        for (int i = 0; i < jTable_PhieuNhapKho.getRowCount(); i++) {
+            if (ma.equals(jTable_PhieuNhapKho.getValueAt(i, 0).toString())) {
+                ma = (Integer.parseInt(ma) + 1) + "";
+            }
+        }
+        jTextField2.setText(ma);
+
+        int tong1 = 0, tong2 = 0;
+        for (int i = 0; i < jTable_PhieuNhapKho.getRowCount(); i++) {
+            jLabel7.setText(jTable_PhieuNhapKho.getRowCount() + "");
+            tong1 += Integer.parseInt(jTable_PhieuNhapKho.getValueAt(i, 3).toString());
+            tong2 += Integer.parseInt(jTable_PhieuNhapKho.getValueAt(i, 4).toString());
+        }
+        jLabel10.setText(tong1 + "");
+        jLabel14.setText(tong2 + "");
     }
 
     public Vector getData4() {
@@ -147,7 +173,6 @@ public class Admin extends javax.swing.JFrame {
         head.add("Mã hóa đơn");
         head.add("Ngày nhập");
         head.add("Nhà cung cấp");
-        head.add("Số lượng");
         head.add("Tổng tiền");
         head.add("Nợ");
         head.add("");
@@ -190,6 +215,28 @@ public class Admin extends javax.swing.JFrame {
         }
         for (int i = 0; i < TN.getAllTNAD().size(); i++) {
             data5.add(TN.getAllTNAD().get(i));
+        }
+        for (int i = 0; i < hh.getAllList().size(); i++) {
+            Vector tam = new Vector();
+            Vector tam2 = new Vector();
+            tam = (Vector) hh.getAllList().get(i);
+            tam2.add(tam.get(0));
+            tam2.add(tam.get(1));
+            tam2.add(tam.get(7));
+            tam2.add(tam.get(6));
+            tam2.add(tam.get(2));
+            data6.add(tam2);
+        }
+        for (int i = 0; i < hh.getPhieuNhap().size(); i++) {
+            Vector tam = new Vector();
+            Vector tam2 = new Vector();
+            tam = (Vector) hh.getPhieuNhap().get(i);
+            tam2.add(tam.get(0));
+            tam2.add(tam.get(2));
+            tam2.add(tam.get(1));
+            tam2.add(tam.get(5));
+            tam2.add(tam.get(7));
+            data.add(tam2);
         }
         modelTable = new DefaultTableModel(data, head);
         modelTable1 = new DefaultTableModel(data1, head1);
@@ -337,6 +384,10 @@ public class Admin extends javax.swing.JFrame {
         jPopupMenu_HopThuDi = new javax.swing.JPopupMenu();
         jMenuItem_XoaHTDi = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
+        jPopupMenu1 = new javax.swing.JPopupMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jPopupMenu2 = new javax.swing.JPopupMenu();
+        jMenuItem3 = new javax.swing.JMenuItem();
         BG = new javax.swing.JPanel();
         jPanel24 = new javax.swing.JPanel();
         jPanel25 = new javax.swing.JPanel();
@@ -663,6 +714,22 @@ public class Admin extends javax.swing.JFrame {
         jPopupMenu_HopThuDi.add(jMenuItem_XoaHTDi);
 
         jMenuItem1.setText("jMenuItem1");
+
+        jMenuItem2.setText("Xóa");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jPopupMenu1.add(jMenuItem2);
+
+        jMenuItem3.setText("Xóa");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        jPopupMenu2.add(jMenuItem3);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -1283,6 +1350,11 @@ public class Admin extends javax.swing.JFrame {
         jPanel_Filter_Left.setLayout(new java.awt.GridBagLayout());
 
         jTextField1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField1KeyReleased(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.ipadx = 300;
@@ -1418,6 +1490,7 @@ public class Admin extends javax.swing.JFrame {
 
             }
         ));
+        jTable_PhieuNhapKho.setComponentPopupMenu(jPopupMenu1);
         jTable_PhieuNhapKho.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(jTable_PhieuNhapKho);
 
@@ -1490,6 +1563,11 @@ public class Admin extends javax.swing.JFrame {
         jButton_NhapHang_LamMoi.setForeground(new java.awt.Color(255, 255, 255));
         jButton_NhapHang_LamMoi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Refresh_18px.png"))); // NOI18N
         jButton_NhapHang_LamMoi.setText("Làm Mới");
+        jButton_NhapHang_LamMoi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_NhapHang_LamMoiActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 0;
@@ -1574,6 +1652,11 @@ public class Admin extends javax.swing.JFrame {
 
         jSpinner1.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
         jSpinner1.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
+        jSpinner1.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jSpinner1StateChanged(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 2;
@@ -1608,6 +1691,11 @@ public class Admin extends javax.swing.JFrame {
         jButton8.setForeground(new java.awt.Color(255, 255, 255));
         jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Input_18px.png"))); // NOI18N
         jButton8.setText("Thêm/Sửa");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.ipadx = 10;
         gridBagConstraints.ipady = 10;
@@ -1631,6 +1719,7 @@ public class Admin extends javax.swing.JFrame {
 
             }
         ));
+        jTable_HangHoa.setComponentPopupMenu(jPopupMenu2);
         jTable_HangHoa.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(jTable_HangHoa);
 
@@ -1785,6 +1874,7 @@ public class Admin extends javax.swing.JFrame {
         jPanel7.add(jLabel22, gridBagConstraints);
 
         jComboBox1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tiền mặt", "Thẻ tín dụng" }));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 0;
@@ -1853,6 +1943,11 @@ public class Admin extends javax.swing.JFrame {
         jPanel7.add(jLabel29, gridBagConstraints);
 
         jTextField4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jTextField4.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField4KeyReleased(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 8;
@@ -2827,6 +2922,11 @@ public class Admin extends javax.swing.JFrame {
         jTable_HH.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
         jTable_HH.getTableHeader().setResizingAllowed(false);
         jTable_HH.getTableHeader().setReorderingAllowed(false);
+        jTable_HH.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable_HHMouseClicked(evt);
+            }
+        });
         jScrollPane9.setViewportView(jTable_HH);
 
         jPanel40.add(jScrollPane9, java.awt.BorderLayout.CENTER);
@@ -2939,7 +3039,45 @@ public class Admin extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton_NhapHang_huyActionPerformed
 
     private void jButton_NhapHang_XacNhanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_NhapHang_XacNhanActionPerformed
-        // TODO add your handling code here:
+        try {
+            if (jTable_HangHoa.getRowCount() == 0) {
+                JOptionPane.showMessageDialog(null, "Vui lòng nhập đầy đủ thông tin");
+            } else if (Integer.parseInt(jLabel31.getText()) > Integer.parseInt(jLabel28.getText()) / 2) {
+                JOptionPane.showMessageDialog(null, "Không được nợ quá nữa số tiền cần thanh toán");
+            } else {
+                PhieuNhap pn = new PhieuNhap();
+                pn.setMaPN(jTextField2.getText());
+                pn.setMaNCC(jComboBox_NCC.getSelectedItem().toString().substring(0, jComboBox_NCC.getSelectedItem().toString().indexOf("(")).trim());
+                pn.setNgayNhap(jTextField9.getText());
+                pn.setGhiChu(jTextArea1.getText());
+                pn.setHinhThuc(jComboBox1.getSelectedItem().toString());
+                pn.setTongTien(Integer.parseInt(jLabel28.getText()));
+                pn.setThanhToan(Integer.parseInt(jTextField4.getText()));
+                pn.setConNo(Integer.parseInt(jLabel31.getText()));
+                if (hh.insertPN(pn) != 0) {
+                    String Nrow[] = new String[5];
+                    Nrow[0] = pn.getMaPN();
+                    Nrow[1] = pn.getNgayNhap() + "";
+                    Nrow[2] = pn.getMaNCC();
+                    Nrow[3] = pn.getTongTien() + "";
+                    Nrow[4] = pn.getConNo() + "";
+                    modelTable.addRow(Nrow);
+                    disCard();
+                    CardNhapKho.show();
+                }
+            }
+
+            int tong1 = 0, tong2 = 0;
+            for (int i = 0; i < jTable_PhieuNhapKho.getRowCount(); i++) {
+                jLabel7.setText(jTable_PhieuNhapKho.getRowCount() + "");
+                tong1 += Integer.parseInt(jTable_PhieuNhapKho.getValueAt(i, 3).toString());
+                tong2 += Integer.parseInt(jTable_PhieuNhapKho.getValueAt(i, 4).toString());
+            }
+            jLabel10.setText(tong1 + "");
+            jLabel14.setText(tong2 + "");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_jButton_NhapHang_XacNhanActionPerformed
 
     private void jButton_TaoPhieuNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_TaoPhieuNhapActionPerformed
@@ -2948,11 +3086,30 @@ public class Admin extends javax.swing.JFrame {
             currenColor = 2;
             disCard();
             CardTaoPhieuNhap.show();
+            jTextField8.setText("");
+            jSpinner1.setValue(1);
+            jLabel_TPN_DonGia.setText("0");
+            jLabel_TPN_TongGia.setText("0");
+            modelTable3.setRowCount(0);
+            jTextArea1.setText("");
+            jComboBox1.setSelectedItem("Tiền mặt");
+            jLabel24.setText("0");
+            jLabel26.setText("0");
+            jLabel28.setText("0");
+            jLabel31.setText("0");
+            jTextField4.setText("");
+            String ma = "1";
+            for (int i = 0; i < jTable_PhieuNhapKho.getRowCount(); i++) {
+                if (ma.equals(jTable_PhieuNhapKho.getValueAt(i, 0).toString())) {
+                    ma = (Integer.parseInt(ma) + 1) + "";
+                }
+            }
+            jTextField2.setText(ma);
             for (int i = 0; i < jComboBox_NCC.getItemCount(); i++) {
                 jComboBox_NCC.removeItemAt(i);
             }
             for (int i = 0; i < qlNCC.getAllNCC().size(); i++) {
-                jComboBox_NCC.addItem(qlNCC.getAllNCC().get(i).getTenNCC());
+                jComboBox_NCC.addItem(qlNCC.getAllNCC().get(i).getMaNCC() + " (" + qlNCC.getAllNCC().get(i).getTenNCC() + ")");
             }
         } catch (SQLException ex) {
             Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
@@ -3568,6 +3725,141 @@ public class Admin extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jMenuItem_XoaHTDiActionPerformed
 
+    private void jSpinner1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSpinner1StateChanged
+        int x, y, z;
+        x = (int) jSpinner1.getValue();
+        y = Integer.parseInt(jLabel_TPN_DonGia.getText());
+        z = x * y;
+        jLabel_TPN_TongGia.setText(z + "");
+    }//GEN-LAST:event_jSpinner1StateChanged
+
+    private void jTable_HHMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable_HHMouseClicked
+        jTextField8.setText(jTable_HH.getValueAt(jTable_HH.getSelectedRow(), 0).toString() + " (" + jTable_HH.getValueAt(jTable_HH.getSelectedRow(), 1).toString() + ")");
+        jLabel_TPN_DonGia.setText(jTable_HH.getValueAt(jTable_HH.getSelectedRow(), 4).toString());
+        disCard();
+        CardTaoPhieuNhap.show();
+        int x, y, z;
+        x = (int) jSpinner1.getValue();
+        y = Integer.parseInt(jLabel_TPN_DonGia.getText());
+        z = x * y;
+        jLabel_TPN_TongGia.setText(z + "");
+    }//GEN-LAST:event_jTable_HHMouseClicked
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        try {
+            boolean ck = true;
+            for (int i = 0; i < jTable_HangHoa.getRowCount(); i++) {
+                if (jTextField8.getText().substring(0, jTextField8.getText().indexOf("(")).trim().equals(jTable_HangHoa.getValueAt(i, 0))) {
+                    jTable_HangHoa.setValueAt(Integer.parseInt(jTable_HangHoa.getValueAt(i, 2).toString()) + (int) jSpinner1.getValue(), i, 2);
+                    jTable_HangHoa.setValueAt(Integer.parseInt(jTable_HangHoa.getValueAt(i, 4).toString()) + Integer.parseInt(jLabel_TPN_TongGia.getText()), i, 4);
+                    jTextField8.setText("");
+                    jSpinner1.setValue(1);
+                    jLabel_TPN_DonGia.setText("0");
+                    jLabel_TPN_TongGia.setText("0");
+                    ck = false;
+                    break;
+                }
+            }
+            if (ck == true) {
+                PhieuNhapCT pnct = new PhieuNhapCT();
+                pnct.setMaHH(jTextField8.getText().substring(0, jTextField8.getText().indexOf("(")).trim());
+                pnct.setSoLuong((int) jSpinner1.getValue());
+                pnct.setDonGia(Integer.parseInt(jLabel_TPN_DonGia.getText()));
+                pnct.setTongGia(Integer.parseInt(jLabel_TPN_TongGia.getText()));
+                String Nrow[] = new String[5];
+                Nrow[0] = pnct.getMaHH();
+                Nrow[1] = jTextField8.getText().substring(jTextField8.getText().lastIndexOf("(") + 1, jTextField8.getText().length() - 1);
+                Nrow[2] = pnct.getSoLuong() + "";
+                Nrow[3] = pnct.getDonGia() + "";
+                Nrow[4] = pnct.getTongGia() + "";
+                modelTable3.addRow(Nrow);
+                jTextField8.setText("");
+                jSpinner1.setValue(1);
+                jLabel_TPN_DonGia.setText("0");
+                jLabel_TPN_TongGia.setText("0");
+            }
+            int tong = 0;
+            for (int t = 0; t < jTable_HangHoa.getRowCount(); t++) {
+                tong += Integer.parseInt(jTable_HangHoa.getValueAt(t, 4).toString());
+            }
+            jLabel24.setText(tong + "");
+            jLabel26.setText((tong * 5 / 100) + "");
+            jLabel28.setText((Integer.parseInt(jLabel24.getText()) - Integer.parseInt(jLabel26.getText())) + "");
+            jTextField4.setText("");
+            if (jTextField4.getText().equals("")) {
+                jLabel31.setText(jLabel28.getText());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void jTextField4KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField4KeyReleased
+        Pattern pattern = Pattern.compile("\\d*");
+        Matcher matcher = pattern.matcher(jTextField4.getText());
+        if (!matcher.matches()) {
+            jTextField4.setText(jTextField4.getText().substring(0, jTextField4.getText().length() - 1));
+        }
+        if (jTextField4.getText().length() == 0) {
+            jLabel31.setText(jLabel28.getText());
+        }
+        if (Integer.parseInt(jTextField4.getText()) > Integer.parseInt(jLabel28.getText())) {
+            jTextField4.setText(jLabel28.getText());
+        }
+        jLabel31.setText(Integer.parseInt(jLabel28.getText()) - Integer.parseInt(jTextField4.getText()) + "");
+    }//GEN-LAST:event_jTextField4KeyReleased
+
+    private void jButton_NhapHang_LamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_NhapHang_LamMoiActionPerformed
+        jTextField8.setText("");
+        jSpinner1.setValue(1);
+        jLabel_TPN_DonGia.setText("0");
+        jLabel_TPN_TongGia.setText("0");
+        modelTable3.setRowCount(0);
+        jTextArea1.setText("");
+        jComboBox1.setSelectedItem("Tiền mặt");
+        jLabel24.setText("0");
+        jLabel26.setText("0");
+        jLabel28.setText("0");
+        jLabel31.setText("0");
+        jTextField4.setText("");
+    }//GEN-LAST:event_jButton_NhapHang_LamMoiActionPerformed
+
+    private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased
+        modelTable.setRowCount(0);
+        for (int i = 0; i < hh.findByID2(jTextField1.getText()).size(); i++) {
+            data.add(hh.findByID2(jTextField1.getText()).get(i));
+        }
+        modelTable.fireTableDataChanged();
+    }//GEN-LAST:event_jTextField1KeyReleased
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        hh.deletePN(jTable_PhieuNhapKho.getValueAt(jTable_PhieuNhapKho.getSelectedRow(), 0).toString());
+        modelTable.removeRow(jTable_PhieuNhapKho.getSelectedRow());
+        int tong1 = 0, tong2 = 0;
+        for (int i = 0; i < jTable_PhieuNhapKho.getRowCount(); i++) {
+            jLabel7.setText(jTable_PhieuNhapKho.getRowCount() + "");
+            tong1 += Integer.parseInt(jTable_PhieuNhapKho.getValueAt(i, 3).toString());
+            tong2 += Integer.parseInt(jTable_PhieuNhapKho.getValueAt(i, 4).toString());
+        }
+        jLabel10.setText(tong1 + "");
+        jLabel14.setText(tong2 + "");
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        modelTable3.removeRow(jTable_HangHoa.getSelectedRow());
+        int tong = 0;
+        for (int t = 0; t < jTable_HangHoa.getRowCount(); t++) {
+            tong += Integer.parseInt(jTable_HangHoa.getValueAt(t, 4).toString());
+        }
+        jLabel24.setText(tong + "");
+        jLabel26.setText((tong * 5 / 100) + "");
+        jLabel28.setText((Integer.parseInt(jLabel24.getText()) - Integer.parseInt(jLabel26.getText())) + "");
+        jTextField4.setText("");
+        if (jTextField4.getText().equals("")) {
+            jLabel31.setText(jLabel28.getText());
+        }
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -3780,6 +4072,8 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel_slKH;
     private javax.swing.JLabel jLabel_vip;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem_DocHTDen;
     private javax.swing.JMenuItem jMenuItem_Sua;
     private javax.swing.JMenuItem jMenuItem_TraLoiHTDen;
@@ -3845,6 +4139,8 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel_Title_SanPham;
     private javax.swing.JPanel jPanel_Under_Info;
     private javax.swing.JPanel jPanel_Under_Info1;
+    private javax.swing.JPopupMenu jPopupMenu1;
+    private javax.swing.JPopupMenu jPopupMenu2;
     private javax.swing.JPopupMenu jPopupMenu_HopThuDen;
     private javax.swing.JPopupMenu jPopupMenu_HopThuDi;
     private javax.swing.JPopupMenu jPopupMenu_SanPham;

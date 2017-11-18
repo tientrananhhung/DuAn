@@ -132,6 +132,7 @@ public class ThanhToan extends javax.swing.JFrame {
         head.add("Tên mặt hàng");
         head.add("Giá bán");
         head.add("Số lượng");
+        head1.add("Mã hàng hoá");
         head1.add("Tên mặt hàng");
         head1.add("Giá bán");
         head1.add("Số lượng");
@@ -675,6 +676,10 @@ public class ThanhToan extends javax.swing.JFrame {
         if (isNumeric(jFormattedTextField1.getText()) || jFormattedTextField1.getText().equals("")) {
             if (Integer.parseInt(jFormattedTextField1.getText()) > 100 || Integer.parseInt(jFormattedTextField1.getText()) < 0) {
                 jFormattedTextField1.setText("0");
+            } else {
+                int a = Integer.parseInt(jTextField2.getText()) - (Integer.parseInt(jTextField2.getText()) * Integer.parseInt(jFormattedTextField1.getText())) / 100;
+                jLabel11.setText(jFormattedTextField1.getText());
+                jLabel7.setText(a + "");
             }
         } else {
             jFormattedTextField1.setText("0");
@@ -728,23 +733,21 @@ public class ThanhToan extends javax.swing.JFrame {
         // TODO add your handling code here:
         Vector vt = new Vector();
         boolean ck = true;
-        int gia = Integer.parseInt(jTable_HangHoa.getValueAt(jTable_HangHoa.getSelectedRow(), 2).toString());
         if (jTable_ThanhToan.getRowCount() != 0) {
             if (Integer.parseInt(jTable_HangHoa.getValueAt(jTable_HangHoa.getSelectedRow(), 3).toString()) != 0) {
                 for (int i = 0; i < jTable_ThanhToan.getRowCount(); i++) {
-                    if (jTable_HangHoa.getValueAt(jTable_HangHoa.getSelectedRow(), 1).equals(jTable_ThanhToan.getValueAt(i, 0))) {
+                    if (jTable_HangHoa.getValueAt(jTable_HangHoa.getSelectedRow(), 0).equals(jTable_ThanhToan.getValueAt(i, 0))) {
                         int so1 = Integer.parseInt(jTable_HangHoa.getValueAt(jTable_HangHoa.getSelectedRow(), 3).toString()) - 1;
-                        int so2 = Integer.parseInt(jTable_ThanhToan.getValueAt(i, 2).toString()) + 1;
+                        int so2 = Integer.parseInt(jTable_ThanhToan.getValueAt(i, 3).toString()) + 1;
                         jTable_HangHoa.setValueAt(so1, jTable_HangHoa.getSelectedRow(), 3);
-                        jTable_ThanhToan.setValueAt(so2, i, 2);
+                        jTable_ThanhToan.setValueAt(so2, i, 3);
                         ck = false;
-                        jTextField2.setText((gia * so2) + "");
                         break;
                     }
                 }
                 if (ck == true) {
                     int so3 = Integer.parseInt(jTable_HangHoa.getValueAt(jTable_HangHoa.getSelectedRow(), 3).toString()) - 1;
-                    for (int t = 1; t < 3; t++) {
+                    for (int t = 0; t < 3; t++) {
                         vt.add(jTable_HangHoa.getValueAt(jTable_HangHoa.getSelectedRow(), t));
                     }
                     jTable_HangHoa.setValueAt(so3, jTable_HangHoa.getSelectedRow(), 3);
@@ -756,26 +759,44 @@ public class ThanhToan extends javax.swing.JFrame {
         if (jTable_ThanhToan.getRowCount() == 0) {
             if (Integer.parseInt(jTable_HangHoa.getValueAt(jTable_HangHoa.getSelectedRow(), 3).toString()) != 0) {
                 int so = Integer.parseInt(jTable_HangHoa.getValueAt(jTable_HangHoa.getSelectedRow(), 3).toString()) - 1;
-                for (int t = 1; t < 3; t++) {
+                for (int t = 0; t < 3; t++) {
                     vt.add(jTable_HangHoa.getValueAt(jTable_HangHoa.getSelectedRow(), t));
                     jTable_HangHoa.setValueAt(so, jTable_HangHoa.getSelectedRow(), 3);
                 }
                 vt.add(1);
                 modelTable1.addRow(vt);
-                jTextField2.setText(jTable_HangHoa.getValueAt(jTable_HangHoa.getSelectedRow(), 2).toString());
             }
         }
+        int tong = 0;
+        int sl = 0;
+        for (int k = 0; k < jTable_ThanhToan.getRowCount(); k++) {
+            tong += (Integer.parseInt(jTable_ThanhToan.getValueAt(k, 2).toString()) * Integer.parseInt(jTable_ThanhToan.getValueAt(k, 3).toString()));
+            sl += Integer.parseInt(jTable_ThanhToan.getValueAt(k, 3).toString());
+        }
+        jTextField2.setText(tong + "");
+        jLabel7.setText(jTextField2.getText());
+        jLabel9.setText(sl + "");
     }//GEN-LAST:event_jTable_HangHoaMouseClicked
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         // TODO add your handling code here:
         changeTable();
+        jTextField2.setText("0");
+        jFormattedTextField1.setText("0");
+        jLabel7.setText("0");
+        jLabel11.setText("0");
+        jLabel9.setText("0");
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
-        HoaDon hh = new HoaDon(this, true);
-        hh.setVisible(true);
+        DS = new QLDSHang();
+
+        String a = jLabel11.getText();
+        String b = jLabel7.getText();
+        HoaDon hd = new HoaDon(this, true, a, b, acc.getTenTK());
+        hd.getjTable_HH().setModel(modelTable1);
+        hd.setVisible(true);
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton_MailMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_MailMouseClicked
