@@ -73,6 +73,45 @@ public class QLHH {
         }
         return kq;
     }
+    public Vector xemPN(String a) {
+        Vector vt = new Vector();
+        PreparedStatement ps;
+        try {
+            ps = dbcn.getConnect().prepareStatement("SELECT * FROM phieunhapct INNER JOIN hanghoa ON phieunhapct.MaHH = hanghoa.MaHH WHERE MaPN =?");
+            ps.setString(1, a);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Vector t = new Vector();
+                ResultSetMetaData rsmd = rs.getMetaData();
+                for (int i = 1; i <= rsmd.getColumnCount(); i++) {
+                    t.add(rs.getString(i));
+                }
+                vt.add(t);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(QLHH.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return vt;
+    }
+    public Vector getPhieuNhapbyID(String a) {
+        Vector kq = new Vector();
+        try {
+            PreparedStatement ps;
+            ps = dbcn.getConnect().prepareStatement("Select * from phieunhap where MaPN =?");
+            ps.setString(1, a);
+            ResultSet rs = ps.executeQuery();
+            ResultSetMetaData rsmd = rs.getMetaData();
+            while (rs.next()) {
+                for (int i = 1; i <= rsmd.getColumnCount(); i++) {
+                    kq.add(rs.getString(i));
+                }
+            }
+            rs.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Sai câu lệnh database");
+        }
+        return kq;
+    }
 
     public int insertPN(PhieuNhap obj) {
         int kq = 0;
@@ -279,10 +318,13 @@ public class QLHH {
     public int deletePN(String a) {
         int kq = 0;
         try {
-            PreparedStatement ps;
-            ps = dbcn.getConnect().prepareStatement("delete from phieunhap where MaPN = ?");
+            PreparedStatement ps,ps2;
+            ps = dbcn.getConnect().prepareStatement("delete from phieunhapct where MaPN = ?");
+            ps2 = dbcn.getConnect().prepareStatement("delete from phieunhap where MaPN = ?");
             ps.setString(1, a);
-            kq = ps.executeUpdate();
+            ps2.setString(1, a);
+            ps.executeUpdate();
+            kq = ps2.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Sai câu lệnh database");
         }
