@@ -260,8 +260,8 @@ public class Admin extends javax.swing.JFrame {
         jTable_HH.setModel(modelTable6);
         jTable_HH.setDefaultEditor(Object.class, null);
         jLabel_slKH.setText(jTable_QLKH.getRowCount() + "");
-        jLabel_vip.setText(KH.getAllKHVip().toString());
-        jLabel_Standard.setText(KH.getAllKHStandard().toString());
+        jLabel_vip.setText(KH.getAllKHVip().toString().substring(2, 3));
+        jLabel_Standard.setText(KH.getAllKHStandard().toString().substring(2, 3));
         jScrollPane1.getViewport().setBackground(Color.WHITE);
         jScrollPane4.getViewport().setBackground(Color.WHITE);
         jScrollPane6.getViewport().setBackground(Color.WHITE);
@@ -373,6 +373,7 @@ public class Admin extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
+        bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
         jPopupMenu_SanPham = new javax.swing.JPopupMenu();
         jMenuItem_Sua = new javax.swing.JMenuItem();
@@ -384,10 +385,14 @@ public class Admin extends javax.swing.JFrame {
         jPopupMenu_HopThuDi = new javax.swing.JPopupMenu();
         jMenuItem_XoaHTDi = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
-        jPopupMenu1 = new javax.swing.JPopupMenu();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        jPopupMenu_DSPN = new javax.swing.JPopupMenu();
+        jMenuItem_XemDSPN = new javax.swing.JMenuItem();
+        jMenuItem_XoaDSPN = new javax.swing.JMenuItem();
         jPopupMenu2 = new javax.swing.JPopupMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
+        jPopupMenu_QLKH = new javax.swing.JPopupMenu();
+        jMenuItem_SuaQLKH = new javax.swing.JMenuItem();
+        jMenuItem_XoaQLKH = new javax.swing.JMenuItem();
         BG = new javax.swing.JPanel();
         jPanel24 = new javax.swing.JPanel();
         jPanel25 = new javax.swing.JPanel();
@@ -715,14 +720,28 @@ public class Admin extends javax.swing.JFrame {
 
         jMenuItem1.setText("jMenuItem1");
 
-        jMenuItem2.setText("Xóa");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItem_XemDSPN.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
+        jMenuItem_XemDSPN.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Edit_Property_18px.png"))); // NOI18N
+        jMenuItem_XemDSPN.setText("Xem");
+        jMenuItem_XemDSPN.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                jMenuItem_XemDSPNActionPerformed(evt);
             }
         });
-        jPopupMenu1.add(jMenuItem2);
+        jPopupMenu_DSPN.add(jMenuItem_XemDSPN);
 
+        jMenuItem_XoaDSPN.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
+        jMenuItem_XoaDSPN.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Delete_18px_1.png"))); // NOI18N
+        jMenuItem_XoaDSPN.setText("Xóa");
+        jMenuItem_XoaDSPN.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem_XoaDSPNActionPerformed(evt);
+            }
+        });
+        jPopupMenu_DSPN.add(jMenuItem_XoaDSPN);
+
+        jMenuItem3.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
+        jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Delete_18px_1.png"))); // NOI18N
         jMenuItem3.setText("Xóa");
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -730,6 +749,26 @@ public class Admin extends javax.swing.JFrame {
             }
         });
         jPopupMenu2.add(jMenuItem3);
+
+        jMenuItem_SuaQLKH.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
+        jMenuItem_SuaQLKH.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Edit_Property_18px.png"))); // NOI18N
+        jMenuItem_SuaQLKH.setText("Sửa");
+        jMenuItem_SuaQLKH.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem_SuaQLKHActionPerformed(evt);
+            }
+        });
+        jPopupMenu_QLKH.add(jMenuItem_SuaQLKH);
+
+        jMenuItem_XoaQLKH.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
+        jMenuItem_XoaQLKH.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Delete_18px_1.png"))); // NOI18N
+        jMenuItem_XoaQLKH.setText("Xóa");
+        jMenuItem_XoaQLKH.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem_XoaQLKHActionPerformed(evt);
+            }
+        });
+        jPopupMenu_QLKH.add(jMenuItem_XoaQLKH);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -1490,7 +1529,7 @@ public class Admin extends javax.swing.JFrame {
 
             }
         ));
-        jTable_PhieuNhapKho.setComponentPopupMenu(jPopupMenu1);
+        jTable_PhieuNhapKho.setComponentPopupMenu(jPopupMenu_DSPN);
         jTable_PhieuNhapKho.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(jTable_PhieuNhapKho);
 
@@ -1756,7 +1795,7 @@ public class Admin extends javax.swing.JFrame {
         gridBagConstraints.gridwidth = 5;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.ipady = 10;
-        gridBagConstraints.insets = new java.awt.Insets(0, 20, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(0, 20, 0, 10);
         jPanel6.add(jTextField2, gridBagConstraints);
 
         jLabel18.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -1810,7 +1849,7 @@ public class Admin extends javax.swing.JFrame {
         gridBagConstraints.gridy = 6;
         gridBagConstraints.gridwidth = 5;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.insets = new java.awt.Insets(0, 20, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(0, 20, 10, 10);
         jPanel6.add(jScrollPane3, gridBagConstraints);
 
         jTextField9.setEditable(false);
@@ -1821,7 +1860,7 @@ public class Admin extends javax.swing.JFrame {
         gridBagConstraints.gridwidth = 5;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.ipady = 10;
-        gridBagConstraints.insets = new java.awt.Insets(0, 20, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(0, 20, 0, 10);
         jPanel6.add(jTextField9, gridBagConstraints);
 
         jLabel_TPN_XoaNCC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icon/icons8_Minus_30px.png"))); // NOI18N
@@ -1851,7 +1890,7 @@ public class Admin extends javax.swing.JFrame {
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.ipadx = 190;
+        gridBagConstraints.ipadx = 100;
         gridBagConstraints.ipady = 10;
         gridBagConstraints.insets = new java.awt.Insets(0, 20, 0, 0);
         jPanel6.add(jComboBox_NCC, gridBagConstraints);
@@ -2567,14 +2606,17 @@ public class Admin extends javax.swing.JFrame {
 
         jLabelImage3.setBackground(new java.awt.Color(255, 255, 255));
         jLabelImage3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jLabelImage3.setPreferredSize(new java.awt.Dimension(2, 100));
         jPanel45.add(jLabelImage3);
 
         jLabelImage4.setBackground(new java.awt.Color(255, 255, 255));
         jLabelImage4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jLabelImage4.setPreferredSize(new java.awt.Dimension(2, 100));
         jPanel45.add(jLabelImage4);
 
         jLabelImage5.setBackground(new java.awt.Color(255, 255, 255));
         jLabelImage5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jLabelImage5.setPreferredSize(new java.awt.Dimension(2, 100));
         jPanel45.add(jLabelImage5);
 
         jPanel43.add(jPanel45);
@@ -2711,6 +2753,10 @@ public class Admin extends javax.swing.JFrame {
         jPanel28.setLayout(new javax.swing.BoxLayout(jPanel28, javax.swing.BoxLayout.LINE_AXIS));
 
         jTable_QLKH.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+
+        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, jPopupMenu_QLKH, org.jdesktop.beansbinding.ObjectProperty.create(), jTable_QLKH, org.jdesktop.beansbinding.BeanProperty.create("componentPopupMenu"));
+        bindingGroup.addBinding(binding);
+
         jScrollPane6.setViewportView(jTable_QLKH);
 
         jPanel28.add(jScrollPane6);
@@ -2967,6 +3013,8 @@ public class Admin extends javax.swing.JFrame {
             .addComponent(BG, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
+        bindingGroup.bind();
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -3055,6 +3103,15 @@ public class Admin extends javax.swing.JFrame {
                 pn.setThanhToan(Integer.parseInt(jTextField4.getText()));
                 pn.setConNo(Integer.parseInt(jLabel31.getText()));
                 if (hh.insertPN(pn) != 0) {
+                    for (int i = 0; i < jTable_HangHoa.getRowCount(); i++) {
+                        PhieuNhapCT ct = new PhieuNhapCT();
+                        ct.setMaPN(jTextField2.getText());
+                        ct.setMaHH(jTable_HangHoa.getValueAt(i, 0).toString());
+                        ct.setSoLuong(Integer.parseInt(jTable_HangHoa.getValueAt(i, 2).toString()));
+                        if (hh.insertPNCT(ct) != 0) {
+                            System.out.println("them thanh cong");
+                        }
+                    }
                     String Nrow[] = new String[5];
                     Nrow[0] = pn.getMaPN();
                     Nrow[1] = pn.getNgayNhap() + "";
@@ -3081,38 +3138,35 @@ public class Admin extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton_NhapHang_XacNhanActionPerformed
 
     private void jButton_TaoPhieuNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_TaoPhieuNhapActionPerformed
-        try {
-            // TODO add your handling code here:
-            currenColor = 2;
-            disCard();
-            CardTaoPhieuNhap.show();
-            jTextField8.setText("");
-            jSpinner1.setValue(1);
-            jLabel_TPN_DonGia.setText("0");
-            jLabel_TPN_TongGia.setText("0");
-            modelTable3.setRowCount(0);
-            jTextArea1.setText("");
-            jComboBox1.setSelectedItem("Tiền mặt");
-            jLabel24.setText("0");
-            jLabel26.setText("0");
-            jLabel28.setText("0");
-            jLabel31.setText("0");
-            jTextField4.setText("");
-            String ma = "1";
-            for (int i = 0; i < jTable_PhieuNhapKho.getRowCount(); i++) {
-                if (ma.equals(jTable_PhieuNhapKho.getValueAt(i, 0).toString())) {
-                    ma = (Integer.parseInt(ma) + 1) + "";
-                }
-            }
-            jTextField2.setText(ma);
-            for (int i = 0; i < jComboBox_NCC.getItemCount(); i++) {
-                jComboBox_NCC.removeItemAt(i);
-            }
-            for (int i = 0; i < qlNCC.getAllNCC().size(); i++) {
-                jComboBox_NCC.addItem(qlNCC.getAllNCC().get(i).getMaNCC() + " (" + qlNCC.getAllNCC().get(i).getTenNCC() + ")");
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
+        // TODO add your handling code here:
+        jButton8.show();
+        jTextField4.setEnabled(true);
+        currenColor = 2;
+        disCard();
+        CardTaoPhieuNhap.show();
+        jTextField8.setText("");
+        jSpinner1.setValue(1);
+        jLabel_TPN_DonGia.setText("0");
+        jLabel_TPN_TongGia.setText("0");
+        modelTable3.setRowCount(0);
+        jTextArea1.setText("");
+        jComboBox1.setSelectedItem("Tiền mặt");
+        jLabel24.setText("0");
+        jLabel26.setText("0");
+        jLabel28.setText("0");
+        jLabel31.setText("0");
+        jTextField4.setText("");
+        int ma = 1;
+        if (jTable_PhieuNhapKho.getRowCount() != 0) {
+            ma = Integer.parseInt(jTable_PhieuNhapKho.getValueAt(jTable_PhieuNhapKho.getRowCount() - 1, 0).toString());
+            ma = ma + 1;
+        }
+        jTextField2.setText(ma + "");
+        for (int i = 0; i < jComboBox_NCC.getItemCount(); i++) {
+            jComboBox_NCC.removeItemAt(i);
+        }
+        for (int i = 0; i < qlNCC.getAllNCC().size(); i++) {
+            jComboBox_NCC.addItem(qlNCC.getAllNCC().get(i).getMaNCC() + " (" + qlNCC.getAllNCC().get(i).getTenNCC() + ")");
         }
     }//GEN-LAST:event_jButton_TaoPhieuNhapActionPerformed
 
@@ -3353,8 +3407,8 @@ public class Admin extends javax.swing.JFrame {
         changeTable();
         KH = new QLKhachHang();
         jLabel_slKH.setText(jTable_QLKH.getRowCount() + "");
-        jLabel_vip.setText(KH.getAllKHVip().toString());
-        jLabel_Standard.setText(KH.getAllKHStandard().toString());
+        jLabel_vip.setText(KH.getAllKHVip().toString().substring(2, 3));
+        jLabel_Standard.setText(KH.getAllKHStandard().toString().substring(2, 3));
     }//GEN-LAST:event_jButton_NhapHang_LamMoi1ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -3383,6 +3437,10 @@ public class Admin extends javax.swing.JFrame {
         // TODO add your handling code here:
         ThemNCC ncc = new ThemNCC(this, true);
         ncc.setVisible(true);
+        jComboBox_NCC.removeAllItems();
+        for (int i = 0; i < qlNCC.getAllNCC().size(); i++) {
+            jComboBox_NCC.addItem(qlNCC.getAllNCC().get(i).getMaNCC() + " (" + qlNCC.getAllNCC().get(i).getTenNCC() + ")");
+        }
     }//GEN-LAST:event_jLabel_TPN_ThemNCCMousePressed
 
     private void jLabel_TPN_XoaNCCMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_TPN_XoaNCCMouseEntered
@@ -3397,6 +3455,16 @@ public class Admin extends javax.swing.JFrame {
 
     private void jLabel_TPN_XoaNCCMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_TPN_XoaNCCMousePressed
         // TODO add your handling code here:
+        int a = jComboBox_NCC.getSelectedItem().toString().indexOf(" ");
+        if (qlNCC.delNCC(jComboBox_NCC.getSelectedItem().toString().substring(0, a)) == 1) {
+            JOptionPane.showMessageDialog(this, "Xóa nhà cung cấp " + jComboBox_NCC.getSelectedItem().toString() + " thành công!");
+            jComboBox_NCC.removeAllItems();
+            for (int i = 0; i < qlNCC.getAllNCC().size(); i++) {
+                jComboBox_NCC.addItem(qlNCC.getAllNCC().get(i).getMaNCC() + " (" + qlNCC.getAllNCC().get(i).getTenNCC() + ")");
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Xóa nhà cung cấp thất bại!");
+        }
     }//GEN-LAST:event_jLabel_TPN_XoaNCCMousePressed
 
     private void jButton_SoanTinNhanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_SoanTinNhanActionPerformed
@@ -3832,7 +3900,7 @@ public class Admin extends javax.swing.JFrame {
         modelTable.fireTableDataChanged();
     }//GEN-LAST:event_jTextField1KeyReleased
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+    private void jMenuItem_XoaDSPNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem_XoaDSPNActionPerformed
         hh.deletePN(jTable_PhieuNhapKho.getValueAt(jTable_PhieuNhapKho.getSelectedRow(), 0).toString());
         modelTable.removeRow(jTable_PhieuNhapKho.getSelectedRow());
         int tong1 = 0, tong2 = 0;
@@ -3843,7 +3911,7 @@ public class Admin extends javax.swing.JFrame {
         }
         jLabel10.setText(tong1 + "");
         jLabel14.setText(tong2 + "");
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+    }//GEN-LAST:event_jMenuItem_XoaDSPNActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         modelTable3.removeRow(jTable_HangHoa.getSelectedRow());
@@ -3859,6 +3927,77 @@ public class Admin extends javax.swing.JFrame {
             jLabel31.setText(jLabel28.getText());
         }
     }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void jMenuItem_XemDSPNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem_XemDSPNActionPerformed
+        disCard();
+        jTextField8.setText("");
+        jSpinner1.setValue(1);
+        jLabel_TPN_DonGia.setText("0");
+        jLabel_TPN_TongGia.setText("0");
+        modelTable3.setRowCount(0);
+        jTextArea1.setText("");
+        jComboBox1.setSelectedItem("Tiền mặt");
+        jLabel24.setText("0");
+        jLabel26.setText("0");
+        jLabel28.setText("0");
+        jLabel31.setText("0");
+        jTextField4.setText("");
+        CardTaoPhieuNhap.show();
+        Vector a = new Vector();
+        a = hh.xemPN(jTable_PhieuNhapKho.getValueAt(jTable_PhieuNhapKho.getSelectedRow(), 0).toString());
+        for (int i = 0; i < a.size(); i++) {
+            Vector b = new Vector();
+            Vector c = new Vector();
+            b = (Vector) a.get(i);
+            c.add(b.get(1));
+            c.add(b.get(4));
+            c.add(b.get(2));
+            c.add(b.get(5));
+            c.add(Integer.parseInt(b.get(2).toString()) * Integer.parseInt(b.get(5).toString()));
+            modelTable3.addRow(c);
+            jTextField2.setText(b.get(0).toString());
+        }
+        int tong = 0;
+        for (int t = 0; t < jTable_HangHoa.getRowCount(); t++) {
+            tong += Integer.parseInt(jTable_HangHoa.getValueAt(t, 4).toString());
+        }
+        jLabel24.setText(tong + "");
+        jLabel26.setText((tong * 5 / 100) + "");
+        jLabel28.setText((Integer.parseInt(jLabel24.getText()) - Integer.parseInt(jLabel26.getText())) + "");
+        jLabel31.setText(jTable_PhieuNhapKho.getValueAt(jTable_PhieuNhapKho.getSelectedRow(), 4).toString());
+        jTextField4.setText((Integer.parseInt(jLabel28.getText()) - Integer.parseInt(jLabel31.getText())) + "");
+        jComboBox_NCC.setSelectedItem(hh.getPhieuNhapbyID(jTable_PhieuNhapKho.getValueAt(jTable_PhieuNhapKho.getSelectedRow(), 0).toString()).get(1));
+        jTextArea1.setText(hh.getPhieuNhapbyID(jTable_PhieuNhapKho.getValueAt(jTable_PhieuNhapKho.getSelectedRow(), 0).toString()).get(3).toString());
+        jButton8.hide();
+        jTextField4.disable();
+    }//GEN-LAST:event_jMenuItem_XemDSPNActionPerformed
+
+    private void jMenuItem_SuaQLKHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem_SuaQLKHActionPerformed
+        // TODO add your handling code here:
+        try {
+            String a = (String) jTable_QLKH.getValueAt(jTable_QLKH.getSelectedRow(), 0);
+            String a1 = (String) jTable_QLKH.getValueAt(jTable_QLKH.getSelectedRow(), 1);
+            String a2 = (String) jTable_QLKH.getValueAt(jTable_QLKH.getSelectedRow(), 2);
+            String a3 = (String) jTable_QLKH.getValueAt(jTable_QLKH.getSelectedRow(), 3);
+            String a4 = (String) jTable_QLKH.getValueAt(jTable_QLKH.getSelectedRow(), 4);
+            SuaKhachHang sKH = new SuaKhachHang(this, true, a, a1, a2, a3, a4);
+            sKH.setVisible(true);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Phải chọn khách hàng cần sửa");
+        }
+    }//GEN-LAST:event_jMenuItem_SuaQLKHActionPerformed
+
+    private void jMenuItem_XoaQLKHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem_XoaQLKHActionPerformed
+        // TODO add your handling code here:
+        try {
+            KH.delete(jTable_QLKH.getValueAt(jTable_QLKH.getSelectedRow(), 0).toString());
+            modelTable2 = (DefaultTableModel) jTable_QLKH.getModel();
+            modelTable2.removeRow(jTable_QLKH.getSelectedRow());
+            JOptionPane.showMessageDialog(this, "Xóa khách hàng thành công");
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Phải chọn khach hàng cần xóa");
+        }
+    }//GEN-LAST:event_jMenuItem_XoaQLKHActionPerformed
 
     /**
      * @param args the command line arguments
@@ -4072,14 +4211,17 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel_slKH;
     private javax.swing.JLabel jLabel_vip;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem_DocHTDen;
     private javax.swing.JMenuItem jMenuItem_Sua;
+    private javax.swing.JMenuItem jMenuItem_SuaQLKH;
     private javax.swing.JMenuItem jMenuItem_TraLoiHTDen;
+    private javax.swing.JMenuItem jMenuItem_XemDSPN;
     private javax.swing.JMenuItem jMenuItem_Xoa;
+    private javax.swing.JMenuItem jMenuItem_XoaDSPN;
     private javax.swing.JMenuItem jMenuItem_XoaHTDen;
     private javax.swing.JMenuItem jMenuItem_XoaHTDi;
+    private javax.swing.JMenuItem jMenuItem_XoaQLKH;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
@@ -4139,10 +4281,11 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel_Title_SanPham;
     private javax.swing.JPanel jPanel_Under_Info;
     private javax.swing.JPanel jPanel_Under_Info1;
-    private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JPopupMenu jPopupMenu2;
+    private javax.swing.JPopupMenu jPopupMenu_DSPN;
     private javax.swing.JPopupMenu jPopupMenu_HopThuDen;
     private javax.swing.JPopupMenu jPopupMenu_HopThuDi;
+    private javax.swing.JPopupMenu jPopupMenu_QLKH;
     private javax.swing.JPopupMenu jPopupMenu_SanPham;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -4174,5 +4317,6 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField jTextFieldGiaVon;
     private javax.swing.JTextField jTextFieldMaHH;
     private javax.swing.JTextField jTextFieldTenHH;
+    private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 }

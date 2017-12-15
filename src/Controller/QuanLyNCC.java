@@ -22,7 +22,7 @@ import java.util.logging.Logger;
 public class QuanLyNCC {
 
     ConnectDB conn;
-    PreparedStatement pre1, pre2;
+    PreparedStatement pre1, pre2, pre3;
 
     public QuanLyNCC() {
         try {
@@ -34,17 +34,21 @@ public class QuanLyNCC {
         }
     }
 
-    public List<NhaCungCap> getAllNCC() throws SQLException {
+    public List<NhaCungCap> getAllNCC() {
         List<NhaCungCap> listNCC = new ArrayList<>();
-        ConnectDB cn = new ConnectDB();
-        ResultSet rs = pre2.executeQuery();
         try {
-            while (rs.next()) {
-                NhaCungCap ncc = new NhaCungCap(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5));
-                listNCC.add(ncc);
+            ConnectDB cn = new ConnectDB();
+            ResultSet rs = pre2.executeQuery();
+            try {
+                while (rs.next()) {
+                    NhaCungCap ncc = new NhaCungCap(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5));
+                    listNCC.add(ncc);
+                }
+            } catch (Exception e) {
+                System.out.println("Error:" + e.toString());
             }
-        } catch (Exception e) {
-            System.out.println("Error:" + e.toString());
+        } catch (SQLException ex) {
+            Logger.getLogger(QuanLyNCC.class.getName()).log(Level.SEVERE, null, ex);
         }
         return listNCC;
     }
@@ -63,6 +67,25 @@ public class QuanLyNCC {
             ex.printStackTrace();
         }
         return -1;
+    }
+
+    public int delNCC(String maNCC) {
+        try {
+            conn = new ConnectDB();
+            pre3 = conn.getConnect().prepareStatement("DELETE FROM `nhacungcap` WHERE `MaNCC` = ?");
+            pre3.setString(1, maNCC);
+            if (pre3.executeUpdate() != 0) {
+                return 1;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(QuanLyNCC.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return -1;
+    }
+    
+    public static void main(String[] args) {
+        QuanLyNCC quanLyNCC = new QuanLyNCC();
+        System.out.println(quanLyNCC.delNCC("NCC04"));
     }
 
 }
